@@ -1,0 +1,18 @@
+{
+  "packs": [
+    {
+      "id": "pack_noel",
+      "name": "Pack Noël",
+      "img": "assets/evenements/noel/pack-noel.png",
+      "description": "Deux mascottes, une orbe et deux fonds spéciaux pour Noël.",
+      "costCoins": 0,
+      "costGems": 0,
+      "limited": true,
+      "items": {
+        "mascotte": ["noel_fille", "noel_garcon"],
+        "orbes": ["orb_noel"],
+        "backgrounds": ["noel1", "noel2"]
+      }
+    }
+  ]
+}

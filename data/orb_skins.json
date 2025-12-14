@@ -1,0 +1,56 @@
+{
+  "orbeSkins": [
+    {
+      "id": "orb_blue",
+      "name": "Orbe Bleue",
+      "img": "assets/orbes/orb_blue.png",
+      "costCoins": 50,
+      "costGems": 0,
+      "bonus": "Aucun"
+    },
+    {
+      "id": "orb_green",
+      "name": "Orbe Verte",
+      "img": "assets/orbes/orb_green.png",
+      "costCoins": 100,
+      "costGems": 0,
+      "bonus": "Aucun"
+    },
+    {
+      "id": "orb_yellow",
+      "name": "Orbe Jaune",
+      "img": "assets/orbes/orb_yellow.png",
+      "costCoins": 0,
+      "costGems": 125,
+      "bonus": "+1s parfois"
+    },
+    {
+      "id": "orb_violet",
+      "name": "Orbe Violette",
+      "img": "assets/orbes/orb_violet.png",
+      "costCoins": 0,
+      "costGems": 150,
+      "bonus": "Score x2 rare"
+    },
+    {
+      "id": "orb_red",
+      "name": "Orbe Rouge",
+      "img": "assets/orbes/orb_red.png",
+      "costCoins": 0,
+      "costGems": 200,
+      "bonus": "Spawn plus rapide"
+    },
+    {
+      "id": "orb_noel",
+      "name": "Orbe de Noël",
+      "img": "assets/evenements/noel/orbe.png",
+      "costCoins": 0,
+      "costGems": 0,
+      "bonus": "Orbe événementielle",
+      "category": "noel"
+    }
+  ]
+}
+
+
+
