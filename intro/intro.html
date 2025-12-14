@@ -452,22 +452,43 @@ body {
         dialogueEl.textContent = dialogues[step].text;
     }
 
-    window.addEventListener("click", () => {
-        introMusic.play();
-        if (step < dialogues.length - 1) {
-            step++;
-            showDialogue();
+    const introMusic = document.getElementById("introMusic");
+
+function handleIntroClick() {
+
+    // 🔊 Lecture audio sécurisée (obligatoirement après interaction)
+    if (introMusic) {
+        introMusic.volume = 0.6;
+        introMusic.play().catch(err => {
+            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
+        });
+    }
+
+    // 💬 Gestion des dialogues
+    if (step < dialogues.length - 1) {
+        step++;
+        showDialogue();
+    } else {
+        dialogueBox.style.opacity = 0;
+
+        if (!endMode) {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
         } else {
-            dialogueBox.style.opacity = 0;
-            if (!endMode) {
-                setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-            } else {
-                // Afficher un message de fin pour la redirection vers le menu
-                setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-                // Tu peux ajouter un bouton pour "Revenir au menu" ou "Quitter"
-            }
+            // Fin alternative (si endMode)
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+            // Ici tu pourras ajouter plus tard un bouton "Retour menu"
         }
-    });
+    }
+
+    // ❌ Important : on enlève l'écouteur après le premier clic
+    document.removeEventListener("click", handleIntroClick);
+    document.removeEventListener("touchstart", handleIntroClick);
+}
+
+// ✅ Interaction valide PC + mobile
+document.addEventListener("click", handleIntroClick);
+document.addEventListener("touchstart", handleIntroClick);
+
 
     continueBtn.addEventListener("click", () => {
         const name = pseudoInput.value.trim();
@@ -562,3 +583,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
