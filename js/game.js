@@ -3200,7 +3200,8 @@ function lockOrientation() {
         showOrientationMessage(); // Afficher le message si l'orientation est incorrecte
     } else {
         closeOrientationMessage(); // Masquer le message si l'orientation est correcte
-    }
+  
+
 }
 
 // Appliquer la fonction sur les événements de redimensionnement et de changement d'orientation
@@ -3209,6 +3210,15 @@ window.addEventListener('orientationchange', lockOrientation);
 
 // Appliquer immédiatement au chargement de la page
 lockOrientation();
+
+     }const introMusic = document.getElementById("introMusic");
+
+if (introMusic) {
+    introMusic.play().catch(() => {
+        console.warn("🎵 Audio intro non chargé — continuation sans musique");
+    });
+}
+
 
 
 
