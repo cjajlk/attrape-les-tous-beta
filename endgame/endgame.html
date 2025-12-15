@@ -119,16 +119,7 @@
     Votre navigateur ne supporte pas l'élément audio.
 </audio>
 
-<script>
-    const endGameMusic = document.getElementById("endGameMusic");
 
-    // Écouteur d'événement pour démarrer la musique après un clic
-    document.addEventListener("click", function() {
-        endGameMusic.play().catch(err => {
-            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
-        });
-    });
-</script>
 
     
 
@@ -160,6 +151,7 @@
 </body>
 
 </html>
+
 
 
 
