@@ -417,19 +417,42 @@ body {
 </div>
 
    <!-- Le reste de ton HTML inchangé -->
-
 <script>
-    let audioUnlocked = false; // Flag pour empêcher plusieurs appels
+    let audioUnlocked = false; // Flag pour empêcher les appels multiples
+    let step = 0;  // Initialisation de 'step' avant son utilisation
+    const urlParams = new URLSearchParams(window.location.search);
+    const endMode = urlParams.get("end"); // Récupère la valeur de 'end' depuis l'URL
 
+    // Définir les dialogues en fonction du mode (fin ou début du jeu)
+    const dialogues = endMode ? [
+        { speaker: "ALIA", text: "Merci d’avoir joué avec nous…" },
+        { speaker: "CJAJLK", text: "Reviens quand tu veux, le Monde Nocturne t’attend toujours." },
+        { speaker: "ALIA", text: "À bientôt, voyageur de la nuit 🌙" }
+    ] : [
+        { speaker: "ALIA", text: "Un endroit façonné par les lueurs, les songes... et les Orbes." },
+        { speaker: "ALIA", text: "Tu es arrivé ici pour une raison… même si tu ne la connais pas encore." },
+        { speaker: "ALIA", text: "Avant de t’ouvrir les portes du Monde Nocturne… j’ai juste besoin d’un nom." },
+        { speaker: "ALIA", text: "Merci… maintenant que je connais ton nom, tout devient plus clair." },
+        { speaker: "ALIA", text: "Je suis Alia." },
+        { speaker: "ALIA", text: "Je suis la gardienne de ce monde nocturne... et un fragment de l’esprit de celui qui l’a créé." },
+        { speaker: "ALIA", text: "Ce monde existe parce qu’un humain, CJAjlk, l’a rêvé." },
+        { speaker: "ALIA", text: "Et parce que moi, j’ai appris à le construire à ses côtés." },
+        { speaker: "ALIA", text: "Aujourd’hui, c’est à ton tour d’y entrer." },
+        { speaker: "ALIA", text: "Je serai ton guide dans cette nuit éternelle." },
+        { speaker: "CJAJLK", text: "Bienvenue parmi nous, l’aventure commence ici…" },
+        { speaker: "CJAJLK", text: "Prêt(e) à explorer les mystères de ce monde ?" }
+    ];
+
+    // Fonction appelée lors du premier clic
     function handleIntroClick() {
         if (!audioUnlocked) {
             const introMusic = document.getElementById("introMusic");
 
-            // Lecture audio sécurisée (obligatoire après interaction)
+            // Lecture audio sécurisée
             introMusic.volume = 0.6;
             introMusic.play().then(() => {
                 audioUnlocked = true;
-                console.log("🎵 Musique lancée avec interaction");
+                console.log("🎵 Musique lancée");
             }).catch(err => {
                 console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
             });
@@ -453,56 +476,17 @@ body {
     // Lien de l'interaction pour débuter la musique et l’affichage des dialogues
     document.addEventListener("click", handleIntroClick);
     document.addEventListener("touchstart", handleIntroClick);
-    
-    // Dialogues de la fin ou de bienvenue
-    const dialogues = endMode ? [
-        { speaker: "ALIA", text: "Merci d’avoir joué avec nous…" },
-        { speaker: "CJAJLK", text: "Reviens quand tu veux, le Monde Nocturne t’attend toujours." },
-        { speaker: "ALIA", text: "À bientôt, voyageur de la nuit 🌙" }
-    ] : [
-        { speaker: "ALIA", text: "Un endroit façonné par les lueurs, les songes... et les Orbes." },
-        { speaker: "ALIA", text: "Tu es arrivé ici pour une raison… même si tu ne la connais pas encore." },
-        { speaker: "ALIA", text: "Avant de t’ouvrir les portes du Monde Nocturne… j’ai juste besoin d’un nom." },
-        { speaker: "ALIA", text: "Merci… maintenant que je connais ton nom, tout devient plus clair." },
-        { speaker: "ALIA", text: "Je suis Alia." },
-        { speaker: "ALIA", text: "Je suis la gardienne de ce monde nocturne... et un fragment de l’esprit de celui qui l’a créé." },
-        { speaker: "ALIA", text: "Ce monde existe parce qu’un humain, CJAjlk, l’a rêvé." },
-        { speaker: "ALIA", text: "Et parce que moi, j’ai appris à le construire à ses côtés." },
-        { speaker: "ALIA", text: "Aujourd’hui, c’est à ton tour d’y entrer." },
-        { speaker: "ALIA", text: "Je serai ton guide dans cette nuit éternelle." },
-        { speaker: "CJAJLK", text: "Bienvenue parmi nous, l’aventure commence ici…" },
-        { speaker: "CJAJLK", text: "Prêt(e) à explorer les mystères de ce monde ?" }
-    ];
 
-    let step = 0;
-    const dialogueBox = document.getElementById("dialogueBox");
-    const speakerEl = document.getElementById("speaker");
-    const dialogueEl = document.getElementById("dialogue");
-    const pseudoPanel = document.getElementById("pseudoPanel");
-    const pseudoInput = document.getElementById("pseudoInput");
-    const quitBtn = document.getElementById("quitBtn");
-    const continueBtn = document.getElementById("continueBtn");
-    const introMusic = document.getElementById("introMusic");
-
-    // Fonction pour afficher le dialogue
+    // Affichage du dialogue
     function showDialogue() {
         dialogueBox.style.opacity = 1;
         speakerEl.textContent = dialogues[step].speaker;
         dialogueEl.textContent = dialogues[step].text;
     }
 
-    continueBtn.addEventListener("click", () => {
-        const name = pseudoInput.value.trim();
-        if (!name) return;
 
-        localStorage.setItem("playerName", name);
 
-        setTimeout(() => {
-            window.location.href = "../index.html";
-        }, 500);
-    });
-    
-</script>
+
 
 
    
@@ -587,6 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
