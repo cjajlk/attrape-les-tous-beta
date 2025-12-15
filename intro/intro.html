@@ -432,6 +432,12 @@ body {
     // Affiche les dialogues avec un délai
     showDialog(dialogues);
 }
+     // Affichage du dialogue
+    function showDialogue() {
+        dialogueBox.style.opacity = 1;
+        speakerEl.textContent = dialogues[step].speaker;
+        dialogueEl.textContent = dialogues[step].text;
+    }
 
     // Définir les dialogues en fonction du mode (fin ou début du jeu)
     const dialogues = endMode ? [
@@ -487,12 +493,7 @@ body {
     document.addEventListener("click", handleIntroClick);
     document.addEventListener("touchstart", handleIntroClick);
 
-    // Affichage du dialogue
-    function showDialogue() {
-        dialogueBox.style.opacity = 1;
-        speakerEl.textContent = dialogues[step].speaker;
-        dialogueEl.textContent = dialogues[step].text;
-    }
+   
 
 
 
@@ -573,6 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
