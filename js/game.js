@@ -3139,10 +3139,11 @@ function goBackToIntro() {
 }
 
 function goToEndgame() {
-    sessionStorage.setItem("fromMenu", "1"); // Marque l'état pour savoir qu'on est revenu du menu
-    window.location.href = "../endgame/endgame.html"; // Redirige vers la page de fin
-     updateProfilePanel(); // Met à jour le profil du joueur
+    sessionStorage.setItem("fromMenu", "1");
+    window.location.href = "/attrape-les-tous-beta/endgame/endgame.html";
 }
+
+
 
 
 
