@@ -479,7 +479,10 @@ function handleIntroClick() {
     }
 }
 
-
+// ❌ Important : on enlève l'écouteur après le premier clic
+    document.removeEventListener("click", handleIntroClick);
+    document.removeEventListener("touchstart", handleIntroClick);
+        }
 
 // ✅ Interaction valide PC + mobile
 document.addEventListener("click", handleIntroClick);
@@ -579,6 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
