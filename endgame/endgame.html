@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Fin de partie</title>
  <style>
-    <body>
+    body
         
        {
             background: #000 url('../assets/fonds/fond_fin.png') no-repeat center center; /* Fond spécifique */
@@ -80,21 +80,24 @@
 
     <!-- Vidéo de fin (Goodbye) -->
 <video width="110" height="200" controls>
-  <source src="/assets/video/fin.mp4" type="video/mp4">
+  <source src="/attrape-les-tous-beta/assets/video/fin.mp4" type="video/mp4">
   Votre navigateur ne prend pas en charge la balise vidéo.
 </video>
 
     <!-- Mascottes -->
-    <img src="../assets/images/mascotte/alia.png" class="mascotte mascotte1" alt="Alia" />
-    <img src="../assets/images/mascotte/cjajlk.png" class="mascotte mascotte2" alt="CJ" />
-    <img src="../assets/images/mascotte/lyra.png" class="mascotte mascotte3" alt="Lyra" />
-    <img src="../assets/images/mascotte/girl9.png" class="mascotte mascotte4" alt="Lyra" />
+    <img src="/attrape-les-tous-beta/assets/images/mascotte/alia.png" class="mascotte mascotte1" alt="Alia" />
+    <img src="/attrape-les-tous-beta/assets/images/mascotte/cjajlk.png" class="mascotte mascotte2" alt="CJ" />
+    <img src="/attrape-les-tous-beta/assets/images/mascotte/lyra.png" class="mascotte mascotte3" alt="Lyra" />
+    <img src="/attrape-les-tous-beta/assets/images/mascotte/girl9.png" class="mascotte mascotte4" alt="Lyra" />
 
     
 
 
-  </script>
-    <button onclick="window.location.href='./index.html'">Retour au menu principal</button>
+ 
+    <button onclick="window.location.href='/attrape-les-tous-beta/index.html'">
+    Retour au menu principal
+</button>
+
     <button id="quitBtn" onclick="quitGame()">Quitter</button>
 
 <div id="quitModal" style="display:none;">
@@ -106,18 +109,11 @@
     </div>
 </div>
 
-<div id="quitModal" style="display:none;">
-    <div style="background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; text-align: center;">
-        <h2>Merci d'avoir joué à *Attrape-les-tous* !</h2>
-        <p>Vous serez bientôt redirigé vers la page du créateur pour en savoir plus et soutenir le projet.</p>
-        <p>Un grand merci pour votre soutien !</p>
-        <button onclick="redirectToKoFi()">Continuer</button>
-    </div>
-</div>
+
 
 <!-- Musique de fond en boucle -->
 <audio id="endGameMusic" loop autoplay>
-    <source src="../assets/audio/intro_theme.mp3" type="audio/mp3">
+    <source src="/attrape-les-tous-beta/assets/audio/intro_theme.mp3" type="audio/mp3">
     Votre navigateur ne supporte pas l'élément audio.
 </audio>
 
@@ -139,6 +135,7 @@
 </body>
 
 </html>
+
 
 
 
