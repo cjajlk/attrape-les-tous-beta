@@ -423,6 +423,16 @@ body {
     const urlParams = new URLSearchParams(window.location.search);
     const endMode = urlParams.get("end"); // Récupère la valeur de 'end' depuis l'URL
 
+    function showEndIntroDialogue() {
+    const dialogues = [
+        { speaker: "ALIA", text: "Merci d'avoir joué avec nous…" },
+        { speaker: "CJajlk", text: "À bientôt dans le Monde Nocturne 🌙" }
+    ];
+
+    // Affiche les dialogues avec un délai
+    showDialog(dialogues);
+}
+
     // Définir les dialogues en fonction du mode (fin ou début du jeu)
     const dialogues = endMode ? [
         { speaker: "ALIA", text: "Merci d’avoir joué avec nous…" },
@@ -505,15 +515,7 @@ body {
     }
 };
 
-function showEndIntroDialogue() {
-    const dialogues = [
-        { speaker: "ALIA", text: "Merci d'avoir joué avec nous…" },
-        { speaker: "CJajlk", text: "À bientôt dans le Monde Nocturne 🌙" }
-    ];
 
-    // Affiche les dialogues avec un délai
-    showDialog(dialogues);
-}
 
 function showPseudoPanel() {
     pseudoPanel.classList.add("visible");
@@ -571,6 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
