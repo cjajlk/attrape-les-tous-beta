@@ -288,15 +288,15 @@ let spawnIntervalId = setInterval(spawnOrb, spawnInterval);  // Démarre avec l'
 
 // Musique de fond (playlist)
 const musicPlaylist = [
-    "assets/audio/music1.mp3",
-    "assets/audio/music2.mp3",
-    "assets/audio/music3.mp3",
-    "assets/audio/music4.mp3",
-    "assets/audio/music5.mp3",
-    "assets/audio/music6.mp3",
-    "assets/audio/music7.mp3",
-    "assets/audio/music8.mp3",
-    "assets/audio/intro_theme.mp3"
+    "/attrape-les-tous-beta/assets/audio/music1.mp3",
+    "/attrape-les-tous-beta/assets/audio/music2.mp3",
+    "/attrape-les-tous-beta/assets/audio/music3.mp3",
+    "/attrape-les-tous-beta/assets/audio/music4.mp3",
+    "/attrape-les-tous-beta/assets/audio/music5.mp3",
+    "/attrape-les-tous-beta/assets/audio/music6.mp3",
+    "/attrape-les-tous-beta/assets/audio/music7.mp3",
+    "/attrape-les-tous-beta/assets/audio/music8.mp3",
+    "/attrape-les-tous-beta/assets/audio/intro_theme.mp3"
 ];
 
 let bgm = null;
@@ -305,10 +305,10 @@ let musicEnabled = true;
 let musicInitialized = false;
 
 // SFX
-const sfx_pop = new Audio("assets/audio/pop.mp3");
+const sfx_pop = new Audio("/attrape-les-tous-beta/assets/audio/pop.mp3");
 sfx_pop.volume = 0.35;
 
-const sfx_fail = new Audio("assets/audio/fail.mp3");
+const sfx_fail = new Audio("/attrape-les-tous-beta/assets/audio/fail.mp3");
 sfx_fail.volume = 0.45;
 
 
@@ -347,8 +347,8 @@ sfx_fail.volume = 0.45;
 };
 
 const MenuAssetsList = [
-    { id: "menu_mascotte_idle", src: "assets/images/menu/lyra_idle.png" },
-    { id: "menu_mascotte_blink", src: "assets/images/menu/lyra_blink.png" },
+    { id: "menu_mascotte_idle", src: "/attrape-les-tous-beta/assets/images/menu/lyra_idle.png" },
+    { id: "menu_mascotte_blink", src: "/attrape-les-tous-beta/assets/images/menu/lyra_blink.png" },
     
 ];
 
@@ -641,10 +641,10 @@ function getMascotteSprites() {
 
     // Retourne les sprites avec les bons chemins d'images
   return {
-    idle: "assets/images/mascotte/girl1_idle.png",
-    blink: "assets/images/mascotte/girl1_blink.png",
-    happy: "assets/images/mascotte/girl1_happy.png",
-    sad: "assets/images/mascotte/girl1_sad.png"
+    idle: "/attrape-les-tous-beta/assets/images/mascotte/girl1_idle.png",
+    blink: "/attrape-les-tous-beta/assets/images/mascotte/girl1_blink.png",
+    happy: "/attrape-les-tous-beta/assets/images/mascotte/girl1_happy.png",
+    sad: "/attrape-les-tous-beta/assets/images/mascotte/girl1_sad.png"
 };
 
 }
@@ -3142,6 +3142,7 @@ function goToEndgame() {
     sessionStorage.setItem("fromMenu", "1");
     window.location.href = "/attrape-les-tous-beta/endgame/endgame.html";
 }
+
 
 
 
