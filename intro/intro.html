@@ -399,7 +399,10 @@ body {
         <button id="continueBtn">go</button>
     </div>
 
-    <audio id="introMusic" src="../assets/audio/intro_theme.mp3" preload="auto" loop></audio>
+   <audio id="introMusic" preload="auto" loop>
+    <source src="../assets/audio/intro_theme.mp3" type="audio/mp3">
+    Votre navigateur ne supporte pas l'élément audio.
+</audio>
 
    
 
@@ -434,6 +437,46 @@ body {
         { speaker: "CJAJLK", text: "Bienvenue parmi nous, l’aventure commence ici…" },
         { speaker: "CJAJLK", text: "Prêt(e) à explorer les mystères de ce monde ?" }
     ];
+
+        let audioUnlocked = false; // Flag pour empêcher les appels multiples
+
+// Fonction appelée lors du premier clic
+function handleIntroClick() {
+    if (!audioUnlocked) {
+        const introMusic = document.getElementById("introMusic");
+
+        // Lecture audio sécurisée
+        introMusic.volume = 0.6;
+        introMusic.play().then(() => {
+            audioUnlocked = true; // Change l'état une fois l'audio joué
+            console.log("🎵 Musique lancée");
+        }).catch(err => {
+            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
+        });
+    }
+
+    // Traitement des dialogues
+    if (step < dialogues.length - 1) {
+        step++;
+        showDialogue();
+    } else {
+        dialogueBox.style.opacity = 0;
+        if (!endMode) {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        } else {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        }
+    }
+
+    // Retirer l'écouteur après le premier clic
+    document.removeEventListener("click", handleIntroClick);
+    document.removeEventListener("touchstart", handleIntroClick);
+}
+
+// Ajoute un écouteur de clic ou de touche sur l'écran
+document.addEventListener("click", handleIntroClick);
+document.addEventListener("touchstart", handleIntroClick);
+
 
     let step = 0;
     const dialogueBox = document.getElementById("dialogueBox");
@@ -562,3 +605,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
