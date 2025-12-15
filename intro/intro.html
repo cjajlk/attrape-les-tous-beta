@@ -270,7 +270,7 @@ body {
 #bg {
     position: fixed;
     inset: 0;
-    background: url("../assets/fonds/fondmenu.png") no-repeat center center;
+    background: url("/attrape-les-tous-beta/assets/fonds/fondmenu.png") no-repeat center center;
     background-size: cover;
     z-index: 1;
 }
@@ -381,8 +381,8 @@ body {
     
 
     <div id="characters">
-        <img src="../assets/images/mascotte/alia.png" id="alia">
-        <img src="../assets/images/mascotte/cjajlk.png" id="cj">
+        <img src="/attrape-les-tous-beta/assets/images/mascotte/alia.png" id="alia">
+        <img src="/attrape-les-tous-beta/assets/images/mascotte/cjajlk.png" id="cj">
     </div>
 
     <div id="dialogueBox">
@@ -407,10 +407,10 @@ body {
    
 
     <div class="falling-leaves">
-    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
-    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
-    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
-    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="/attrape-les-tous-beta/assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="/attrape-les-tous-beta/assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="/attrape-les-tous-beta/assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="/attrape-les-tous-beta/assets/images/feuille.png" alt="Feuille" class="leaf">
 </div>
 
     <script>
@@ -446,7 +446,8 @@ body {
     const pseudoInput = document.getElementById("pseudoInput");
     const quitBtn = document.getElementById("quitBtn");
     const continueBtn = document.getElementById("continueBtn");
-    const introMusic = document.getElementById("introMusic");
+    const introMusic = document.getElementById("bgMusic");
+
 
     // Affichage du dialogue
     function showDialogue() {
@@ -454,39 +455,31 @@ body {
         speakerEl.textContent = dialogues[step].speaker;
         dialogueEl.textContent = dialogues[step].text;
     }
-
+        
+let audioUnlocked = false;
     
-
 function handleIntroClick() {
 
-    // 🔊 Lecture audio sécurisée (obligatoirement après interaction)
-    if (introMusic) {
+    if (introMusic && !audioUnlocked) {
         introMusic.volume = 0.6;
-        introMusic.play().catch(err => {
-            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
+        introMusic.play().then(() => {
+            audioUnlocked = true;
+            console.log("🎵 Musique lancée");
+        }).catch(err => {
+            console.warn("🎵 Audio bloqué", err);
         });
     }
 
-    // 💬 Gestion des dialogues
     if (step < dialogues.length - 1) {
         step++;
         showDialogue();
     } else {
         dialogueBox.style.opacity = 0;
-
-        if (!endMode) {
-            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-        } else {
-            // Fin alternative (si endMode)
-            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-            // Ici tu pourras ajouter plus tard un bouton "Retour menu"
-        }
+        setTimeout(() => pseudoPanel.classList.add("visible"), 300);
     }
-
-    // ❌ Important : on enlève l'écouteur après le premier clic
-    document.removeEventListener("click", handleIntroClick);
-    document.removeEventListener("touchstart", handleIntroClick);
 }
+
+
 
 // ✅ Interaction valide PC + mobile
 document.addEventListener("click", handleIntroClick);
@@ -586,6 +579,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
