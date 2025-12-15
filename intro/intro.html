@@ -416,53 +416,45 @@ body {
     <img src="/attrape-les-tous-beta/assets/images/feuille.png" alt="Feuille" class="leaf">
 </div>
 
-    <script>
+   <!-- Le reste de ton HTML inchangé -->
 
-         let audioUnlocked = false; // Flag pour empêcher les appels multiples
+<script>
+    let audioUnlocked = false; // Flag pour empêcher plusieurs appels
 
-// Fonction appelée lors du premier clic
-function handleIntroClick() {
-    if (!audioUnlocked) {
-        // Vérifie si l'audio n'a pas encore été joué
-        const introMusic = document.getElementById("introMusic"); // Assurez-vous que l'élément audio est bien sélectionné
-        
-        // Lecture audio sécurisée
-        introMusic.volume = 0.6;
-        introMusic.play().then(() => {
-            audioUnlocked = true; // Change l'état une fois l'audio joué
-            console.log("🎵 Musique lancée");
-        }).catch(err => {
-            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
-        });
-    }
+    function handleIntroClick() {
+        if (!audioUnlocked) {
+            const introMusic = document.getElementById("introMusic");
 
-    // Traitement des dialogues
-    if (step < dialogues.length - 1) {
-        step++;
-        showDialogue();
-    } else {
-        dialogueBox.style.opacity = 0;
+            // Lecture audio sécurisée (obligatoire après interaction)
+            introMusic.volume = 0.6;
+            introMusic.play().then(() => {
+                audioUnlocked = true;
+                console.log("🎵 Musique lancée avec interaction");
+            }).catch(err => {
+                console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
+            });
+        }
 
-        if (!endMode) {
-            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        // Traitement des dialogues
+        if (step < dialogues.length - 1) {
+            step++;
+            showDialogue();
         } else {
-            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+            dialogueBox.style.opacity = 0;
+
+            if (!endMode) {
+                setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+            } else {
+                setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+            }
         }
     }
 
-    // Retirer l'écouteur après le premier clic
-    document.removeEventListener("click", handleIntroClick);
-    document.removeEventListener("touchstart", handleIntroClick);
-}
-
-
-
-        
+    // Lien de l'interaction pour débuter la musique et l’affichage des dialogues
+    document.addEventListener("click", handleIntroClick);
+    document.addEventListener("touchstart", handleIntroClick);
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const endMode = urlParams.get("end");
-
-    // Définir les dialogues en fonction du mode (fin ou début du jeu)
+    // Dialogues de la fin ou de bienvenue
     const dialogues = endMode ? [
         { speaker: "ALIA", text: "Merci d’avoir joué avec nous…" },
         { speaker: "CJAJLK", text: "Reviens quand tu veux, le Monde Nocturne t’attend toujours." },
@@ -492,17 +484,12 @@ function handleIntroClick() {
     const continueBtn = document.getElementById("continueBtn");
     const introMusic = document.getElementById("introMusic");
 
-
-    // Affichage du dialogue
+    // Fonction pour afficher le dialogue
     function showDialogue() {
         dialogueBox.style.opacity = 1;
         speakerEl.textContent = dialogues[step].speaker;
         dialogueEl.textContent = dialogues[step].text;
     }
-        
-
-
-
 
     continueBtn.addEventListener("click", () => {
         const name = pseudoInput.value.trim();
@@ -514,6 +501,9 @@ function handleIntroClick() {
             window.location.href = "../index.html";
         }, 500);
     });
+    
+</script>
+
 
    
 
@@ -597,6 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
