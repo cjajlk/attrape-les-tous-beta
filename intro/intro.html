@@ -456,37 +456,44 @@ body {
         dialogueEl.textContent = dialogues[step].text;
     }
         
+// Ajoute ce flag en haut de ton script
 let audioUnlocked = false;
-    
-function handleIntroClick() {
 
-    if (introMusic && !audioUnlocked) {
+function handleIntroClick() {
+    if (!audioUnlocked) {
+        // 🔊 Lecture audio sécurisée (obligatoirement après interaction)
         introMusic.volume = 0.6;
         introMusic.play().then(() => {
             audioUnlocked = true;
             console.log("🎵 Musique lancée");
         }).catch(err => {
-            console.warn("🎵 Audio bloqué", err);
+            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
         });
     }
 
+    // 💬 Gestion des dialogues
     if (step < dialogues.length - 1) {
         step++;
         showDialogue();
     } else {
         dialogueBox.style.opacity = 0;
-        setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-    }
-}
 
-// ❌ Important : on enlève l'écouteur après le premier clic
+        if (!endMode) {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        } else {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        }
+    }
+
+    // ❌ Important : on enlève l'écouteur après le premier clic
     document.removeEventListener("click", handleIntroClick);
     document.removeEventListener("touchstart", handleIntroClick);
-        }
+}
 
 // ✅ Interaction valide PC + mobile
 document.addEventListener("click", handleIntroClick);
 document.addEventListener("touchstart", handleIntroClick);
+
 
 
     continueBtn.addEventListener("click", () => {
@@ -582,6 +589,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
