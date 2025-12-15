@@ -414,6 +414,49 @@ body {
 </div>
 
     <script>
+
+         let audioUnlocked = false; // Flag pour empêcher les appels multiples
+
+// Fonction appelée lors du premier clic
+function handleIntroClick() {
+    if (!audioUnlocked) {
+        // Vérifie si l'audio n'a pas encore été joué
+        const introMusic = document.getElementById("introMusic"); // Assurez-vous que l'élément audio est bien sélectionné
+        
+        // Lecture audio sécurisée
+        introMusic.volume = 0.6;
+        introMusic.play().then(() => {
+            audioUnlocked = true; // Change l'état une fois l'audio joué
+            console.log("🎵 Musique lancée");
+        }).catch(err => {
+            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
+        });
+    }
+
+    // Traitement des dialogues
+    if (step < dialogues.length - 1) {
+        step++;
+        showDialogue();
+    } else {
+        dialogueBox.style.opacity = 0;
+
+        if (!endMode) {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        } else {
+            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+        }
+    }
+
+    // Retirer l'écouteur après le premier clic
+    document.removeEventListener("click", handleIntroClick);
+    document.removeEventListener("touchstart", handleIntroClick);
+}
+
+// Ajoute un écouteur de clic ou de touche sur l'écran
+document.addEventListener("click", handleIntroClick);
+document.addEventListener("touchstart", handleIntroClick);
+
+        
     
     const urlParams = new URLSearchParams(window.location.search);
     const endMode = urlParams.get("end");
@@ -456,43 +499,7 @@ body {
         dialogueEl.textContent = dialogues[step].text;
     }
         
-// Ajoute ce flag en haut de ton script
-let audioUnlocked = false;
 
-function handleIntroClick() {
-    if (!audioUnlocked) {
-        // 🔊 Lecture audio sécurisée (obligatoirement après interaction)
-        introMusic.volume = 0.6;
-        introMusic.play().then(() => {
-            audioUnlocked = true;
-            console.log("🎵 Musique lancée");
-        }).catch(err => {
-            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
-        });
-    }
-
-    // 💬 Gestion des dialogues
-    if (step < dialogues.length - 1) {
-        step++;
-        showDialogue();
-    } else {
-        dialogueBox.style.opacity = 0;
-
-        if (!endMode) {
-            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-        } else {
-            setTimeout(() => pseudoPanel.classList.add("visible"), 300);
-        }
-    }
-
-    // ❌ Important : on enlève l'écouteur après le premier clic
-    document.removeEventListener("click", handleIntroClick);
-    document.removeEventListener("touchstart", handleIntroClick);
-}
-
-// ✅ Interaction valide PC + mobile
-document.addEventListener("click", handleIntroClick);
-document.addEventListener("touchstart", handleIntroClick);
 
 
 
@@ -589,6 +596,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
