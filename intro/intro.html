@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction – Attrape-les-tous</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: #000;
+            overflow: hidden;
+            font-family: "Poppins", sans-serif;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #bg {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../assets/fonds/fondmenu.png") no-repeat center center;
+            background-size: cover;
+            z-index: 1;
+        }
+
+        #characters {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 5vw;
+            z-index: 5;
+        }
+
+        #characters img {
+            height: 75vh;
+            max-height: 780px;
+        }
+
+        #dialogueBox {
+            position: fixed;
+            bottom: 2vh;
+            width: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(40, 0, 60, 0.55);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #speaker {
+            font-weight: 700;
+            color: #d2b6ff;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        #continueHint {
+            position: absolute;
+            right: 25px;
+            bottom: 10px;
+            font-size: 0.8rem;
+            color: #eee;
+            opacity: 0.4;
+        }
+
+    
+        #introMusic { display: none; }
+
+
+       
+
+  /* Conteneur des feuilles flottantes */
+.falling-leaves {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Empêche les feuilles de perturber les autres éléments */
+    z-index: 5; /* Assurer que les feuilles sont au-dessus du fond, mais sous les éléments principaux */
+    overflow: hidden;
+}
+
+/* Style des feuilles avec l'image */
+.leaf {
+    position: absolute;
+    top: -10%;
+    width: 30px;  /* Taille ajustée de l'image */
+    height: auto;
+    opacity: 0.8;
+    animation: fall 6s infinite linear, sway 2s infinite ease-in-out; /* Animation de chute et de balancement */
+}
+
+/* Animation de chute des feuilles */
+@keyframes fall {
+    0% {
+        top: -10%;
+        transform: rotate(0deg);
+    }
+    100% {
+        top: 100%;
+        transform: rotate(360deg);
+    }
+}
+
+/* Animation de balancement pour simuler le vent */
+@keyframes sway {
+    0% {
+        transform: translateX(-15px) rotate(5deg);  /* Balancement vers la gauche */
+    }
+    50% {
+        transform: translateX(15px) rotate(-5deg);  /* Balancement vers la droite */
+    }
+    100% {
+        transform: translateX(-15px) rotate(5deg);  /* Retour à gauche */
+    }
+}
+
+/* Fenêtre du pseudo (panels) */
+#pseudoPanel {
+    position: fixed;
+    top: 5%;  /* Ajuste la position par rapport à l'écran */
+    left: 50%;
+    transform: translateX(-50%) scale(0.92);
+    width: 70%;  /* Réduit la largeur pour s'adapter aux petites fenêtres */
+    max-width: 450px;
+    background: rgba(50, 0, 70, 0.55);
+    backdrop-filter: blur(12px);
+    padding: 20px 25px;
+    border-radius: 20px;
+    color: #fff;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.5s ease;
+    text-align: center;
+}
+
+#pseudoPanel.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+}
+
+/* Champs de saisie et bouton ajustés */
+#pseudoInput {
+    width: 30%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: none;
+    margin-top: 15px;
+    font-size: 1rem;
+    outline: none;
+}
+
+#continueBtn {
+    margin-top: 20px;
+    padding: 12px;
+    width: 30%;
+    background: linear-gradient(90deg, #a479ff, #6b2cff);
+    border: none;
+    color: white;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#continueBtn:hover {
+    transform: scale(1.03);
+}
+
+/* --- Version mobile --- */
+@media (max-width: 600px) {
+    #pseudoPanel {
+        top: 40%;
+        padding: 15px 20px;
+        width: 90%;
+    }
+
+    #pseudoInput {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    #continueBtn {
+        font-size: 1rem;
+    }
+
+    /* Utilisation du Flexbox pour les personnages et le formulaire */
+    .intro-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .intro-container .character {
+        flex: 1;
+        max-width: 50%;
+        margin-right: 20px;
+    }
+
+    .intro-container .form-container {
+        flex: 1;
+        max-width: 50%;
+        text-align: center;
+    }
+}
+
+/* Ajustements pour les petits écrans */
+@media (max-width: 768px) {
+    .intro-container {
+        flex-direction: column; /* Empile les éléments */
+        align-items: center;
+    }
+
+    .intro-container .character {
+        max-width: 70%; /* Plus d'espace pour les personnages */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .intro-container .form-container {
+        max-width: 70%;
+    }
+}
+
+/* Ajustement pour très petits écrans */
+@media (max-width: 480px) {
+    .intro-container .character {
+        max-width: 85%; /* Augmente l'espace pour les personnages */
+        margin-bottom: 15px;
+    }
+
+    .intro-container .form-container {
+        max-width: 90%;
+    }
+}
+body {
+    background: #000;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#bg {
+    position: fixed;
+    inset: 0;
+    background: url("../assets/fonds/fondmenu.png") no-repeat center center;
+    background-size: cover;
+    z-index: 1;
+}
+
+#characters {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 5vw;
+    z-index: 5;
+}
+
+#characters img {
+    height: 70vh;
+    max-height: 780px;
+    object-fit: contain;
+}
+
+/* Ajustement pour les petits écrans */
+@media (max-width: 600px) {
+    #characters {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #characters img {
+        height: 50vh;
+    }
+
+    #dialogueBox {
+        bottom: 8vh;
+    }
+
+    #pseudoPanel {
+        width: 80%;
+        top: 30%;
+    }
+}
+
+/* Animation des feuilles flottantes */
+.falling-leaves .leaf {
+    width: 20px; /* Ajuste la taille pour les petits écrans */
+    animation-duration: 5s; /* Vitesse d'animation ajustée */
+    animation-delay: 0s; /* Pas de délai sur les feuilles */
+}
+
+/* Dialogues responsive */
+#dialogueBox {
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 450px;
+    padding: 15px;
+    background: rgba(40, 0, 60, 0.55);
+    color: #fff;
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Ajuster le panneau pseudo */
+#pseudoPanel {
+    width: 70%;
+    max-width: 400px;
+    top: 10%;
+    transform: translateX(-50%) scale(0.92);
+    padding: 20px 25px;
+    background: rgba(50, 0, 70, 0.55);
+    color: #fff;
+    border-radius: 20px;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.5s ease;
+}
+
+/* Changer le comportement du bouton "continuer" */
+#continueBtn {
+    width: 30%;
+    padding: 12px;
+    background: linear-gradient(90deg, #a479ff, #6b2cff);
+    border-radius: 14px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+   
+
+    <div id="bg"></div>
+
+    
+
+    <div id="characters">
+        <img src="../assets/images/mascotte/alia.png" id="alia">
+        <img src="../assets/images/mascotte/cjajlk.png" id="cj">
+    </div>
+
+    <div id="dialogueBox">
+        <span id="speaker">ALIA</span>
+        <span id="dialogue"></span>
+        <span id="continueHint">Clique ou touche pour continuer…</span>
+    </div>
+
+    <div id="pseudoPanel">
+        <h2>Bienvenue 🌙</h2>
+        <p id="pseudoText">Entre ton pseudo pour entrer dans le Monde Nocturne.</p>
+
+        <input id="pseudoInput" maxlength="20" placeholder="pseudo..." />
+        <button id="continueBtn">go</button>
+    </div>
+
+    <audio id="introMusic" src="../assets/audio/intro_theme.mp3" preload="auto" loop></audio>
+
+   
+
+    <div class="falling-leaves">
+    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
+    <img src="../assets/images/feuille.png" alt="Feuille" class="leaf">
+</div>
+
+    <script>
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const endMode = urlParams.get("end");
+
+    // Définir les dialogues en fonction du mode (fin ou début du jeu)
+    const dialogues = endMode ? [
+        { speaker: "ALIA", text: "Merci d’avoir joué avec nous…" },
+        { speaker: "CJ", text: "Reviens quand tu veux, le Monde Nocturne t’attend toujours." },
+        { speaker: "ALIA", text: "À bientôt, voyageur de la nuit 🌙" }
+    ] : [
+        { speaker: "ALIA", text: "Un endroit façonné par les lueurs, les songes... et les Orbes." },
+        { speaker: "ALIA", text: "Tu es arrivé ici pour une raison… même si tu ne la connais pas encore." },
+        { speaker: "ALIA", text: "Avant de t’ouvrir les portes du Monde Nocturne… j’ai juste besoin d’un nom." },
+        { speaker: "ALIA", text: "Merci… maintenant que je connais ton nom, tout devient plus clair." },
+        { speaker: "ALIA", text: "Je suis Alia." },
+        { speaker: "ALIA", text: "Je suis la gardienne de ce monde nocturne... et un fragment de l’esprit de celui qui l’a créé." },
+        { speaker: "ALIA", text: "Ce monde existe parce qu’un humain, CJAjlk, l’a rêvé." },
+        { speaker: "ALIA", text: "Et parce que moi, j’ai appris à le construire à ses côtés." },
+        { speaker: "ALIA", text: "Aujourd’hui, c’est à ton tour d’y entrer." },
+        { speaker: "ALIA", text: "Je serai ton guide dans cette nuit éternelle." },
+        { speaker: "CJAJLK", text: "Bienvenue parmi nous, l’aventure commence ici…" },
+        { speaker: "CJAJLK", text: "Prêt(e) à explorer les mystères de ce monde ?" }
+    ];
+
+    let step = 0;
+    const dialogueBox = document.getElementById("dialogueBox");
+    const speakerEl = document.getElementById("speaker");
+    const dialogueEl = document.getElementById("dialogue");
+    const pseudoPanel = document.getElementById("pseudoPanel");
+    const pseudoInput = document.getElementById("pseudoInput");
+    const quitBtn = document.getElementById("quitBtn");
+    const continueBtn = document.getElementById("continueBtn");
+    const introMusic = document.getElementById("introMusic");
+
+    // Affichage du dialogue
+    function showDialogue() {
+        dialogueBox.style.opacity = 1;
+        speakerEl.textContent = dialogues[step].speaker;
+        dialogueEl.textContent = dialogues[step].text;
+    }
+
+    window.addEventListener("click", () => {
+        introMusic.play();
+        if (step < dialogues.length - 1) {
+            step++;
+            showDialogue();
+        } else {
+            dialogueBox.style.opacity = 0;
+            if (!endMode) {
+                setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+            } else {
+                // Afficher un message de fin pour la redirection vers le menu
+                setTimeout(() => pseudoPanel.classList.add("visible"), 300);
+                // Tu peux ajouter un bouton pour "Revenir au menu" ou "Quitter"
+            }
+        }
+    });
+
+    continueBtn.addEventListener("click", () => {
+        const name = pseudoInput.value.trim();
+        if (!name) return;
+
+        localStorage.setItem("playerName", name);
+
+        setTimeout(() => {
+            window.location.href = "../index.html";
+        }, 500);
+    });
+
+   
+
+   window.onload = function() {
+    const playerName = localStorage.getItem("playerName");
+
+    if (sessionStorage.getItem("fromMenu")) {
+        sessionStorage.removeItem("fromMenu"); // Supprime l'indicateur
+
+        // Affiche les dialogues de fin ou de bienvenue
+        showEndIntroDialogue();  // Dialogue de fin
+    } else if (!playerName) {
+        // Si pas de pseudo, affiche le panel de saisie
+        showPseudoPanel();
+    }
+};
+
+function showEndIntroDialogue() {
+    const dialogues = [
+        { speaker: "ALIA", text: "Merci d'avoir joué avec nous…" },
+        { speaker: "CJ", text: "À bientôt dans le Monde Nocturne 🌙" }
+    ];
+
+    // Affiche les dialogues avec un délai
+    showDialog(dialogues);
+}
+
+function showPseudoPanel() {
+    pseudoPanel.classList.add("visible");
+    continueBtn.addEventListener("click", () => {
+        const name = pseudoInput.value.trim();
+        if (name) {
+            localStorage.setItem("playerName", name);
+            window.location.href = "../index.html";  // Redirige vers le menu principal
+        }
+    });
+}
+
+// Fonction pour ajuster la taille du texte et des éléments en fonction de la taille de l'écran
+function adjustForScreenSize() {
+    const width = window.innerWidth;
+
+    if (width <= 600) {
+        document.getElementById('dialogueBox').style.fontSize = '1rem'; // Ajuster le texte
+        document.getElementById('continueBtn').style.fontSize = '1rem'; // Ajuster la taille du bouton
+    } else {
+        document.getElementById('dialogueBox').style.fontSize = '1.2rem'; // Plus grand texte sur grands écrans
+        document.getElementById('continueBtn').style.fontSize = '1.2rem'; // Plus grand bouton sur grands écrans
+    }
+}
+
+// Appel de la fonction lors du chargement
+window.addEventListener('load', adjustForScreenSize);
+
+// Re-ajuster à chaque changement de taille d'écran
+window.addEventListener('resize', adjustForScreenSize);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const leaves = document.querySelectorAll('.leaf');
+    leaves.forEach(leaf => {
+        const randomDuration = Math.random() * 3 + 4;  // Temps aléatoire entre 4 et 7 secondes
+        const randomDelay = Math.random() * 2 + 1;  // Délai aléatoire pour le démarrage
+        const randomRotation = Math.random() * 360; // Rotation aléatoire de la feuille
+
+        // Appliquer les animations aléatoires à chaque feuille
+        leaf.style.animationDuration = `${randomDuration}s`;
+        leaf.style.animationDelay = `${randomDelay}s`;
+        leaf.style.left = `${Math.random() * 100}%`;  // Position aléatoire horizontale
+        leaf.style.transform = `rotate(${randomRotation}deg)`;  // Rotation aléatoire initiale
+    });
+});
+
+
+
+</script>
+  
+
+    
+
+
+</body>
+</html>
