@@ -3143,6 +3143,24 @@ function goToEndgame() {
     window.location.href = "/attrape-les-tous-beta/endgame/endgame.html";
 }
 
+let musicUnlocked = false;
+const bgMusic = document.getElementById("bgMusic");
+
+function unlockAudio() {
+    if (musicUnlocked) return;
+
+    bgMusic.volume = 0.5;
+    bgMusic.play().then(() => {
+        musicUnlocked = true;
+        console.log("🎵 Musique débloquée");
+        document.removeEventListener("click", unlockAudio);
+    }).catch(err => {
+        console.warn("🔇 Audio bloqué par le navigateur", err);
+    });
+}
+
+document.addEventListener("click", unlockAudio);
+
 
 
 
