@@ -2339,7 +2339,21 @@ function startNormalMode() {
         playCurrentTrack();
     }
 
-    
+    if ((level - 1) % 2 === 0 &&
+            GameData.backgrounds &&
+            GameData.backgrounds.length > 0) {
+
+            currentBackgroundIndex =
+                (currentBackgroundIndex + 1) % GameData.backgrounds.length;
+
+            transitionBackgroundCinematic(() => {
+                applyBackgroundFromIndex();
+            });
+
+            if (typeof crossfadeToNextTrack === "function") {
+                crossfadeToNextTrack();
+            }
+        }
 
     
 
