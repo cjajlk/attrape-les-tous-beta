@@ -14,7 +14,7 @@ html, body {
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
-    object-fit: cover;
+    object-fit: cover;    
 }
 
 /* ========== Boutique (ancienne version, z-index nettoyé) ========== */
@@ -2040,5 +2040,43 @@ canvas {
 
 #orientationMessage button:hover {
     background-color: #FF3B2B;
+}
+
+/* Annonce Bêta */
+.announcement {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;  /* Réduit la largeur pour éviter le débordement */
+    z-index: 9999;
+    font-size: 1.2rem;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    box-sizing: border-box;
+}
+
+/* Animation pour la disparition de l'annonce après 5 secondes */
+.announcement.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.announcement strong {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .announcement {
+        font-size: 1rem;
+        padding: 10px;
+    }
 }
 

@@ -525,7 +525,7 @@ document.addEventListener("touchstart", handleIntroClick);
 
    window.onload = function() {
     const playerName = localStorage.getItem("playerName");
-
+     
     if (sessionStorage.getItem("fromMenu")) {
         sessionStorage.removeItem("fromMenu"); // Supprime l'indicateur
 
@@ -553,10 +553,16 @@ function showPseudoPanel() {
         const name = pseudoInput.value.trim();
         if (name) {
             localStorage.setItem("playerName", name);
-            window.location.href = "../index.html";  // Redirige vers le menu principal
+
+            // Met à jour le profil avec le nouveau pseudo
+            updateProfilePanel(); // Ajout de la mise à jour du profil
+
+            // Redirige vers le menu principal
+            window.location.href = "../index.html";  
         }
     });
 }
+
 
 // Fonction pour ajuster la taille du texte et des éléments en fonction de la taille de l'écran
 function adjustForScreenSize() {

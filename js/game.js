@@ -3143,6 +3143,17 @@ function goToEndgame() {
     window.location.href = "/attrape-les-tous-beta/endgame/endgame.html";
 }
 
+// Afficher l'annonce de Bêta au chargement
+window.onload = function() {
+    const betaAnnouncement = document.getElementById("betaAnnouncement");
+
+    // Attendre 5 secondes, puis faire disparaître l'annonce
+    setTimeout(() => {
+        if (betaAnnouncement) {
+            betaAnnouncement.classList.add("fade-out");
+        }
+    }, 5000); // Délai de 5 secondes avant la disparition
+};
 
 
 
