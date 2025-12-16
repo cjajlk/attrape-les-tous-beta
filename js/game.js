@@ -2339,21 +2339,7 @@ function startNormalMode() {
         playCurrentTrack();
     }
 
-    if ((level - 1) % 2 === 0 &&
-            GameData.backgrounds &&
-            GameData.backgrounds.length > 0) {
-
-            currentBackgroundIndex =
-                (currentBackgroundIndex + 1) % GameData.backgrounds.length;
-
-            transitionBackgroundCinematic(() => {
-                applyBackgroundFromIndex();
-            });
-
-            if (typeof crossfadeToNextTrack === "function") {
-                crossfadeToNextTrack();
-            }
-        }
+    
 
     
 
@@ -2396,6 +2382,25 @@ function startTimerMode() {
     } else {
         playCurrentTrack();
     }
+
+    // ------------------------------------------------------
+        // 🌌 Changement de fond tous les 2 niveaux (3,5,7…)
+        // ------------------------------------------------------
+        if ((level - 1) % 2 === 0 &&
+            GameData.backgrounds &&
+            GameData.backgrounds.length > 0) {
+
+            currentBackgroundIndex =
+                (currentBackgroundIndex + 1) % GameData.backgrounds.length;
+
+            transitionBackgroundCinematic(() => {
+                applyBackgroundFromIndex();
+            });
+
+            if (typeof crossfadeToNextTrack === "function") {
+                crossfadeToNextTrack();
+            }
+        }
 
     currentMode = "timer";
 
