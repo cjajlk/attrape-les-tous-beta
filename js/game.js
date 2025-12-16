@@ -47,6 +47,49 @@ window.mascotteLoseLines = window.mascotteLoseLines ?? [
 let gameLoopId = null;      // ID du requestAnimationFrame
 let isGameRunning = false;   // vrai pendant une partie
 
+const currentVersion = "1.0"; // La version actuelle du jeu
+const savedVersion = localStorage.getItem("gameVersion");
+
+// Vérifier si la version dans le localStorage est différente de la version actuelle
+if (savedVersion !== currentVersion) {
+    console.log("Mise à jour disponible !");
+
+    // Lancer la mise à jour des données
+    updateLocalStorageData();
+
+    // Afficher une alerte pour informer l'utilisateur de la mise à jour
+    alert("Nouvelle mise à jour disponible ! Rechargez la page pour obtenir la dernière version.");
+
+    // Mettre à jour la version dans localStorage
+    localStorage.setItem("gameVersion", currentVersion);
+}
+
+// Fonction de mise à jour des données de localStorage
+function updateLocalStorageData() {
+    // On charge les données du profil
+    const savedProfile = JSON.parse(localStorage.getItem("nocturnePlayerProfileV3"));
+
+    // Si le profil existe, on peut procéder à des mises à jour (ajout de champs ou autre)
+    if (savedProfile) {
+        // Exemple : Ajouter un champ si nécessaire (par exemple "newFeature")
+        if (!savedProfile.newFeature) {
+            savedProfile.newFeature = "Valeur par défaut"; // Valeur par défaut si le champ n'existe pas
+        }
+
+        // Sauvegarder les données mises à jour
+        localStorage.setItem("nocturnePlayerProfileV3", JSON.stringify(savedProfile));
+        console.log("Mise à jour des données du profil réussie");
+    }
+}
+
+
+function updateProfile() {
+    // Mise à jour de l'interface utilisateur avec les nouvelles données
+    updateProfilePanel();
+
+    // On sauvegarde le profil mis à jour dans le localStorage
+    savePlayerProfile();
+}
 
 /* =========================================================
    💾 SAUVEGARDE / CHARGEMENT — VERSION STABLE
