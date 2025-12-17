@@ -1147,11 +1147,7 @@ html, body {
 
 @media (max-width: 600px) {
 
-    #mainMenu .menu-panel {
-        width: 95%;
-        margin: 0 auto;
-        transform: translateY(0);
-    }
+   
 
    
 
@@ -1363,19 +1359,7 @@ canvas {
     pointer-events: none;
 }
 
-.menu-panel {
-    background: rgba(40, 30, 80, 0.35);
-    border: 1px solid rgba(160, 140, 255, 0.35);
-    padding: 40px 60px;
-    border-radius: 30px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 40px rgba(120, 90, 255, 0.25);
-    text-align: center;
-    animation: menuFade 0.6s ease forwards;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Assure que les éléments soient espacés uniformément */
-}
+
 
 @keyframes menuFade {
     from { transform: translateY(20px); opacity: 0; }
@@ -1500,10 +1484,7 @@ canvas {
 /* AJUSTEMENT MENU RESPONSIVE */
 @media (max-width: 900px) {
 
-    .menu-panel {
-        width: 90%;
-        padding: 20px 20px !important;
-    }
+   
 
     .menu-btn {
         width: 100% !important;
@@ -1545,13 +1526,43 @@ canvas {
     pointer-events: none !important;
 }
 
-/* Rendre le menu panel fluide */
+/* Menu panel - Version générale */
 .menu-panel {
-    width: 90%;
-    max-width: 480px;
+    width: 20%;
+    max-width: 480px; /* Limite la largeur sur les grands écrans */
     padding: 25px 20px !important;
     box-sizing: border-box;
+    background: rgba(40, 30, 80, 0.35);
+    border: 1px solid rgba(160, 140, 255, 0.35);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 40px rgba(120, 90, 255, 0.25);
+    text-align: center;
+    animation: menuFade 0.6s ease forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    left: 10%; /* Positionnement de base, peut être ajusté */
 }
+
+/* Version mobile */
+@media (max-width: 600px) {
+    .menu-panel {
+        width: 85%; /* Ajuste la largeur pour plus de fluidité */
+        padding: 20px 15px !important; /* Moins d'espace sur mobile */
+        margin: 0 auto; /* Recentre sur mobile */
+    }
+}
+/* Version tablette */
+@media (max-width: 768px) {
+    .menu-panel {
+        width: 60%; /* Ajuste la largeur pour les tablettes */
+        left: 20%; /* Ajuste légèrement pour être mieux centré */
+    }
+}
+
+
 
 /* Titre adaptatif */
 .menu-title {
@@ -1737,7 +1748,7 @@ canvas {
 /* Version mobile */
 @media (max-width: 600px) {
     #eventBanner {
-        top: 625px; /* Ajuste cette valeur pour positionner la bannière correctement */
+        top: 250px; /* Ajuste cette valeur pour positionner la bannière correctement */
         left: 50%;
         transform: translateX(-50%);
         flex-direction: column;
