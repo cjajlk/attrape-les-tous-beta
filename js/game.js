@@ -2383,7 +2383,10 @@ function startTimerMode() {
         playCurrentTrack();
     }
 
+
     // ------------------------------------------------------
+
+ 
         // 🌌 Changement de fond tous les 2 niveaux (3,5,7…)
         // ------------------------------------------------------
         if ((level - 1) % 2 === 0 &&
@@ -3216,6 +3219,7 @@ window.onload = function() {
         }
     }, 5000); // Délai de 5 secondes avant la disparition
 };
+
 
 
 
