@@ -1707,6 +1707,8 @@ canvas {
     pointer-events: auto !important;
 }
 
+
+/* Bannière événement */
 #eventBanner {
     position: fixed;
     bottom: 390px;
@@ -1716,21 +1718,12 @@ canvas {
     background: rgba(10, 5, 25, 0.65);
     border-top: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-
     padding: 10px 20px;
     z-index: 10; /* Au-dessus du décor, sous la mascotte */
-}
-
-#eventBanner img {
-    height: 80px;
-    width: auto;
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(180,140,255,0.5);
 }
 
 #eventBanner p {
@@ -1740,35 +1733,26 @@ canvas {
     text-shadow: 0 0 10px rgba(200,160,255,0.8);
 }
 
-/* 📱 Version Mobile */
+/* Version mobile */
 @media (max-width: 600px) {
     #eventBanner {
         position: absolute;
         top: 625px; /* Ajuste cette valeur pour positionner la bannière correctement */
         left: 50%;
-        transform: translateX(-40%); /* Centre la bannière horizontalement */
+        transform: translateX(-50%);
         flex-direction: column;
         text-align: center;
         gap: 10px;
         padding: 8px 10px;
-        z-index: 10; /* Assure que la bannière est au-dessus des autres éléments */
+        z-index: 10;
         max-width: 100%; /* Réduit la largeur maximale sur mobile */
-    }
-
-     #eventBanner img {
-        position: absolute;
-        top: 50px; /* Ajuste la position verticale de l'image */
-        left: 1px; /* Ajuste la position horizontale de l'image */
-        width: 25%;  /* Ajuste la largeur de l'image (change ce pourcentage) */
-        height: auto;  /* Laisse l'image se redimensionner proportionnellement */
     }
 
     #eventBanner p {
         font-size: 12px; /* Réduit la taille du texte */
     }
-
-    
 }
+
 
 /* Réduire les boutons dans le gameplay sur mobile */
 @media (max-width: 600px) {
