@@ -1528,7 +1528,7 @@ canvas {
 
 /* Menu panel - Version générale */
 .menu-panel {
-    width: 20%;
+   
     max-width: 480px; /* Limite la largeur sur les grands écrans */
     padding: 25px 20px !important;
     box-sizing: border-box;
@@ -1557,8 +1557,8 @@ canvas {
 /* Version tablette */
 @media (max-width: 768px) {
     .menu-panel {
-        width: 60%; /* Ajuste la largeur pour les tablettes */
-        left: 20%; /* Ajuste légèrement pour être mieux centré */
+        
+        left: -5%; /* Ajuste légèrement pour être mieux centré */
     }
 }
 
@@ -1721,7 +1721,7 @@ canvas {
 /* Bannière événement */
 #eventBanner {
     position: absolute;
-    top: 100px; /* Ajuste cette valeur pour placer la bannière juste sous le menu */
+    top: 90px; /* Ajuste cette valeur pour placer la bannière juste sous le menu */
     left: 50%;
     transform: translateX(-50%); /* Centrer horizontalement */
     width: 80%; /* Adapte la largeur de la bannière */
@@ -1741,14 +1741,14 @@ canvas {
 #eventBanner p {
     color: #fff;
     font-size: 18px; /* Ajuste la taille du texte */
-    font-weight: 600;
+    font-weight: 500;
     text-shadow: 0 0 10px rgba(200,160,255,0.8); /* Améliore la lisibilité du texte */
 }
 
 /* Version mobile */
 @media (max-width: 600px) {
     #eventBanner {
-        top: 250px; /* Ajuste cette valeur pour positionner la bannière correctement */
+        top: 82px; /* Ajuste cette valeur pour positionner la bannière correctement */
         left: 50%;
         transform: translateX(-50%);
         flex-direction: column;
