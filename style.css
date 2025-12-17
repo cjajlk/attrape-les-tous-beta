@@ -1707,14 +1707,14 @@ canvas {
     pointer-events: auto !important;
 }
 
-
 /* Bannière événement */
 #eventBanner {
-    position: fixed;
-    bottom: 390px;
-    left: 0;
-    width: 50%;
-    height: 80px;
+    position: absolute;
+    top: 100px; /* Ajuste cette valeur pour placer la bannière juste sous le menu */
+    left: 50%;
+    transform: translateX(-50%); /* Centrer horizontalement */
+    width: 80%; /* Adapte la largeur de la bannière */
+    height: 25px; /* Réduit la hauteur du cadre */
     background: rgba(10, 5, 25, 0.65);
     border-top: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
@@ -1726,17 +1726,17 @@ canvas {
     z-index: 10; /* Au-dessus du décor, sous la mascotte */
 }
 
+/* Style du texte */
 #eventBanner p {
     color: #fff;
-    font-size: 26px;
+    font-size: 18px; /* Ajuste la taille du texte */
     font-weight: 600;
-    text-shadow: 0 0 10px rgba(200,160,255,0.8);
+    text-shadow: 0 0 10px rgba(200,160,255,0.8); /* Améliore la lisibilité du texte */
 }
 
 /* Version mobile */
 @media (max-width: 600px) {
     #eventBanner {
-        position: absolute;
         top: 625px; /* Ajuste cette valeur pour positionner la bannière correctement */
         left: 50%;
         transform: translateX(-50%);
@@ -1749,19 +1749,10 @@ canvas {
     }
 
     #eventBanner p {
-        font-size: 12px; /* Réduit la taille du texte */
+        font-size: 12px; /* Réduit la taille du texte pour mobile */
     }
 }
 
-
-/* Réduire les boutons dans le gameplay sur mobile */
-@media (max-width: 600px) {
-    #pauseBtn, #musicBtn, #quitBtn {
-        width: 10px; /* Réduit la largeur */
-        height: 10px; /* Réduit la hauteur */
-        font-size: 0.8rem; /* Réduit la taille du texte */
-    }
-}
 
 /* Ajuste le z-index pour la notification de niveau */
 #levelUpNotification {
