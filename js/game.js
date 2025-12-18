@@ -615,7 +615,7 @@ function resizeGame() {
    🎯 VARIABLES DE GAMEPLAY
    ========================================================= */
 
-let targets = [];
+let targets = []; 
 let particles = [];
 let floatTexts = [];
 let shockwaves = [];
@@ -1865,6 +1865,27 @@ function render() {
 if (timerRunning) {
     timerValue -= timerSpeed;
 
+    // ⏳ Timer interne pour changement de fond (mode TIMER uniquement)
+timerBackgroundElapsed += timerSpeed;
+
+if (timerBackgroundElapsed >= TIMER_BG_INTERVAL) {
+    timerBackgroundElapsed = 0;
+
+    if (GameData.backgrounds && GameData.backgrounds.length > 0) {
+        currentBackgroundIndex =
+            (currentBackgroundIndex + 1) % GameData.backgrounds.length;
+
+        transitionBackgroundCinematic(() => {
+            applyBackgroundFromIndex();
+        });
+
+        if (typeof crossfadeToNextTrack === "function") {
+            crossfadeToNextTrack();
+        }
+    }
+}
+
+
     const bar = document.getElementById("timerBar");
     if (bar) {
         bar.style.width = Math.max(0, timerValue) + "%";
@@ -2363,6 +2384,9 @@ function startNormalMode() {
 }
 
 function startTimerMode() {
+
+    timerBackgroundElapsed = 0;
+
 
     setMascotteState("idle");
 
