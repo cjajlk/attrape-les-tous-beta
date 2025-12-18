@@ -2118,24 +2118,25 @@ function showLevelToast(level) {
         console.log(`✨ MODE NORMAL → Niveau ${level} atteint`);
         console.log("🎯 Prochain palier :", levelTargetNormal);
 
-        // ------------------------------------------------------
-        // 🌌 Changement de fond tous les 2 niveaux (3,5,7…)
-        // ------------------------------------------------------
-        if ((level - 1) % 2 === 0 &&
-            GameData.backgrounds &&
-            GameData.backgrounds.length > 0) {
+        // --------------------------------------------------
+        // 🎨 Changement de fond à CHAQUE niveau
+        // --------------------------------------------------
+    if (
+        GameData.backgrounds &&
+        GameData.backgrounds.length > 0
+     ) {
+    currentBackgroundIndex =
+        (currentBackgroundIndex + 1) % GameData.backgrounds.length;
 
-            currentBackgroundIndex =
-                (currentBackgroundIndex + 1) % GameData.backgrounds.length;
+    transitionBackgroundCinematic(() => {
+        applyBackgroundFromIndex();
+    });
 
-            transitionBackgroundCinematic(() => {
-                applyBackgroundFromIndex();
-            });
+    if (typeof crossfadeToNextTrack === "function") {
+        crossfadeToNextTrack();
+    }
+}
 
-            if (typeof crossfadeToNextTrack === "function") {
-                crossfadeToNextTrack();
-            }
-        }
 
         // ------------------------------------------------------
         // ⚠️ Reset des erreurs + légère hausse difficulté
@@ -2383,24 +2384,7 @@ function startTimerMode() {
         playCurrentTrack();
     }
 
-   // ------------------------------------------------------
-        // 🌌 Changement de fond tous les 2 niveaux (3,5,7…)
-        // ------------------------------------------------------
-        if ((level - 1) % 2 === 0 &&
-            GameData.backgrounds &&
-            GameData.backgrounds.length > 0) {
-
-            currentBackgroundIndex =
-                (currentBackgroundIndex + 1) % GameData.backgrounds.length;
-
-            transitionBackgroundCinematic(() => {
-                applyBackgroundFromIndex();
-            });
-
-            if (typeof crossfadeToNextTrack === "function") {
-                crossfadeToNextTrack();
-            }
-        }
+   
 
     currentMode = "timer";
 
