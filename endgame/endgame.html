@@ -68,7 +68,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  margin-top: 5vh;
+  margin-top: 2vh;
   padding: 0 16px;
 }
 
@@ -139,8 +139,7 @@
 </head>
 <body>
 
- 
-  <!-- 🌙 ÉCRAN DE FIN -->
+ <!-- 🌙 ÉCRAN DE FIN -->
 <div class="endgame-content">
 
   <h1 class="endgame-title">
@@ -157,11 +156,27 @@
     Votre navigateur ne prend pas en charge la vidéo.
   </video>
 
-  <!-- 🧍 Mascotte centrale -->
-  <div class="endgame-mascotte">
+  <!-- 🧍 Mascotte principale -->
+  <div class="endgame-mascotte-main">
     <img
       src="/attrape-les-tous-beta/assets/images/mascotte/alia.png"
       alt="Alia"
+    />
+  </div>
+
+  <!-- 👥 Groupe de mascottes -->
+  <div class="endgame-mascotte-group">
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/cjajlk.png"
+      alt="CJ"
+    />
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/lyra.png"
+      alt="Lyra"
+    />
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/girl9.png"
+      alt="Compagne nocturne"
     />
   </div>
 
@@ -201,33 +216,30 @@
     <button onclick="redirectToKoFi()">Continuer</button>
   </div>
 </div>
- 
-
-    
 
 
 <script>
-    function quitGame() {
-        // Afficher la modale
-        document.getElementById("quitModal").style.display = "block";
-    }
+  function quitGame() {
+    document.getElementById("quitModal").classList.remove("hidden");
+  }
 
-    function redirectToKoFi() {
-        // Rediriger vers ta page Ko-fi
-        window.location.href = "https://ko-fi.com/cjajlk"; // Remplace par ton propre lien Ko-fi
-    }
+  function redirectToKoFi() {
+    window.location.href = "https://ko-fi.com/cjajlk";
+  }
 
-    const endGameMusic = document.getElementById("endGameMusic");
+  const endGameMusic = document.getElementById("endGameMusic");
 
-    // Écouteur d'événement pour démarrer la musique après un clic
-    document.addEventListener("click", function() {
-        endGameMusic.play().catch(err => {
-            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
-        });
+  document.addEventListener("click", function () {
+    endGameMusic.play().catch(err => {
+      console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
     });
-
-
+  });
 </script>
+
+ 
+
+
+
 
     
 </body>
