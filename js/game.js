@@ -144,6 +144,11 @@ function loadPlayerProfile() {
         unlockedTitles = profile.unlockedTitles || [];
         equippedTitle = profile.equippedTitle || null;
 
+        if (!localStorage.getItem("equippedMascotte")) {
+    localStorage.setItem("equippedMascotte", "girl1");
+}
+
+
         console.log("🎮 Profil chargé :", profile);
     } else {
         createDefaultProfile();  // Créer un profil par défaut si rien n'est trouvé
@@ -677,7 +682,8 @@ window.updateMenuMascotteId = updateMenuMascotteId;
    ========================================================= */
 
 function getMascotteSprites() {
-    let id = localStorage.getItem("at_mascotteSkin");
+    let id = localStorage.getItem("equippedMascotte");
+
     
     // Vérifie si l'id est défini, sinon on utilise "girl1"
     if (!id) {
