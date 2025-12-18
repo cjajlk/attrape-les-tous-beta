@@ -272,18 +272,22 @@ function spawnOrb() {
     adjustSpawnSpeed();
 }
 
-// 🖤 Spawn de l’orbe Malicious (base)
+// 🖤 Spawn de l'orbe Malicious (base)
 function spawnMaliciousOrb() {
-    maliciousActive = true;
+    targets.push({
+        x: Math.random() * (Game.canvas.width - 80) + 40,
+        y: Math.random() * (Game.canvas.height * 0.5) + 80,
+        radius: 22,
+        clicksNeeded: 2, // base
+        isMalicious: true,
+        img: Game.assets.orb_malicious,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2
+    });
 
-    console.log("🖤 Malicious apparaît");
-    // 🖤 Apparition de Malicious
-    spawnMaliciousOrb();
-
-
-    // Pour l’instant : rien d’autre
-    // On ajoutera le vortex, la position et le sprite ensuite
+    console.log("🖤 Malicious matérialisée");
 }
+
 
 // Fonction pour ajuster la vitesse du spawn en fonction du niveau du joueur
 function adjustSpawnSpeed() {
@@ -3270,20 +3274,7 @@ function rewardGemsAfterAd(amount = 5) {
     }
 }
 
-function spawnMaliciousOrb() {
-    targets.push({
-        x: Math.random() * (canvas.width - 80) + 40,
-        y: Math.random() * (canvas.height * 0.5) + 80,
-        radius: 22,
-        clicksNeeded: 2, // base
-        isMalicious: true,
-        img: assets.orb_malicious,
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: (Math.random() - 0.5) * 1.2
-    });
 
-    console.log("🖤 Malicious matérialisée");
-}
 
 
 
