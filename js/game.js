@@ -738,6 +738,7 @@ let timerSpeed = 0.09;
 let timerBackgroundElapsed = 0;
 const TIMER_BG_INTERVAL = 180; // 3 minutes = 180 secondes
 
+let warningText = null;
 
 let currentMode = "normal";
 
@@ -745,6 +746,7 @@ let currentMode = "normal";
 let maliciousClickCounter = 0;   // Compteur de clics réussis
 let maliciousActive = false;     // Empêche plusieurs Malicious à la fois
 let maliciousTime = 0;
+
 
 
 
@@ -1821,6 +1823,9 @@ function addCoins(amount) {
                maliciousClickCounter = 0;
               spawnMaliciousOrb();
 
+              showWarningText("Soyez vigilant… quelque chose arrive");
+
+
               // 🎯 Gestion du clic sur une orbe
               orb.clicksNeeded--;
 
@@ -2017,6 +2022,12 @@ if (timerBackgroundElapsed >= TIMER_BG_INTERVAL) {
     }
 }
 
+
+
+
+
+
+
 /* ============================================================
    🚀 MODULE DIFFICULTÉ DYNAMIQUE — Version améliorée
    ============================================================ */
@@ -2161,7 +2172,41 @@ for (let i = targets.length - 1; i >= 0; i--) {
 
     loop();
 }
+drawWarningText();
 
+
+}
+
+function drawWarningText() {
+    if (!warningText) return;
+
+    const ctx = Game.ctx;
+    const elapsed = Date.now() - warningText.startTime;
+
+    if (elapsed > warningText.duration) {
+        warningText = null;
+        return;
+    }
+
+    const progress = elapsed / warningText.duration;
+    const alpha = Math.sin(progress * Math.PI); // fade in / out
+    const yOffset = Math.sin(progress * Math.PI) * 8;
+
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.85;
+    ctx.font = "16px 'Poppins', sans-serif";
+    ctx.fillStyle = "#d6b8ff";
+    ctx.textAlign = "center";
+    ctx.shadowColor = "rgba(200,150,255,0.4)";
+    ctx.shadowBlur = 10;
+
+    ctx.fillText(
+        warningText.text,
+        Game.canvas.width / 2,
+        Game.canvas.height * 0.2 - yOffset
+    );
+
+    ctx.restore();
 }
 
 /* =========================================================
@@ -3357,6 +3402,13 @@ function rewardGemsAfterAd(amount = 5) {
     }
 }
 
+function showWarningText(message) {
+    warningText = {
+        text: message,
+        startTime: Date.now(),
+        duration: 1200 // ms
+    };
+}
 
 
 
