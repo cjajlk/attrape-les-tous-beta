@@ -656,6 +656,11 @@ const TIMER_BG_INTERVAL = 180; // 3 minutes = 180 secondes
 
 let currentMode = "normal";
 
+// 🖤 Malicious Orb (spawn)
+let maliciousClickCounter = 0;   // Compteur de clics réussis
+let maliciousActive = false;     // Empêche plusieurs Malicious à la fois
+
+
 // --- MODE COMBO ---
 let comboCount = 0;          // clics consécutifs réussis
 let comboTarget = 3;         // nombre de clics pour valider un combo
@@ -1720,6 +1725,17 @@ function addCoins(amount) {
             playerTotalPoints += gain;
 
             if (score > highScore) highScore = score;
+
+            // 🖤 Compteur Malicious (clics réussis)
+             maliciousClickCounter++;
+
+             // 🖤 Déclenchement Malicious tous les 100 clics
+             if (maliciousClickCounter >= 100 && !maliciousActive) {
+               maliciousClickCounter = 0;
+              spawnMaliciousOrb();
+     }
+
+            
 
             // ⭐ XP
             addXP(gain);
@@ -3240,6 +3256,15 @@ function rewardGemsAfterAd(amount = 5) {
     }
 }
 
+// 🖤 Spawn de l’orbe Malicious (base)
+function spawnMaliciousOrb() {
+    maliciousActive = true;
+
+    console.log("🖤 Malicious apparaît");
+
+    // Pour l’instant : rien d’autre
+    // On ajoutera le vortex, la position et le sprite ensuite
+}
 
 
 
