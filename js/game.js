@@ -2242,25 +2242,25 @@ function drawWarningText() {
 /* =========================================================
    🌟 PROGRESSION NIVEAUX & TIMER
    ========================================================= */
-
 function getNextLevelTarget(level) {
-    // Niveaux 1 à 5 : Progression rapide mais motivante
-    if (level === 1) return 50;    // Niveau 1 : 50 points
-    if (level === 2) return 100;   // Niveau 2 : 100 points
-    if (level === 3) return 200;   // Niveau 3 : 200 points
-    if (level === 4) return 400;   // Niveau 4 : 400 points
-    if (level === 5) return 800;   // Niveau 5 : 800 points
 
-    // Niveaux 6 à 10 : Progression plus marquée
-    if (level === 6) return 1600;  // Niveau 6 : 1600 points
-    if (level === 7) return 2500;  // Niveau 7 : 2500 points
-    if (level === 8) return 4000;  // Niveau 8 : 4000 points
-    if (level === 9) return 6500;  // Niveau 9 : 6500 points
-    if (level === 10) return 10000; // Niveau 10 : 10000 points
+    // Début rapide (nouveaux joueurs)
+    if (level === 1) return 80;
+    if (level === 2) return 160;
+    if (level === 3) return 320;
+    if (level === 4) return 640;
+    if (level === 5) return 1200;
 
-    // Progression encore plus élevée pour les niveaux 11 à 30
-    return Math.floor(10000 * Math.pow(1.2, level - 10)); // Facteur d'augmentation plus faible (1.2)
+    // Progression normale
+    if (level <= 10) {
+        return Math.floor(1200 * Math.pow(1.35, level - 5));
+    }
+
+    // 🛑 Ralentissement volontaire (anti rush lvl 30)
+    // Long terme, beta-friendly
+    return Math.floor(1200 * Math.pow(1.35, 5) * Math.pow(1.18, level - 10));
 }
+
 
 
 
@@ -3317,12 +3317,6 @@ function updateXP() {
     xpToNext = getPointsForLevel(playerLevel + 1);  // Niveau suivant
     console.log(`Prochain niveau nécessite ${xpToNext} points.`);
 }
-
-
-
-
-
-
 
 // Fonction qui vérifie si le joueur a atteint le niveau maximum
 function isSeasonLevelCapped() {
