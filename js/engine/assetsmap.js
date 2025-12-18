@@ -19,7 +19,7 @@ function buildAssetsMap(GameData) {
         { id: "background", src: bg.img },
         { id: "orb", src: orbe.img },
         { id: "mascotte", src: mascotte.img },
-        { id: "orb_malicious", src: "assets/orbes/orb_malicious.png" }, // 👈 AJOUT
+        { id: "orb_malicious_idle", src: "assets/orbes/orb_malicious_idle.png" },
 
         { id: "menuMascotteIdle",  src: menuLyra.idle  },
         { id: "menuMascotteBlink", src: menuLyra.blink },
