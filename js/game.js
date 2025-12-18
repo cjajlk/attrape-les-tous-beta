@@ -321,6 +321,8 @@ function getColorForLevel(level) {
 
 // Fonction d'affichage des orbes avec la couleur appliquée
 function drawOrb(orb) {
+    console.log("Malicious img =", orb.img, orb.img instanceof Image);
+
     const ctx = Game.canvas.getContext("2d");
 
     // Dessine l'orbe avec la couleur associée
@@ -331,9 +333,10 @@ function drawOrb(orb) {
     ctx.closePath();
 
     // Affiche l'image de l'orbe si disponible
-    if (orb.img) {
-        ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
-    }
+if (orb.img instanceof Image) {
+    ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
+}
+
 }
 
 // Initialisation du spawn des orbes avec un intervalle dynamique
@@ -440,7 +443,8 @@ function buildAssetsMap(GameData) {
     return [
         { id: "background", src: bg.img },
         { id: "orb", src: orbe.img },
-        { id: "mascotte", src: mascotte.img }
+        { id: "mascotte", src: mascotte.img },
+        { id: "orb_malicious", src: "assets/orbes/orb_malicious.png" } // 👈 AJOUT
     ];
 }
 
@@ -616,12 +620,13 @@ async function startGame(GameData) {
     const assetList = buildAssetsMap(GameData);
     await GameAssets.load(assetList);
 
-    Game.assets = {
-        background: GameAssets.images.background,
-        orb: GameAssets.images.orb,
-        orb_malicious: "assets/orbes/orb_malicious.png", // 👈 Malicious
-        mascotte: GameAssets.images.mascotte
-    };
+   Game.assets = {
+  background: GameAssets.images.background,
+  orb: GameAssets.images.orb,
+  orb_malicious: GameAssets.images.orb_malicious, // 👈 IMAGE CHARGÉE
+  mascotte: GameAssets.images.mascotte
+};
+
 
     initRender();
 }
