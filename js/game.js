@@ -1791,21 +1791,7 @@ if (totalComboSuccess === 5 || totalComboSuccess === 10 || totalComboSuccess % 2
         // Effet graphique optionnel
         showComboEffect(totalComboSuccess);
 
-        // ⭐️ BONUS GEM toutes les 10 combos
-        if (totalComboSuccess % 10 === 0) {
-
-            addGems(1);   
-            spawnFloatText(cx, cy, "💎 +1 Gem !", "cyan");
-
-            // On active le petit +1 dans le HUD
-            comboGemBonus = true;
-            updateHUD();
-
-            setTimeout(() => {
-                comboGemBonus = false;
-                updateHUD();
-            }, 600);
-        }
+       
 
     }
 
@@ -3227,6 +3213,26 @@ window.onload = function() {
         }
     }, 5000); // Délai de 5 secondes avant la disparition
 };
+
+// 🎥 Récompense après pub (base)
+function rewardGemsAfterAd(amount = 5) {
+    if (typeof addGems === "function") {
+        addGems(amount);
+        updateHUD();
+
+        // Petit feedback visuel optionnel
+        if (typeof spawnFloatText === "function") {
+            spawnFloatText(
+                window.innerWidth / 2,
+                window.innerHeight / 2,
+                `💎 +${amount} Gemmes`,
+                "cyan"
+            );
+        }
+
+        console.log(`🎥 Pub regardée → +${amount} gemmes`);
+    }
+}
 
 
 
