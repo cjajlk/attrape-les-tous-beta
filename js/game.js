@@ -274,17 +274,34 @@ function spawnOrb() {
 
 // 🖤 Spawn de l'orbe Malicious (base)
 function spawnMaliciousOrb() {
+    if (!Game.assets.orb_malicious) {
+        console.warn("❌ Image Malicious non chargée");
+        return;
+    }
+
+    const size = 60; // ← un peu plus grande pour bien la voir
+
     targets.push({
-        x: Math.random() * (Game.canvas.width - 80) + 40,
-        y: Math.random() * (Game.canvas.height * 0.5) + 80,
-        radius: 22,
-        size: 44,
-        clicksNeeded: 2, // base
+        x: Math.random() * (Game.canvas.width - size),
+        y: Math.random() * (Game.canvas.height * 0.5),
+        size: size,
+        clicksNeeded: 2,
         isMalicious: true,
-        img: Game.assets.orb_malicious,
+        img: Game.assets.orb_malicious, // ✅ Image déjà chargée
         vx: (Math.random() - 0.5) * 1.2,
         vy: (Math.random() - 0.5) * 1.2
+
+       
+
     });
+
+     if (t.isMalicious) {
+    ctx.save();
+    ctx.shadowColor = "rgba(180,100,255,0.8)";
+    ctx.shadowBlur = 25;
+    ctx.drawImage(t.img, t.x, t.y, t.size, t.size);
+    ctx.restore();
+}
 
     console.log("🖤 Malicious matérialisée");
 }
@@ -2029,9 +2046,10 @@ for (let i = targets.length - 1; i >= 0; i--) {
     /* ---------------------------------------------------------
        🎨 2) DESSIN
        --------------------------------------------------------- */
-    if (t.img) {
-        ctx.drawImage(t.img, t.x, t.y, t.size, t.size);
-    }
+     if (t.img instanceof Image && t.img.complete) {
+    ctx.drawImage(t.img, t.x, t.y, t.size, t.size);
+}
+
 
     /* ---------------------------------------------------------
        ⏳ 3) LIFETIME + MISS SYSTEM
