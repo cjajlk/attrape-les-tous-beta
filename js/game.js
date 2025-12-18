@@ -1786,13 +1786,7 @@ function addCoins(amount) {
               // 🎯 Gestion du clic sur une orbe
               orb.clicksNeeded--;
 
-              if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "angry") {
-  orb.expression = "angry";
-  orb.img = Game.assets.orb_malicious_angry;
-  console.log("😠 Malicious passe en colère");
-}
-
-
+            
               // 😠 Passage en colère juste avant le dernier clic
              if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "anger") {
             orb.expression = "anger";
