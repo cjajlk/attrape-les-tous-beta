@@ -283,7 +283,8 @@ function spawnOrb() {
     return;
   }
 
-  const size = 60;
+     const size = window.innerWidth < 820 ? 95 : 120;
+
 
   targets.push({
     x: Math.random() * (Game.canvas.width - size),
@@ -1872,10 +1873,33 @@ function addCoins(amount) {
             spawnFloatText(cx, cy, gain);
             spawnShockwave(cx, cy);
 
-            // Supprimer orbe
-            targets.splice(i, 1);
+            // 🖤 CAS MALICIOUS
+       if (t.isMalicious) {
 
-            touched = true;
+    t.clicksNeeded--;
+
+    // Passage en colère juste avant le dernier clic
+    if (t.clicksNeeded === 1 && t.expression !== "anger") {
+        t.expression = "anger";
+        t.img = Game.assets.orb_malicious_angry;
+
+        showWarningText("⚠️ Elle se déchaîne…");
+    }
+
+    // Dernier clic → destruction
+    if (t.clicksNeeded <= 0) {
+        targets.splice(i, 1);
+    }
+
+    touched = true;
+    continue; // ⛔ empêche le code normal de s’exécuter
+}
+
+// 💠 ORBES NORMALES (1 clic)
+targets.splice(i, 1);
+touched = true;
+
+
         }
     }
 
