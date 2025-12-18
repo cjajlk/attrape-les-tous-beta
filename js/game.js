@@ -645,6 +645,9 @@ let isGamePaused = false;
 
 let timerValue = 100;
 let timerSpeed = 0.09;
+let timerBackgroundElapsed = 0;
+const TIMER_BG_INTERVAL = 180; // 3 minutes = 180 secondes
+
 
 let currentMode = "normal";
 
