@@ -278,6 +278,7 @@ function spawnMaliciousOrb() {
         x: Math.random() * (Game.canvas.width - 80) + 40,
         y: Math.random() * (Game.canvas.height * 0.5) + 80,
         radius: 22,
+        size: 44,
         clicksNeeded: 2, // base
         isMalicious: true,
         img: Game.assets.orb_malicious,
@@ -332,11 +333,13 @@ function drawOrb(orb) {
     ctx.fill();
     ctx.closePath();
 
+    console.log("Malicious img =", orb.img, orb.img instanceof Image);
+
     // Affiche l'image de l'orbe si disponible
 if (orb.img instanceof Image) {
     ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
 }
-    console.log("Malicious img =", orb.img, orb.img instanceof Image);
+    
 
 }
 
