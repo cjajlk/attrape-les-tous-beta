@@ -619,7 +619,7 @@ async function startGame(GameData) {
     Game.assets = {
         background: GameAssets.images.background,
         orb: GameAssets.images.orb,
-        orb_malicious: GameAssets.images.orb_malicious, // 👈 Malicious
+        orb_malicious: "assets/orbes/orb_malicious.png", // 👈 Malicious
         mascotte: GameAssets.images.mascotte
     };
 
