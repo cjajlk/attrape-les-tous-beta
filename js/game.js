@@ -273,34 +273,29 @@ function spawnOrb() {
 }
 
 // 🖤 Spawn de l'orbe Malicious
-function spawnMaliciousOrb() {
+    function spawnMaliciousOrb() {
+  if (!Game.assets.orb_malicious_idle) {
+    console.warn("❌ Image Malicious idle non chargée");
+    return;
+  }
 
-    if (!Game.assets.orb_malicious) {
-        console.warn("❌ Image Malicious non chargée");
-        return;
-    }
+  const size = 60;
 
-    const size = 60; // un peu plus grande
+  targets.push({
+    x: Math.random() * (Game.canvas.width - size),
+    y: Math.random() * (Game.canvas.height * 0.5),
+    size,
+    clicksNeeded: 2,
+    isMalicious: true,
+    expression: "malice",
+    img: Game.assets.orb_malicious_idle,
+    vx: (Math.random() - 0.5) * 1.2,
+    vy: (Math.random() - 0.5) * 1.2
+  });
 
-    targets.push({
-        x: Math.random() * (Game.canvas.width - size),
-        y: Math.random() * (Game.canvas.height * 0.5),
-        size: size,
-        radius: size / 2,
-
-        clicksNeeded: 2,
-        isMalicious: true,
-
-        expression: "malice", // 😈 état initial
-        img: Game.assets.orb_malicious,
-        imgAngry: Game.assets.orb_malicious_anger,
-
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: (Math.random() - 0.5) * 1.2
-    });
-
-    console.log("🖤 Malicious matérialisée");
+  console.log("😈 Malicious matérialisée (malice)");
 }
+
 
 
 
@@ -649,12 +644,14 @@ async function startGame(GameData) {
     const assetList = buildAssetsMap(GameData);
     await GameAssets.load(assetList);
 
-   Game.assets = {
+     Game.assets = {
   background: GameAssets.images.background,
   orb: GameAssets.images.orb,
-  orb_malicious: GameAssets.images.orb_malicious, // 👈 IMAGE CHARGÉE
+  orb_malicious_idle: GameAssets.images.orb_malicious_idle,
+  orb_malicious_angry: GameAssets.images.orb_malicious_angry,
   mascotte: GameAssets.images.mascotte
 };
+
 
 
     initRender();
@@ -1788,6 +1785,13 @@ function addCoins(amount) {
 
               // 🎯 Gestion du clic sur une orbe
               orb.clicksNeeded--;
+
+              if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "angry") {
+  orb.expression = "angry";
+  orb.img = Game.assets.orb_malicious_angry;
+  console.log("😠 Malicious passe en colère");
+}
+
 
               // 😠 Passage en colère juste avant le dernier clic
              if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "anger") {
