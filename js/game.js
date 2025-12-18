@@ -1167,11 +1167,11 @@ if (xpText) {
     const pointsRemaining = Math.max(0, xpToNext - playerTotalPoints); 
 
     // Affichage des informations
-    xpText.textContent = `Niv. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (${pointsRemaining} points restants)`;
+    xpText.textContent = `lvl. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (${pointsRemaining} points restants)`;
 
     // Si le niveau est atteint, afficher "Niveau atteint !"
     if (pointsRemaining === 0 && playerTotalPoints >= xpToNext) {
-        xpText.textContent = `Niv. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (Niveau atteint !)`;
+        xpText.textContent = `lvl. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (Niveau atteint !)`;
     }
 }     
 
@@ -1635,11 +1635,11 @@ function addCoins(amount) {
         const pointsRemaining = Math.max(0, xpToNext - playerTotalPoints); // Éviter les points négatifs
 
         // Affichage du texte avec les points restants
-        xpText.textContent = `Niv. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (${pointsRemaining} points restants)`;
+        xpText.textContent = `lvl. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (${pointsRemaining} points restants)`;
 
         // Afficher si le niveau est atteint
         if (pointsRemaining === 0 && playerTotalPoints >= xpToNext) {
-            xpText.textContent = `Niv. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (Niveau atteint !)`;
+            xpText.textContent = `lvl. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (Niveau atteint !)`;
         }
     }
 
@@ -3157,11 +3157,11 @@ if (xpText) {
     const pointsRemaining = Math.max(0, xpToNext - playerTotalPoints); 
 
     // Affichage des informations
-    xpText.textContent = `Niv. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (${pointsRemaining} points restants)`;
+    xpText.textContent = `lvl. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (${pointsRemaining} points restants)`;
 
     // Si le niveau est atteint, afficher "Niveau atteint !"
     if (pointsRemaining === 0 && playerTotalPoints >= xpToNext) {
-        xpText.textContent = `Niv. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (Niveau atteint !)`;
+        xpText.textContent = `lvl. ${playerLevel} - ${playerTotalPoints} / ${xpToNext} Points (Niveau atteint !)`;
     }
 }
 

@@ -1147,11 +1147,7 @@ html, body {
 
 @media (max-width: 600px) {
 
-    #mainMenu .menu-panel {
-        width: 95%;
-        margin: 0 auto;
-        transform: translateY(0);
-    }
+   
 
    
 
@@ -1363,19 +1359,7 @@ canvas {
     pointer-events: none;
 }
 
-.menu-panel {
-    background: rgba(40, 30, 80, 0.35);
-    border: 1px solid rgba(160, 140, 255, 0.35);
-    padding: 40px 60px;
-    border-radius: 30px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 40px rgba(120, 90, 255, 0.25);
-    text-align: center;
-    animation: menuFade 0.6s ease forwards;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Assure que les éléments soient espacés uniformément */
-}
+
 
 @keyframes menuFade {
     from { transform: translateY(20px); opacity: 0; }
@@ -1500,10 +1484,7 @@ canvas {
 /* AJUSTEMENT MENU RESPONSIVE */
 @media (max-width: 900px) {
 
-    .menu-panel {
-        width: 90%;
-        padding: 20px 20px !important;
-    }
+   
 
     .menu-btn {
         width: 100% !important;
@@ -1545,13 +1526,43 @@ canvas {
     pointer-events: none !important;
 }
 
-/* Rendre le menu panel fluide */
+/* Menu panel - Version générale */
 .menu-panel {
-    width: 90%;
-    max-width: 480px;
+   
+    max-width: 480px; /* Limite la largeur sur les grands écrans */
     padding: 25px 20px !important;
     box-sizing: border-box;
+    background: rgba(40, 30, 80, 0.35);
+    border: 1px solid rgba(160, 140, 255, 0.35);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 40px rgba(120, 90, 255, 0.25);
+    text-align: center;
+    animation: menuFade 0.6s ease forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    left: 10%; /* Positionnement de base, peut être ajusté */
 }
+
+/* Version mobile */
+@media (max-width: 600px) {
+    .menu-panel {
+        width: 85%; /* Ajuste la largeur pour plus de fluidité */
+        padding: 20px 15px !important; /* Moins d'espace sur mobile */
+        margin: 0 auto; /* Recentre sur mobile */
+    }
+}
+/* Version tablette */
+@media (max-width: 768px) {
+    .menu-panel {
+        
+        left: -5%; /* Ajuste légèrement pour être mieux centré */
+    }
+}
+
+
 
 /* Titre adaptatif */
 .menu-title {
@@ -1707,77 +1718,52 @@ canvas {
     pointer-events: auto !important;
 }
 
+/* Bannière événement */
 #eventBanner {
-    position: fixed;
-    bottom: 390px;
-    left: 0;
-    width: 50%;
-    height: 80px;
+    position: absolute;
+    top: 90px; /* Ajuste cette valeur pour placer la bannière juste sous le menu */
+    left: 50%;
+    transform: translateX(-50%); /* Centrer horizontalement */
+    width: 80%; /* Adapte la largeur de la bannière */
+    height: 25px; /* Réduit la hauteur du cadre */
     background: rgba(10, 5, 25, 0.65);
     border-top: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-
     padding: 10px 20px;
     z-index: 10; /* Au-dessus du décor, sous la mascotte */
 }
 
-#eventBanner img {
-    height: 80px;
-    width: auto;
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(180,140,255,0.5);
-}
-
+/* Style du texte */
 #eventBanner p {
     color: #fff;
-    font-size: 26px;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(200,160,255,0.8);
+    font-size: 18px; /* Ajuste la taille du texte */
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(200,160,255,0.8); /* Améliore la lisibilité du texte */
 }
 
-/* 📱 Version Mobile */
+/* Version mobile */
 @media (max-width: 600px) {
     #eventBanner {
-        position: absolute;
-        top: 625px; /* Ajuste cette valeur pour positionner la bannière correctement */
+        top: 82px; /* Ajuste cette valeur pour positionner la bannière correctement */
         left: 50%;
-        transform: translateX(-40%); /* Centre la bannière horizontalement */
+        transform: translateX(-50%);
         flex-direction: column;
         text-align: center;
         gap: 10px;
         padding: 8px 10px;
-        z-index: 10; /* Assure que la bannière est au-dessus des autres éléments */
+        z-index: 10;
         max-width: 100%; /* Réduit la largeur maximale sur mobile */
     }
 
-     #eventBanner img {
-        position: absolute;
-        top: 50px; /* Ajuste la position verticale de l'image */
-        left: 1px; /* Ajuste la position horizontale de l'image */
-        width: 25%;  /* Ajuste la largeur de l'image (change ce pourcentage) */
-        height: auto;  /* Laisse l'image se redimensionner proportionnellement */
-    }
-
     #eventBanner p {
-        font-size: 12px; /* Réduit la taille du texte */
-    }
-
-    
-}
-
-/* Réduire les boutons dans le gameplay sur mobile */
-@media (max-width: 600px) {
-    #pauseBtn, #musicBtn, #quitBtn {
-        width: 10px; /* Réduit la largeur */
-        height: 10px; /* Réduit la hauteur */
-        font-size: 0.8rem; /* Réduit la taille du texte */
+        font-size: 12px; /* Réduit la taille du texte pour mobile */
     }
 }
+
 
 /* Ajuste le z-index pour la notification de niveau */
 #levelUpNotification {

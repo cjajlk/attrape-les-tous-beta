@@ -2,9 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>Attrape-les-tous</title>
     <link rel="stylesheet" href="style.css" />
  </head>
@@ -24,6 +22,11 @@
         <div class="menu-panel">
             <h1 class="menu-title">Attrape-les-tous</h1>
 
+            <!-- 🎄 BANNIÈRE ÉVÉNEMENT -->
+    <div id="eventBanner">
+        <p>🎄 Événement de Noël —  disponible en boutique  ! 🎁 gratuit</p>
+    </div>
+
              <!-- Annonce Bêta -->
     <div id="betaAnnouncement" class="announcement">
     <p><strong>Bienvenue dans la version Bêta d'Attrape-les-tous !</strong></p>
@@ -36,7 +39,8 @@
         <div id="seasonBanner" class="season-banner">
             <span class="season-label">🔥 Saison 1 • Nuit des Orbes 🔥</span>
         </div>
-
+    
+         
 
             <div id="playerBadge" class="player-badge hidden"></div>
 
@@ -53,11 +57,7 @@
 
     <div id="menuBottomEffect"></div>
 
-    <!-- 🎄 BANNIÈRE ÉVÉNEMENT -->
-    <div id="eventBanner">
-        <img src="assets/evenements/noel/event_noel.png" alt="Événement Noël">
-        <p>🎄 Événement de Noël —  disponible en boutique  ! 🎁 gratuit</p>
-    </div>
+   
 
     <!-- 🌙 Mascotte du menu -->
     <div id="menuMascotteContainer">
@@ -86,7 +86,7 @@
 
     <!-- HUD XP -->
     <div id="xpHud" class="xp-hud">
-        <span id="xpText" class="xp-text">Niv. 1 – 0 / 100XP</span>
+        <span id="xpText" class="xp-text">lvl. 1 – 0 / 100XP</span>
 
         <div class="xp-bar-container">
             <div id="xpBarFill" class="xp-bar-fill"></div>
