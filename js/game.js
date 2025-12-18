@@ -272,39 +272,36 @@ function spawnOrb() {
     adjustSpawnSpeed();
 }
 
-// 🖤 Spawn de l'orbe Malicious (base)
+// 🖤 Spawn de l'orbe Malicious
 function spawnMaliciousOrb() {
+
     if (!Game.assets.orb_malicious) {
         console.warn("❌ Image Malicious non chargée");
         return;
     }
 
-    const size = 60; // ← un peu plus grande pour bien la voir
+    const size = 60; // un peu plus grande
 
     targets.push({
         x: Math.random() * (Game.canvas.width - size),
         y: Math.random() * (Game.canvas.height * 0.5),
         size: size,
+        radius: size / 2,
+
         clicksNeeded: 2,
         isMalicious: true,
-        img: Game.assets.orb_malicious, // ✅ Image déjà chargée
+
+        expression: "malice", // 😈 état initial
+        img: Game.assets.orb_malicious,
+        imgAngry: Game.assets.orb_malicious_anger,
+
         vx: (Math.random() - 0.5) * 1.2,
         vy: (Math.random() - 0.5) * 1.2
-
-       
-
     });
-
-     if (t.isMalicious) {
-    ctx.save();
-    ctx.shadowColor = "rgba(180,100,255,0.8)";
-    ctx.shadowBlur = 25;
-    ctx.drawImage(t.img, t.x, t.y, t.size, t.size);
-    ctx.restore();
-}
 
     console.log("🖤 Malicious matérialisée");
 }
+
 
 
 // Fonction pour ajuster la vitesse du spawn en fonction du niveau du joueur
@@ -337,28 +334,39 @@ function getColorForLevel(level) {
     }
 }
 
-// Fonction d'affichage des orbes avec la couleur appliquée
-function drawOrb(orb) {
-  
+      // 🎨 Affichage des orbes
+     function drawOrb(orb) {
 
     const ctx = Game.canvas.getContext("2d");
 
-    // Dessine l'orbe avec la couleur associée
+    // 🖤 CAS MALICIOUS — image uniquement
+    if (orb.isMalicious && orb.img instanceof Image) {
+        ctx.save();
+        ctx.shadowColor = "rgba(180,100,255,0.8)";
+        ctx.shadowBlur = 25;
+        ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
+        ctx.restore();
+        return; // ⛔ on sort ici
+    }
+
+    // 🔵 CAS ORBES CLASSIQUES — cercle + image
     ctx.beginPath();
-    ctx.arc(orb.x + orb.size / 2, orb.y + orb.size / 2, orb.size / 2, 0, Math.PI * 2);
-    ctx.fillStyle = orb.color;  // Utilise la couleur définie par le niveau
+    ctx.arc(
+        orb.x + orb.size / 2,
+        orb.y + orb.size / 2,
+        orb.size / 2,
+        0,
+        Math.PI * 2
+    );
+    ctx.fillStyle = orb.color || "#ffffff"; // sécurité
     ctx.fill();
     ctx.closePath();
 
-    console.log("Malicious img =", orb.img, orb.img instanceof Image);
-
-    // Affiche l'image de l'orbe si disponible
-if (orb.img instanceof Image) {
-    ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
+    if (orb.img instanceof Image) {
+        ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
+    }
 }
-    
 
-}
 
 // Initialisation du spawn des orbes avec un intervalle dynamique
 let spawnIntervalId = setInterval(spawnOrb, spawnInterval);  // Démarre avec l'intervalle initial
@@ -1777,6 +1785,18 @@ function addCoins(amount) {
              if (maliciousClickCounter >= 100 && !maliciousActive) {
                maliciousClickCounter = 0;
               spawnMaliciousOrb();
+
+              // 🎯 Gestion du clic sur une orbe
+              orb.clicksNeeded--;
+
+              // 😠 Passage en colère juste avant le dernier clic
+             if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "anger") {
+            orb.expression = "anger";
+            orb.img = orb.imgAngry;
+
+             console.log("😠 Malicious entre en colère");
+        }
+
      }
 
             
