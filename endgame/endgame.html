@@ -145,6 +145,22 @@ body {
   }
 }
 
+.btn-tertiary {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tertiary:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+
 
 
 
@@ -227,19 +243,22 @@ body {
       et soutenir le projet.
     </p>
     <p>Un grand merci pour votre soutien 💜</p>
-    <button onclick="redirectToKoFi()">Continuer</button>
+     <button class="btn-tertiary" onclick="redirectToKoFi()">Continuer</button>
+
   </div>
 </div>
 
 
 <script>
   function quitGame() {
-    document.getElementById("quitModal").classList.remove("hidden");
-  }
+  const modal = document.getElementById("quitModal");
+  modal.classList.remove("hidden");
+  modal.style.display = "flex";
+}
 
-  function redirectToKoFi() {
-    window.location.href = "https://ko-fi.com/cjajlk";
-  }
+function redirectToKoFi() {
+  window.location.href = "https://ko-fi.com/cjajlk";
+}
 
   const endGameMusic = document.getElementById("endGameMusic");
 
