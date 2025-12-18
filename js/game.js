@@ -153,6 +153,10 @@ function loadPlayerProfile() {
     } else {
         createDefaultProfile();  // Créer un profil par défaut si rien n'est trouvé
     }
+
+     // 🔁 Restauration des équipements
+    equippedMascotte = localStorage.getItem("equippedMascotte") || "girl1";
+    equippedOrb = localStorage.getItem("equippedOrb") || null;
 }
 
 
@@ -767,6 +771,8 @@ let stopMenuMascotteAnimation = false;
 
 let mascotteState = "idle";  // État initial
 let mascotteTimer = null;
+let equippedMascotte = null;
+let equippedOrb = null;
 
 window.updateMenuMascotteId = updateMenuMascotteId;
 

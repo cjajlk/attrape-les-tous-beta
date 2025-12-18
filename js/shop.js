@@ -490,6 +490,7 @@ function handlePurchase(item, type) {
     if (type === "mascotte" && ownedMascotte.includes(item.id)) {
         equippedMascotte = item.id;
         localStorage.setItem("equippedMascotte", equippedMascotte);
+        window.equippedMascotte = equippedMascotte; // 🔥 ETAPE 3
         updateShop();
         return;
     }
@@ -497,7 +498,7 @@ function handlePurchase(item, type) {
     if (type === "orbe" && ownedOrbs.includes(item.id)) {
         equippedOrb = item.id;
         localStorage.setItem("equippedOrb", equippedOrb);
-        window.equippedOrb = equippedOrb;
+        window.equippedOrb = equippedOrb; // 🔥 ETAPE 3
         updateShop();
         return;
     }
