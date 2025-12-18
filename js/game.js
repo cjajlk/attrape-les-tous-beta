@@ -329,38 +329,74 @@ function getColorForLevel(level) {
     }
 }
 
-      // 🎨 Affichage des orbes
-     function drawOrb(orb) {
-
+     // 🎨 Fonction d'affichage des orbes
+function drawOrb(orb) {
     const ctx = Game.canvas.getContext("2d");
 
-    // 🖤 CAS MALICIOUS — image uniquement
-    if (orb.isMalicious && orb.img instanceof Image) {
-        ctx.save();
-        ctx.shadowColor = "rgba(180,100,255,0.8)";
-        ctx.shadowBlur = 25;
-        ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
-        ctx.restore();
-        return; // ⛔ on sort ici
+    // 🌀 Temps interne pour animations
+    maliciousTime++;
+
+    // -----------------------------
+    // 🎯 PARAMÈTRES PAR DÉFAUT
+    // -----------------------------
+    let rotationSpeed = 0;
+    let scale = 1;
+    let alpha = 1;
+    let shadowBlur = 0;
+    let shadowColor = "transparent";
+
+    // -----------------------------
+    // 😈 MALICIOUS – états visuels
+    // -----------------------------
+    if (orb.isMalicious) {
+
+        if (orb.expression === "anger") {
+            // 🔥 COLÈRE (dernier clic)
+            rotationSpeed = 0.018;
+            scale = 1.05 + Math.sin(maliciousTime * 0.05) * 0.06;
+            alpha = 1;
+            shadowBlur = 32;
+            shadowColor = "rgba(210,150,255,0.9)";
+        } else {
+            // 🌀 MALICE (état normal)
+            rotationSpeed = 0.006;
+            scale = 1 + Math.sin(maliciousTime * 0.02) * 0.04;
+            alpha = 0.85;
+            shadowBlur = 18;
+            shadowColor = "rgba(180,120,255,0.6)";
+        }
     }
 
-    // 🔵 CAS ORBES CLASSIQUES — cercle + image
-    ctx.beginPath();
-    ctx.arc(
-        orb.x + orb.size / 2,
-        orb.y + orb.size / 2,
-        orb.size / 2,
-        0,
-        Math.PI * 2
-    );
-    ctx.fillStyle = orb.color || "#ffffff"; // sécurité
-    ctx.fill();
-    ctx.closePath();
+    // -----------------------------
+    // 🎨 DESSIN
+    // -----------------------------
+    ctx.save();
 
+    ctx.globalAlpha = alpha;
+    ctx.shadowBlur = shadowBlur;
+    ctx.shadowColor = shadowColor;
+
+    const cx = orb.x + orb.size / 2;
+    const cy = orb.y + orb.size / 2;
+
+    ctx.translate(cx, cy);
+    ctx.rotate(maliciousTime * rotationSpeed);
+    ctx.scale(scale, scale);
+
+    // 🖼️ Image de l’orbe
     if (orb.img instanceof Image) {
-        ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
+        ctx.drawImage(
+            orb.img,
+            -orb.size / 2,
+            -orb.size / 2,
+            orb.size,
+            orb.size
+        );
     }
+
+    ctx.restore();
 }
+
 
 
 // Initialisation du spawn des orbes avec un intervalle dynamique
@@ -708,6 +744,8 @@ let currentMode = "normal";
 // 🖤 Malicious Orb (spawn)
 let maliciousClickCounter = 0;   // Compteur de clics réussis
 let maliciousActive = false;     // Empêche plusieurs Malicious à la fois
+let maliciousTime = 0;
+
 
 
 // --- MODE COMBO ---
