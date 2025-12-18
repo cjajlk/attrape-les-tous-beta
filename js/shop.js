@@ -13,8 +13,7 @@ let ownedBackgrounds = JSON.parse(localStorage.getItem("ownedBackgrounds")) || [
 let ownedPacks       = JSON.parse(localStorage.getItem("ownedPacks"))       || [];
 
 // Équipés
-let equippedMascotte   = localStorage.getItem("equippedMascotte")   || "girl1";
-let equippedOrb        = localStorage.getItem("equippedOrb")        || "orb_blue";
+
 let equippedBackground = localStorage.getItem("equippedBackground") || "normal1";
 
 // Onglet courant
