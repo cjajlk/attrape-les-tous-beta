@@ -321,7 +321,7 @@ function getColorForLevel(level) {
 
 // Fonction d'affichage des orbes avec la couleur appliquée
 function drawOrb(orb) {
-    console.log("Malicious img =", orb.img, orb.img instanceof Image);
+  
 
     const ctx = Game.canvas.getContext("2d");
 
@@ -336,6 +336,7 @@ function drawOrb(orb) {
 if (orb.img instanceof Image) {
     ctx.drawImage(orb.img, orb.x, orb.y, orb.size, orb.size);
 }
+    console.log("Malicious img =", orb.img, orb.img instanceof Image);
 
 }
 
