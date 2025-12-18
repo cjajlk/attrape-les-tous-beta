@@ -20,6 +20,9 @@ function buildAssetsMap(GameData) {
         { id: "orb", src: orbe.img },
         { id: "mascotte", src: mascotte.img },
         { id: "orb_malicious_idle", src: "assets/orbes/orb_malicious_idle.png" },
+        { id: "orb_malicious_idle",  src: "assets/orbes/orb_malicious_idle.png" },
+        { id: "orb_malicious_angry", src: "assets/orbes/orb_malicious_angry.png" },
+
 
         { id: "menuMascotteIdle",  src: menuLyra.idle  },
         { id: "menuMascotteBlink", src: menuLyra.blink },
