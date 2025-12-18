@@ -63,6 +63,74 @@
         transform: translateY(-15px); /* Limiter le mouvement vertical */
     }
 }
+ 
+ .endgame-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 5vh;
+  padding: 0 16px;
+}
+
+.endgame-content h1 {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  margin-bottom: 8px;
+}
+
+.endgame-content .subtitle {
+  opacity: 0.85;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.endgame-video {
+  width: 140px;
+  max-width: 60vw;
+  border-radius: 12px;
+  margin: 12px auto 20px;
+  display: block;
+}
+
+/* Zone boutons FIXE et visible */
+.endgame-actions {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 5;
+}
+
+.endgame-actions button {
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #7c5cff, #9b7bff);
+  color: white;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Desktop : boutons un peu plus bas */
+@media (min-width: 768px) {
+  .endgame-actions {
+    bottom: 24px;
+  }
+}
+
 
 
 
@@ -72,51 +140,68 @@
 <body>
 
  
-    <h1>Merci d’avoir joué à *Attrape-les-tous* !</h1>
-    <p>À bientôt, l’aventure continue…</p>
+  <!-- 🌙 ÉCRAN DE FIN -->
+<div class="endgame-content">
 
-    <!-- Vidéo de fin (Goodbye) -->
-<video width="110" height="200" controls>
-  <source src="/attrape-les-tous-beta/assets/video/fin.mp4" type="video/mp4">
-  Votre navigateur ne prend pas en charge la balise vidéo.
-</video>
-   
+  <h1 class="endgame-title">
+    Merci d’avoir joué à <span>Attrape-les-tous</span> !
+  </h1>
 
+  <p class="endgame-subtitle">
+    À bientôt, l’aventure continue…
+  </p>
 
-    <!-- Mascottes -->
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/alia.png" class="mascotte mascotte1" alt="Alia" />
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/cjajlk.png" class="mascotte mascotte2" alt="CJ" />
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/lyra.png" class="mascotte mascotte3" alt="Lyra" />
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/girl9.png" class="mascotte mascotte4" alt="Lyra" />
+  <!-- 🎬 Vidéo de fin -->
+  <video class="endgame-video" controls playsinline>
+    <source src="/attrape-les-tous-beta/assets/video/fin.mp4" type="video/mp4">
+    Votre navigateur ne prend pas en charge la vidéo.
+  </video>
 
-    
+  <!-- 🧍 Mascotte centrale -->
+  <div class="endgame-mascotte">
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/alia.png"
+      alt="Alia"
+    />
+  </div>
 
-
- 
-    <button onclick="window.location.href='/attrape-les-tous-beta/index.html'">
-    Retour au menu principal
-</button>
-
-    <button id="quitBtn" onclick="quitGame()">Quitter</button>
-
-<div id="quitModal" style="display:none;">
-    <div style="background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; text-align: center;">
-        <h2>Merci d'avoir joué à *Attrape-les-tous* !</h2>
-        <p>Vous serez bientôt redirigé vers la page du créateur pour en savoir plus et soutenir le projet.</p>
-        <p>Un grand merci pour votre soutien !</p>
-        <button onclick="redirectToKoFi()">Continuer</button>
-    </div>
 </div>
 
+<!-- 🎮 ACTIONS (FIXES EN BAS) -->
+<div class="endgame-actions">
+  <button
+    class="btn-primary"
+    onclick="window.location.href='/attrape-les-tous-beta/index.html'"
+  >
+    Retour au menu principal
+  </button>
 
+  <button
+    class="btn-secondary"
+    onclick="quitGame()"
+  >
+    Quitter
+  </button>
+</div>
 
-<!-- Musique de fond en boucle -->
-<audio id="endGameMusic" loop>
-    <source src="/attrape-les-tous-beta/assets/audio/intro_theme.mp3" type="audio/mp3">
-    Votre navigateur ne supporte pas l'élément audio.
+<!-- 🎵 Musique de fond -->
+<audio id="endGameMusic" loop autoplay>
+  <source src="/attrape-les-tous-beta/assets/audio/intro_theme.mp3" type="audio/mp3">
 </audio>
 
-
+<!-- 🧾 MODAL DE SORTIE -->
+<div id="quitModal" class="quit-modal hidden">
+  <div class="quit-modal-content">
+    <h2>Merci d’avoir joué à Attrape-les-tous</h2>
+    <p>
+      Vous serez bientôt redirigé vers la page du créateur pour en savoir plus
+      et soutenir le projet.
+    </p>
+    <p>Un grand merci pour votre soutien 💜</p>
+    <button onclick="redirectToKoFi()">Continuer</button>
+  </div>
+</div>
+ 
 
     
 
