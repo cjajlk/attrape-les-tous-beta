@@ -277,6 +277,9 @@ function spawnMaliciousOrb() {
     maliciousActive = true;
 
     console.log("🖤 Malicious apparaît");
+    // 🖤 Apparition de Malicious
+    spawnMaliciousOrb();
+
 
     // Pour l’instant : rien d’autre
     // On ajoutera le vortex, la position et le sprite ensuite
@@ -612,6 +615,7 @@ async function startGame(GameData) {
     Game.assets = {
         background: GameAssets.images.background,
         orb: GameAssets.images.orb,
+        orb_malicious: GameAssets.images.orb_malicious, // 👈 Malicious
         mascotte: GameAssets.images.mascotte
     };
 
@@ -3264,6 +3268,21 @@ function rewardGemsAfterAd(amount = 5) {
 
         console.log(`🎥 Pub regardée → +${amount} gemmes`);
     }
+}
+
+function spawnMaliciousOrb() {
+    targets.push({
+        x: Math.random() * (canvas.width - 80) + 40,
+        y: Math.random() * (canvas.height * 0.5) + 80,
+        radius: 22,
+        clicksNeeded: 2, // base
+        isMalicious: true,
+        img: assets.orb_malicious,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2
+    });
+
+    console.log("🖤 Malicious matérialisée");
 }
 
 
