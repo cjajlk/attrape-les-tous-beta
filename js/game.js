@@ -272,6 +272,16 @@ function spawnOrb() {
     adjustSpawnSpeed();
 }
 
+// 🖤 Spawn de l’orbe Malicious (base)
+function spawnMaliciousOrb() {
+    maliciousActive = true;
+
+    console.log("🖤 Malicious apparaît");
+
+    // Pour l’instant : rien d’autre
+    // On ajoutera le vortex, la position et le sprite ensuite
+}
+
 // Fonction pour ajuster la vitesse du spawn en fonction du niveau du joueur
 function adjustSpawnSpeed() {
     if (playerLevel > 20) {
@@ -3256,15 +3266,7 @@ function rewardGemsAfterAd(amount = 5) {
     }
 }
 
-// 🖤 Spawn de l’orbe Malicious (base)
-function spawnMaliciousOrb() {
-    maliciousActive = true;
 
-    console.log("🖤 Malicious apparaît");
-
-    // Pour l’instant : rien d’autre
-    // On ajoutera le vortex, la position et le sprite ensuite
-}
 
 
 
