@@ -497,6 +497,7 @@ function handlePurchase(item, type) {
     if (type === "orbe" && ownedOrbs.includes(item.id)) {
         equippedOrb = item.id;
         localStorage.setItem("equippedOrb", equippedOrb);
+        window.equippedOrb = equippedOrb;
         updateShop();
         return;
     }
