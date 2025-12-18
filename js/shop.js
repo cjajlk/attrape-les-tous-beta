@@ -122,6 +122,7 @@ function openShop() {
     if (!ov) return;
     ov.classList.remove("hidden");
     ov.classList.add("visible");
+    initShop(); 
     updateShop();
     updateShopCoins();
 
@@ -129,10 +130,15 @@ function openShop() {
 window.openShop = openShop;
 
 function closeShop() {
+     console.log("CLICK SHOP BUTTON");
     const ov = document.getElementById("shopOverlay");
     if (!ov) return;
     ov.classList.remove("visible");
     ov.classList.add("hidden");
+    initShop(); 
+
+   
+
 }
 
 window.closeShop = closeShop;   // ← IMPORTANT !!

@@ -931,23 +931,13 @@ html, body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 .menu-character {
     position: absolute;
     bottom: 40px;
     left: 50%;
     transform: translateX(-120%);
     height: 340px;
-    pointer-events: none;
+    
 }
 
 .menu-orb {
@@ -956,7 +946,7 @@ html, body {
     left: 50%;
     transform: translateX(60%);
     width: 140px;
-    pointer-events: none;
+    
 }
 
 #menuBubble {
