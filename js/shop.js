@@ -259,23 +259,21 @@ function createSkinCard(item, type) {
         const label = getButtonLabel(item, type);
 
         // ----- ÉQUIPEMENT DIRECT -----
-        if (label === "Équiper") {
-            if (type === "mascotte") {
-                equippedMascotte = item.id;
-                localStorage.setItem("equippedMascotte", equippedMascotte);
-            } else {
-                equippedOrbe = item.id;
-                localStorage.setItem("equippedOrbe", equippedOrbe);
-            }
-            updateShop();
-            return;
-        }
+      if (label === "Équiper") {
+    if (type === "mascotte") {
+        equippedMascotte = item.id;
+        localStorage.setItem("equippedMascotte", equippedMascotte);
+        window.equippedMascotte = equippedMascotte; // ✅ AJOUT
+    } else {
+        equippedOrb = item.id;
+        localStorage.setItem("equippedOrb", equippedOrb);
+        window.equippedOrb = equippedOrb; // ✅ AJOUT
+    }
 
-        // ----- ACHAT -----
-        if (label.startsWith("Acheter")) {
-            handlePurchase(item, type);
-            return;
-        }
+    updateShop();
+    return;
+}
+ 
     });
 
     card.appendChild(btn);
