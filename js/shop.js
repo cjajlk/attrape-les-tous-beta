@@ -122,21 +122,34 @@ function openShop() {
 
     ov.classList.remove("hidden");
     ov.classList.add("visible");
+<<<<<<< HEAD
 
     // ✅ Autorise le scroll mobile quand la boutique est ouverte
     document.body.style.touchAction = "auto";
 
+=======
+    initShop(); 
+>>>>>>> 8d781a98fd4d4f481aa25ff37165523f8a0455c8
     updateShop();
     updateShopCoins();
 }
 window.openShop = openShop;
 
 function closeShop() {
+     console.log("CLICK SHOP BUTTON");
     const ov = document.getElementById("shopOverlay");
     if (!ov) return;
 
     ov.classList.remove("visible");
     ov.classList.add("hidden");
+<<<<<<< HEAD
+=======
+    initShop(); 
+
+   
+
+}
+>>>>>>> 8d781a98fd4d4f481aa25ff37165523f8a0455c8
 
     // ✅ Reblique le scroll (mode jeu) quand on ferme la boutique
     document.body.style.touchAction = "none";
@@ -264,21 +277,65 @@ function createSkinCard(item, type) {
     btn.addEventListener("click", () => {
         const label = getButtonLabel(item, type);
 
-        // ----- ÉQUIPEMENT DIRECT -----
-      if (label === "Équiper") {
-    if (type === "mascotte") {
-        equippedMascotte = item.id;
-        localStorage.setItem("equippedMascotte", equippedMascotte);
-        window.equippedMascotte = equippedMascotte; // ✅ AJOUT
-    } else {
-        equippedOrb = item.id;
-        localStorage.setItem("equippedOrb", equippedOrb);
-        window.equippedOrb = equippedOrb; // ✅ AJOUT
-    }
 
-    updateShop();
-    return;
+        // Détermination de l'état
+let owned = false;
+let equipped = false;
+
+if (type === "mascotte") {
+  owned = ownedMascotte.includes(item.id);
+  equipped = (equippedMascotte === item.id);
+} else if (type === "orbe") {
+  owned = ownedOrbs.includes(item.id);
+  equipped = (equippedOrb === item.id);
 }
+
+
+          // ---- ÉQUIPEMENT DIRECT ----
+if (owned && !equipped) {
+
+  if (type === "mascotte") {
+    equippedMascotte = item.id;
+    localStorage.setItem("equippedMascotte", equippedMascotte);
+    window.equippedMascotte = equippedMascotte;
+  } else {
+    equippedOrb = item.id;
+    localStorage.setItem("equippedOrb", equippedOrb);
+    window.equippedOrb = equippedOrb;
+  }
+
+  updateShop();
+  return;
+}
+// ---- ACHAT ----
+if (!owned) {
+
+  const costCoins = item.costCoins || 0;
+  const costGems  = item.costGems  || 0;
+
+  if (coins < costCoins || gems < costGems) return;
+
+  coins -= costCoins;
+  gems  -= costGems;
+
+  localStorage.setItem("coins", String(coins));
+  localStorage.setItem("gems", String(gems));
+
+  if (type === "mascotte") {
+    ownedMascotte.push(item.id);
+    localStorage.setItem("ownedMascotte", JSON.stringify(ownedMascotte));
+  } else {
+    ownedOrbs.push(item.id);
+    localStorage.setItem("ownedOrbs", JSON.stringify(ownedOrbs));
+  }
+
+  updateCurrenciesHUD();
+  updateShop();
+  return;
+}
+
+
+
  
     });
 
