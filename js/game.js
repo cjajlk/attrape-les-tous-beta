@@ -1544,25 +1544,34 @@ function stopMenuMascotte() {
     spawnParticles(orb.x, orb.y, orb.color);  // Passer la couleur de l'orbe ici
 }
 
-function updateParticles(ctx) {
+ function updateParticles(ctx) {
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
+
         p.x += Math.cos(p.angle) * p.speed;
         p.y += Math.sin(p.angle) * p.speed;
         p.life--;
 
-        // Applique la couleur correctement
-        if (p.color) {  // Si la couleur est définie
-            ctx.fillStyle = p.color;  // Utiliser la couleur spécifique à chaque particule
-        }
+        const alpha = p.life / 30;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.color || "#fff";
+
+        // ✨ glow léger
+        ctx.shadowColor = p.color || "#fff";
+        ctx.shadowBlur = 10;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
         ctx.fill();
+
+        ctx.restore();
 
         if (p.life <= 0) particles.splice(i, 1);
     }
 }
+
 
 
 
@@ -1598,16 +1607,25 @@ function spawnFloatText(x, y, gain = 1) {
 function updateFloatTexts(ctx) {
     for (let i = floatTexts.length - 1; i >= 0; i--) {
         const f = floatTexts[i];
-        f.y -= 1;
+        f.y -= 0.8;
         f.life--;
 
-        ctx.font = "28px Poppins";
-        ctx.fillStyle = `rgba(255,255,255,${f.life / 40})`;
+        const alpha = f.life / 40;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.font = "bold 28px Poppins";
+        ctx.fillStyle = "#ffffff";
+        ctx.shadowColor = "rgba(180,150,255,0.8)";
+        ctx.shadowBlur = 10;
+
         ctx.fillText(f.text, f.x, f.y);
+        ctx.restore();
 
         if (f.life <= 0) floatTexts.splice(i, 1);
     }
 }
+
 
 function spawnShockwave(x, y) {
     shockwaves.push({
@@ -1621,18 +1639,27 @@ function spawnShockwave(x, y) {
 function updateShockwaves(ctx) {
     for (let i = shockwaves.length - 1; i >= 0; i--) {
         const s = shockwaves[i];
-        s.radius += 3;
+        s.radius += 2.5;
         s.life--;
 
-        ctx.strokeStyle = `rgba(150,120,255,${s.life / 25})`;
-        ctx.lineWidth = 3;
+        const alpha = s.life / 25;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = "rgba(170,140,255,1)";
+        ctx.lineWidth = 2;
+        ctx.shadowColor = "rgba(170,140,255,0.6)";
+        ctx.shadowBlur = 12;
+
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
         ctx.stroke();
+        ctx.restore();
 
         if (s.life <= 0) shockwaves.splice(i, 1);
     }
 }
+
 
 
 
