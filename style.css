@@ -16,7 +16,8 @@ html, body {
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
-    object-fit: cover;    
+    object-fit: cover;  
+    display: block;
 }
 
 /* ========== Boutique (ancienne version, z-index nettoyé) ========== */
