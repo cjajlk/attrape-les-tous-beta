@@ -3510,6 +3510,7 @@ function spawnSnowflake() {
 }
 
 function updateSnow(ctx) {
+    updateSnow()
     if (!snowEnabled) return;
 
     // spawn lent
