@@ -5,7 +5,7 @@ html, body {
     height: 100%;
     width: 100%;
      overflow: hidden;
-  touch-action: none;
+ 
     background: #0e0a1b; /* ton fond violet/noir nocturne */
 }
 
