@@ -3501,8 +3501,6 @@ document.addEventListener("touchmove", function (e) {
   e.preventDefault();
 }, { passive: false });
 
-const snowImage = new Image();
-snowImage.src = "/attrape-les-tous-beta/assets/images/neige.png";
 
 
 
