@@ -713,8 +713,7 @@ function resizeGame() {
 let targets = []; 
 let particles = [];
 let floatTexts = [];
-let snowflakes = [];
-let snowEnabled = true; // facile à activer/désactiver
+
 let shockwaves = [];
 let gameState = {};
 
@@ -746,6 +745,11 @@ let timerBackgroundElapsed = 0;
 const TIMER_BG_INTERVAL = 180; // 3 minutes = 180 secondes
 
 let warningText = null;
+let snowflakes = [];
+const MAX_SNOW = 40;
+
+const snowImage = new Image();
+snowImage.src = "assets/images/neige.png";
 
 let currentMode = "normal";
 
@@ -2235,10 +2239,15 @@ for (let i = targets.length - 1; i >= 0; i--) {
         render(); // ou updateGame(), selon ton code
     }
 
+    if (snowEnabled) {
+    spawnSnowflake();
+    updateSnowflakes(ctx);
+}
+
+
     loop();
 
-    updateSnow(Game.ctx);
-
+    
 }
 drawWarningText();
 
@@ -3496,6 +3505,10 @@ const snowImage = new Image();
 snowImage.src = "/attrape-les-tous-beta/assets/images/neige.png";
 
 
+
+
+
+
 function spawnSnowflake() {
     snowflakes.push({
         x: Math.random() * Game.canvas.width,
@@ -3509,44 +3522,23 @@ function spawnSnowflake() {
     });
 }
 
-function updateSnow(ctx) {
-    updateSnow()
-    if (!snowEnabled) return;
-
-    // spawn lent
-    if (Math.random() < 0.05) {
-        spawnSnowflake();
-    }
-
+function updateSnowflakes(ctx) {
     for (let i = snowflakes.length - 1; i >= 0; i--) {
         const s = snowflakes[i];
 
         s.y += s.speed;
         s.x += s.drift;
-        s.rotation += s.rotationSpeed;
 
         ctx.save();
         ctx.globalAlpha = s.alpha;
-        ctx.translate(s.x, s.y);
-        ctx.rotate(s.rotation);
-
-        ctx.drawImage(
-            snowImage,   // ton PNG de flocons
-            -s.size / 2,
-            -s.size / 2,
-            s.size,
-            s.size
-        );
-
+        ctx.drawImage(snowImage, s.x, s.y, s.size, s.size);
         ctx.restore();
 
-        if (s.y > Game.canvas.height + 30) {
+        if (s.y > Game.canvas.height + 40) {
             snowflakes.splice(i, 1);
         }
     }
 }
-
-
 
 
 
