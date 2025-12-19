@@ -2458,7 +2458,7 @@ function showMainMenu() {
     showEventBanner();
     updateHUD();
       loadPlayerProfile();   // si elle existe
-    updatePlayerUI();      // 👈 C’EST ÇA QUI MANQUE
+   
     mainMenu.style.display = "block";
 
     // 🟣 Animation idle/blink de la mascotte dans le menu
