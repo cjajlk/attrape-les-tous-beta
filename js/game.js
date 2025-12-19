@@ -1063,25 +1063,31 @@ window.showMascotteDialog = showMascotteDialog;
 
 // Récompenses quand on monte de niveau
 function handleLevelUp(level) {
-    let rewardGems = 0;
+  let rewardGems = 0;
 
-    if (level === 2) rewardGems = 10;
-    else if (level === 3) rewardGems = 15;
-    else if (level % 5 === 0) rewardGems = 25;
+  // 🎁 Premiers niveaux : petit cadeau de bienvenue
+  if (level === 2) rewardGems = 5;
+  else if (level === 5) rewardGems = 5;
 
-    if (typeof addGems === "function" && rewardGems > 0) {
-        addGems(rewardGems);
-    }
+  // 🌟 Paliers importants seulement
+  else if (level === 10) rewardGems = 10;
+  else if (level === 20) rewardGems = 15;
+  else if (level === 30) rewardGems = 20;
 
-    if (typeof showMascotteDialog === "function") {
-        const msg = rewardGems > 0
-            ? `Bravo ! Niveau ${level} atteint 🎉 (+${rewardGems} 💎)`
-            : `Niveau ${level} atteint 🎉`;
-        showMascotteDialog(msg);
-    }
+  if (rewardGems > 0 && typeof addGems === "function") {
+    addGems(rewardGems);
+  }
 
-    console.log("🎚 Niveau up !", { level, playerXP, rewardGems });
+  if (typeof showMascotteDialog === "function") {
+    const msg = rewardGems > 0
+      ? `Bravo ! Niveau ${level} atteint 🎉 (+${rewardGems} 💎)`
+      : `Niveau ${level} atteint 🎉`;
+    showMascotteDialog(msg);
+  }
+
+  console.log("⬆️ Niveau up", { level, rewardGems });
 }
+
 
 /* =========================================================
    ⚙️ DIFFICULTÉ DYNAMIQUE EN FONCTION DES POINTS TOTAUX
@@ -2207,7 +2213,7 @@ drawWarningText();
 
 }
 
-function drawWarningText() {
+ function drawWarningText() {
     if (!warningText) return;
 
     const ctx = Game.ctx;
@@ -2219,25 +2225,38 @@ function drawWarningText() {
     }
 
     const progress = elapsed / warningText.duration;
-    const alpha = Math.sin(progress * Math.PI); // fade in / out
-    const yOffset = Math.sin(progress * Math.PI) * 8;
+
+    // Fade in / out plus marqué
+    const alpha = Math.sin(progress * Math.PI);
+
+    // Léger tremblement vertical (danger)
+    const yOffset = Math.sin(progress * Math.PI * 3) * 6;
 
     ctx.save();
-    ctx.globalAlpha = alpha * 0.85;
-    ctx.font = "16px 'Poppins', sans-serif";
-    ctx.fillStyle = "#d6b8ff";
+
+    ctx.globalAlpha = alpha;
+    ctx.font = "bold 32px Poppins, sans-serif";
     ctx.textAlign = "center";
-    ctx.shadowColor = "rgba(200,150,255,0.4)";
-    ctx.shadowBlur = 10;
+    ctx.textBaseline = "middle";
+
+    // Ombre noire profonde (lisibilité)
+    ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
+    ctx.shadowBlur = 18;
+
+    // Couleur danger (violet → rouge doux)
+    ctx.fillStyle = warningText.text.includes("⚠️")
+        ? "#ff6b6b"
+        : "#caa0ff";
 
     ctx.fillText(
         warningText.text,
         Game.canvas.width / 2,
-        Game.canvas.height * 0.2 - yOffset
+        Game.canvas.height * 0.28 + yOffset
     );
 
     ctx.restore();
 }
+
 
 /* =========================================================
    🌟 PROGRESSION NIVEAUX & TIMER
