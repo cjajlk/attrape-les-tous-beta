@@ -47,7 +47,7 @@ window.mascotteLoseLines = window.mascotteLoseLines ?? [
 let gameLoopId = null;      // ID du requestAnimationFrame
 let isGameRunning = false;   // vrai pendant une partie
 
-const currentVersion = "1.0"; // La version actuelle du jeu
+const currentVersion = "1.1"; // La version actuelle du jeu
 const savedVersion = localStorage.getItem("gameVersion");
 
 // Vérifier si la version dans le localStorage est différente de la version actuelle
