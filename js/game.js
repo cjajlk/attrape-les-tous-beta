@@ -713,6 +713,8 @@ function resizeGame() {
 let targets = []; 
 let particles = [];
 let floatTexts = [];
+let snowflakes = [];
+let snowEnabled = true; // facile à activer/désactiver
 let shockwaves = [];
 let gameState = {};
 
@@ -2234,6 +2236,9 @@ for (let i = targets.length - 1; i >= 0; i--) {
     }
 
     loop();
+
+    updateSnow(Game.ctx);
+
 }
 drawWarningText();
 
@@ -3487,7 +3492,58 @@ document.addEventListener("touchmove", function (e) {
   e.preventDefault();
 }, { passive: false });
 
+const snowImage = new Image();
+snowImage.src = "/attrape-les-tous-beta/assets/images/neige.png";
 
+
+function spawnSnowflake() {
+    snowflakes.push({
+        x: Math.random() * Game.canvas.width,
+        y: -20,
+        size: 12 + Math.random() * 18,
+        speed: 0.4 + Math.random() * 0.8,
+        drift: (Math.random() - 0.5) * 0.3,
+        alpha: 0.3 + Math.random() * 0.4,
+        rotation: Math.random() * Math.PI,
+        rotationSpeed: (Math.random() - 0.5) * 0.01
+    });
+}
+
+function updateSnow(ctx) {
+    if (!snowEnabled) return;
+
+    // spawn lent
+    if (Math.random() < 0.05) {
+        spawnSnowflake();
+    }
+
+    for (let i = snowflakes.length - 1; i >= 0; i--) {
+        const s = snowflakes[i];
+
+        s.y += s.speed;
+        s.x += s.drift;
+        s.rotation += s.rotationSpeed;
+
+        ctx.save();
+        ctx.globalAlpha = s.alpha;
+        ctx.translate(s.x, s.y);
+        ctx.rotate(s.rotation);
+
+        ctx.drawImage(
+            snowImage,   // ton PNG de flocons
+            -s.size / 2,
+            -s.size / 2,
+            s.size,
+            s.size
+        );
+
+        ctx.restore();
+
+        if (s.y > Game.canvas.height + 30) {
+            snowflakes.splice(i, 1);
+        }
+    }
+}
 
 
 
