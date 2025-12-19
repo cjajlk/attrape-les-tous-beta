@@ -5,7 +5,7 @@ html, body {
     touch-action: none; 
     height: 100%;
     width: 100%;
-     overflow: hidden;
+     
  
     background: #0e0a1b; /* ton fond violet/noir nocturne */
 }
@@ -187,14 +187,7 @@ html, body {
     background: linear-gradient(135deg, #7b5cff, #5c4df0);
 }
 
-/* CONTENU scrollable */
-.shop-content {
-  max-height: 80vh;                 /* CRUCIAL */
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;              /* AUTORISE le scroll vertical */
-  padding-bottom: 40px;
-}
+
 
 .shop-item {
     background: rgba(25, 18, 45, 0.55);
