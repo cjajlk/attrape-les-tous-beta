@@ -2241,7 +2241,7 @@ for (let i = targets.length - 1; i >= 0; i--) {
 
     
 }
-drawWarningText();
+
 
 
 }
