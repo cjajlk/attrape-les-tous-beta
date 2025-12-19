@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    touch-action: none; 
     height: 100%;
     width: 100%;
     background: #0e0a1b; /* ton fond violet/noir nocturne */
@@ -59,10 +60,13 @@ html, body {
     background: #4b0082;
 }
 
+/* CONTENU scrollable */
 .shop-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
+  max-height: 80vh;                 /* CRUCIAL */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;              /* AUTORISE le scroll vertical */
+  padding-bottom: 40px;
 }
 
 .skin-item {
@@ -180,12 +184,15 @@ html, body {
     background: linear-gradient(135deg, #7b5cff, #5c4df0);
 }
 
+/* CONTENU scrollable */
 .shop-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 25px;
-    padding-bottom: 20px;
+  max-height: 80vh;                 /* CRUCIAL */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;              /* AUTORISE le scroll vertical */
+  padding-bottom: 40px;
 }
+
 .shop-item {
     background: rgba(25, 18, 45, 0.55);
     border: 1px solid rgba(150, 120, 255, 0.25);
@@ -996,9 +1003,11 @@ html, body {
     z-index: 45 !important;
 }
 
-/* Boutique */
+/* Overlay boutique */
 #shopOverlay {
-    z-index: 100 !important;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
 }
 
 /* Profil */
