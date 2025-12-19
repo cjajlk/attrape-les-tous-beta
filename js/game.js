@@ -1844,9 +1844,9 @@ function addCoins(amount) {
 
             
               // 😠 Passage en colère juste avant le dernier clic
-             if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "anger") {
-            orb.expression = "anger";
-            orb.img = orb.imgAngry;
+             if (t.isMalicious && t.clicksNeeded === 1 && t.expression !== "anger") {
+            t.expression = "anger";
+            t.img = Game.assets.orb_malicious_angry;
 
              console.log("😠 Malicious entre en colère");
         }
