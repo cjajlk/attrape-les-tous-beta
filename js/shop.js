@@ -113,49 +113,32 @@ function initShop() {
 window.initShop = initShop;
 
 
-/* =========================================================
-   🪟 OUVERTURE / FERMETURE SHOP
-   ========================================================= */
 function openShop() {
     const ov = document.getElementById("shopOverlay");
     if (!ov) return;
 
     ov.classList.remove("hidden");
     ov.classList.add("visible");
-<<<<<<< HEAD
 
     // ✅ Autorise le scroll mobile quand la boutique est ouverte
     document.body.style.touchAction = "auto";
 
-=======
-    initShop(); 
->>>>>>> 8d781a98fd4d4f481aa25ff37165523f8a0455c8
     updateShop();
     updateShopCoins();
 }
 window.openShop = openShop;
 
 function closeShop() {
-     console.log("CLICK SHOP BUTTON");
     const ov = document.getElementById("shopOverlay");
     if (!ov) return;
 
     ov.classList.remove("visible");
     ov.classList.add("hidden");
-<<<<<<< HEAD
-=======
-    initShop(); 
-
-   
-
-}
->>>>>>> 8d781a98fd4d4f481aa25ff37165523f8a0455c8
 
     // ✅ Reblique le scroll (mode jeu) quand on ferme la boutique
     document.body.style.touchAction = "none";
 }
 window.closeShop = closeShop;   // ← IMPORTANT !!
-
 
 
 
