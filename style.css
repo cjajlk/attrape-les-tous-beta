@@ -5,6 +5,8 @@ html, body {
     touch-action: none; 
     height: 100%;
     width: 100%;
+     overflow: hidden;
+ 
     background: #0e0a1b; /* ton fond violet/noir nocturne */
 }
 
@@ -15,7 +17,8 @@ html, body {
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
-    object-fit: cover;    
+    object-fit: cover;  
+    display: block;
 }
 
 /* ========== Boutique (ancienne version, z-index nettoyé) ========== */
@@ -938,23 +941,13 @@ html, body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 .menu-character {
     position: absolute;
     bottom: 40px;
     left: 50%;
     transform: translateX(-120%);
     height: 340px;
-    pointer-events: none;
+    
 }
 
 .menu-orb {
@@ -963,7 +956,7 @@ html, body {
     left: 50%;
     transform: translateX(60%);
     width: 140px;
-    pointer-events: none;
+    
 }
 
 #menuBubble {

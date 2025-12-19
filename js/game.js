@@ -47,7 +47,7 @@ window.mascotteLoseLines = window.mascotteLoseLines ?? [
 let gameLoopId = null;      // ID du requestAnimationFrame
 let isGameRunning = false;   // vrai pendant une partie
 
-const currentVersion = "1.0"; // La version actuelle du jeu
+const currentVersion = "1.1"; // La version actuelle du jeu
 const savedVersion = localStorage.getItem("gameVersion");
 
 // Vérifier si la version dans le localStorage est différente de la version actuelle
@@ -283,7 +283,8 @@ function spawnOrb() {
     return;
   }
 
-  const size = 60;
+     const size = window.innerWidth < 820 ? 95 : 120;
+
 
   targets.push({
     x: Math.random() * (Game.canvas.width - size),
@@ -712,6 +713,7 @@ function resizeGame() {
 let targets = []; 
 let particles = [];
 let floatTexts = [];
+
 let shockwaves = [];
 let gameState = {};
 
@@ -742,7 +744,7 @@ let timerSpeed = 0.09;
 let timerBackgroundElapsed = 0;
 const TIMER_BG_INTERVAL = 180; // 3 minutes = 180 secondes
 
-let warningText = null;
+
 
 let currentMode = "normal";
 
@@ -1062,25 +1064,31 @@ window.showMascotteDialog = showMascotteDialog;
 
 // Récompenses quand on monte de niveau
 function handleLevelUp(level) {
-    let rewardGems = 0;
+  let rewardGems = 0;
 
-    if (level === 2) rewardGems = 10;
-    else if (level === 3) rewardGems = 15;
-    else if (level % 5 === 0) rewardGems = 25;
+  // 🎁 Premiers niveaux : petit cadeau de bienvenue
+  if (level === 2) rewardGems = 5;
+  else if (level === 5) rewardGems = 5;
 
-    if (typeof addGems === "function" && rewardGems > 0) {
-        addGems(rewardGems);
-    }
+  // 🌟 Paliers importants seulement
+  else if (level === 10) rewardGems = 10;
+  else if (level === 20) rewardGems = 15;
+  else if (level === 30) rewardGems = 20;
 
-    if (typeof showMascotteDialog === "function") {
-        const msg = rewardGems > 0
-            ? `Bravo ! Niveau ${level} atteint 🎉 (+${rewardGems} 💎)`
-            : `Niveau ${level} atteint 🎉`;
-        showMascotteDialog(msg);
-    }
+  if (rewardGems > 0 && typeof addGems === "function") {
+    addGems(rewardGems);
+  }
 
-    console.log("🎚 Niveau up !", { level, playerXP, rewardGems });
+  if (typeof showMascotteDialog === "function") {
+    const msg = rewardGems > 0
+      ? `Bravo ! Niveau ${level} atteint 🎉 (+${rewardGems} 💎)`
+      : `Niveau ${level} atteint 🎉`;
+    showMascotteDialog(msg);
+  }
+
+  console.log("⬆️ Niveau up", { level, rewardGems });
 }
+
 
 /* =========================================================
    ⚙️ DIFFICULTÉ DYNAMIQUE EN FONCTION DES POINTS TOTAUX
@@ -1537,25 +1545,34 @@ function stopMenuMascotte() {
     spawnParticles(orb.x, orb.y, orb.color);  // Passer la couleur de l'orbe ici
 }
 
-function updateParticles(ctx) {
+ function updateParticles(ctx) {
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
+
         p.x += Math.cos(p.angle) * p.speed;
         p.y += Math.sin(p.angle) * p.speed;
         p.life--;
 
-        // Applique la couleur correctement
-        if (p.color) {  // Si la couleur est définie
-            ctx.fillStyle = p.color;  // Utiliser la couleur spécifique à chaque particule
-        }
+        const alpha = p.life / 30;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.color || "#fff";
+
+        // ✨ glow léger
+        ctx.shadowColor = p.color || "#fff";
+        ctx.shadowBlur = 10;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
         ctx.fill();
+
+        ctx.restore();
 
         if (p.life <= 0) particles.splice(i, 1);
     }
 }
+
 
 
 
@@ -1591,16 +1608,25 @@ function spawnFloatText(x, y, gain = 1) {
 function updateFloatTexts(ctx) {
     for (let i = floatTexts.length - 1; i >= 0; i--) {
         const f = floatTexts[i];
-        f.y -= 1;
+        f.y -= 0.8;
         f.life--;
 
-        ctx.font = "28px Poppins";
-        ctx.fillStyle = `rgba(255,255,255,${f.life / 40})`;
+        const alpha = f.life / 40;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.font = "bold 28px Poppins";
+        ctx.fillStyle = "#ffffff";
+        ctx.shadowColor = "rgba(180,150,255,0.8)";
+        ctx.shadowBlur = 10;
+
         ctx.fillText(f.text, f.x, f.y);
+        ctx.restore();
 
         if (f.life <= 0) floatTexts.splice(i, 1);
     }
 }
+
 
 function spawnShockwave(x, y) {
     shockwaves.push({
@@ -1614,18 +1640,27 @@ function spawnShockwave(x, y) {
 function updateShockwaves(ctx) {
     for (let i = shockwaves.length - 1; i >= 0; i--) {
         const s = shockwaves[i];
-        s.radius += 3;
+        s.radius += 2.5;
         s.life--;
 
-        ctx.strokeStyle = `rgba(150,120,255,${s.life / 25})`;
-        ctx.lineWidth = 3;
+        const alpha = s.life / 25;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = "rgba(170,140,255,1)";
+        ctx.lineWidth = 2;
+        ctx.shadowColor = "rgba(170,140,255,0.6)";
+        ctx.shadowBlur = 12;
+
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
         ctx.stroke();
+        ctx.restore();
 
         if (s.life <= 0) shockwaves.splice(i, 1);
     }
 }
+
 
 
 
@@ -1837,9 +1872,9 @@ function addCoins(amount) {
 
             
               // 😠 Passage en colère juste avant le dernier clic
-             if (orb.isMalicious && orb.clicksNeeded === 1 && orb.expression !== "anger") {
-            orb.expression = "anger";
-            orb.img = orb.imgAngry;
+             if (t.isMalicious && t.clicksNeeded === 1 && t.expression !== "anger") {
+            t.expression = "anger";
+            t.img = Game.assets.orb_malicious_angry;
 
              console.log("😠 Malicious entre en colère");
         }
@@ -1872,10 +1907,33 @@ function addCoins(amount) {
             spawnFloatText(cx, cy, gain);
             spawnShockwave(cx, cy);
 
-            // Supprimer orbe
-            targets.splice(i, 1);
+            // 🖤 CAS MALICIOUS
+       if (t.isMalicious) {
 
-            touched = true;
+    t.clicksNeeded--;
+
+    // Passage en colère juste avant le dernier clic
+    if (t.clicksNeeded === 1 && t.expression !== "anger") {
+        t.expression = "anger";
+        t.img = Game.assets.orb_malicious_angry;
+
+        showWarningText("⚠️ Elle se déchaîne…");
+    }
+
+    // Dernier clic → destruction
+    if (t.clicksNeeded <= 0) {
+        targets.splice(i, 1);
+    }
+
+    touched = true;
+    continue; // ⛔ empêche le code normal de s’exécuter
+}
+
+// 💠 ORBES NORMALES (1 clic)
+targets.splice(i, 1);
+touched = true;
+
+
         }
     }
 
@@ -2176,14 +2234,19 @@ for (let i = targets.length - 1; i >= 0; i--) {
         render(); // ou updateGame(), selon ton code
     }
 
+   
+
+
     loop();
+
+    
 }
 drawWarningText();
 
 
 }
 
-function drawWarningText() {
+ function drawWarningText() {
     if (!warningText) return;
 
     const ctx = Game.ctx;
@@ -2195,48 +2258,61 @@ function drawWarningText() {
     }
 
     const progress = elapsed / warningText.duration;
-    const alpha = Math.sin(progress * Math.PI); // fade in / out
-    const yOffset = Math.sin(progress * Math.PI) * 8;
+
+    // Fade in / out plus marqué
+    const alpha = Math.sin(progress * Math.PI);
+
+    // Léger tremblement vertical (danger)
+    const yOffset = Math.sin(progress * Math.PI * 3) * 6;
 
     ctx.save();
-    ctx.globalAlpha = alpha * 0.85;
-    ctx.font = "16px 'Poppins', sans-serif";
-    ctx.fillStyle = "#d6b8ff";
+
+    ctx.globalAlpha = alpha;
+    ctx.font = "bold 32px Poppins, sans-serif";
     ctx.textAlign = "center";
-    ctx.shadowColor = "rgba(200,150,255,0.4)";
-    ctx.shadowBlur = 10;
+    ctx.textBaseline = "middle";
+
+    // Ombre noire profonde (lisibilité)
+    ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
+    ctx.shadowBlur = 18;
+
+    // Couleur danger (violet → rouge doux)
+    ctx.fillStyle = warningText.text.includes("⚠️")
+        ? "#ff6b6b"
+        : "#caa0ff";
 
     ctx.fillText(
         warningText.text,
         Game.canvas.width / 2,
-        Game.canvas.height * 0.2 - yOffset
+        Game.canvas.height * 0.28 + yOffset
     );
 
     ctx.restore();
 }
 
+
 /* =========================================================
    🌟 PROGRESSION NIVEAUX & TIMER
    ========================================================= */
-
 function getNextLevelTarget(level) {
-    // Niveaux 1 à 5 : Progression rapide mais motivante
-    if (level === 1) return 50;    // Niveau 1 : 50 points
-    if (level === 2) return 100;   // Niveau 2 : 100 points
-    if (level === 3) return 200;   // Niveau 3 : 200 points
-    if (level === 4) return 400;   // Niveau 4 : 400 points
-    if (level === 5) return 800;   // Niveau 5 : 800 points
 
-    // Niveaux 6 à 10 : Progression plus marquée
-    if (level === 6) return 1600;  // Niveau 6 : 1600 points
-    if (level === 7) return 2500;  // Niveau 7 : 2500 points
-    if (level === 8) return 4000;  // Niveau 8 : 4000 points
-    if (level === 9) return 6500;  // Niveau 9 : 6500 points
-    if (level === 10) return 10000; // Niveau 10 : 10000 points
+    // Début rapide (nouveaux joueurs)
+    if (level === 1) return 80;
+    if (level === 2) return 160;
+    if (level === 3) return 320;
+    if (level === 4) return 640;
+    if (level === 5) return 1200;
 
-    // Progression encore plus élevée pour les niveaux 11 à 30
-    return Math.floor(10000 * Math.pow(1.2, level - 10)); // Facteur d'augmentation plus faible (1.2)
+    // Progression normale
+    if (level <= 10) {
+        return Math.floor(1200 * Math.pow(1.35, level - 5));
+    }
+
+    // 🛑 Ralentissement volontaire (anti rush lvl 30)
+    // Long terme, beta-friendly
+    return Math.floor(1200 * Math.pow(1.35, 5) * Math.pow(1.18, level - 10));
 }
+
 
 
 
@@ -2382,6 +2458,9 @@ function showMainMenu() {
     initMenuCharacters();
     showEventBanner();
     updateHUD();
+      loadPlayerProfile();   // si elle existe
+   
+    mainMenu.style.display = "block";
 
     // 🟣 Animation idle/blink de la mascotte dans le menu
 setMascotteState("idle");
@@ -3294,12 +3373,6 @@ function updateXP() {
     console.log(`Prochain niveau nécessite ${xpToNext} points.`);
 }
 
-
-
-
-
-
-
 // Fonction qui vérifie si le joueur a atteint le niveau maximum
 function isSeasonLevelCapped() {
     return playerLevel >= SEASON_MAX_LEVEL;
@@ -3415,6 +3488,14 @@ function showWarningText(message) {
         duration: 1200 // ms
     };
 }
+
+document.addEventListener("touchmove", function (e) {
+  e.preventDefault();
+}, { passive: false });
+
+
+
+
 
 
 

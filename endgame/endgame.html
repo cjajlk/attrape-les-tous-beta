@@ -4,65 +4,163 @@
     <meta charset="UTF-8">
     <title>Fin de partie</title>
  <style>
-   body {
-    background: #000 url('/attrape-les-tous-beta/assets/fonds/fond_fin.png') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
+  /* 🌌 BASE */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: #000
+    url('/attrape-les-tous-beta/assets/fonds/fond_fin.png')
+    no-repeat center center / cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+/* 🌙 CONTENU PRINCIPAL */
+.endgame-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 16px;
+  max-width: 520px;
+  width: 100%;
+}
+
+/* 📝 TITRES */
+.endgame-title {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  margin: 0 0 6px;
+}
+
+.endgame-title span {
+  color: #bfa6ff;
+}
+
+.endgame-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+
+/* 🎬 VIDÉO */
+.endgame-video {
+  width: 140px;
+  max-width: 60vw;
+  border-radius: 12px;
+  margin: 12px auto 20px;
+  display: block;
+}
+
+/* 🧍 MASCOTTE PRINCIPALE */
+.endgame-mascotte-main {
+  margin: 12px auto 6px;
+}
+
+.endgame-mascotte-main img {
+  width: clamp(140px, 35vw, 220px);
+  animation: floatMascotte 3s ease-in-out infinite alternate;
+}
+
+/* 👥 GROUPE DE MASCOTTES */
+.endgame-mascotte-group {
+  position: absolute;
+  bottom: 8%;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+
+  pointer-events: none;
+}
+
+.endgame-mascotte-group img {
+  width: clamp(80px, 18vw, 140px);
+  opacity: 0.95;
+  animation: floatMascotte 2.5s ease-in-out infinite alternate;
+}
+
+/* 🌊 ANIMATION FLOTTANTE */
+@keyframes floatMascotte {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-14px);
+  }
+}
+
+/* 🎮 ACTIONS FIXES */
+.endgame-actions {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 360px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  z-index: 10;
+}
+
+/* 🔘 BOUTONS */
+.endgame-actions button {
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #7c5cff, #9b7bff);
+  color: white;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 🖥️ DESKTOP AJUSTEMENTS */
+@media (min-width: 768px) {
+  .endgame-actions {
+    bottom: 24px;
+  }
+
+  .endgame-mascotte-group {
+    bottom: 6%;
+  }
+}
+
+.btn-tertiary {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tertiary:hover {
+  background: rgba(255,255,255,0.15);
 }
 
 
-        h1 {
-            font-size: 2em;
-            margin-bottom: 40px;
-        }
-        
-    
-
-        /* Ajustement de la taille et du positionnement des mascottes */
-.mascotte {
-    position: absolute;
-    bottom: 5%;
-    width: 20%; /* Ajuste la taille de chaque mascotte */
-    animation: moveMascotte 2s ease-in-out infinite alternate;
-}
-
-.mascotte1 {
-    width: 15%;
-    left: 5%;  /* Ajustement de la position */
-}
-
-.mascotte2 {
-     width: 20%;
-      left: 75%;
-    right: 10%; /* Ajustement de la position */
-}
-
-.mascotte3 {
-    width: 20%;
-    left: 55%;
-    transform: translateX(-50%);
-}
-
-.mascotte4 {
-     width: 20%;
-    right: 50%; /* Ajustement de la position */
-}
-
-/* Animation des mascottes avec réduction de l'espace */
-@keyframes moveMascotte {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-15px); /* Limiter le mouvement vertical */
-    }
-}
 
 
 
@@ -71,78 +169,110 @@
 </head>
 <body>
 
- 
-    <h1>Merci d’avoir joué à *Attrape-les-tous* !</h1>
-    <p>À bientôt, l’aventure continue…</p>
+ <!-- 🌙 ÉCRAN DE FIN -->
+<div class="endgame-content">
 
-    <!-- Vidéo de fin (Goodbye) -->
-<video width="110" height="200" controls>
-  <source src="/attrape-les-tous-beta/assets/video/fin.mp4" type="video/mp4">
-  Votre navigateur ne prend pas en charge la balise vidéo.
-</video>
-   
+  <h1 class="endgame-title">
+    Merci d’avoir joué à <span>Attrape-les-tous</span> !
+  </h1>
 
+  <p class="endgame-subtitle">
+    À bientôt, l’aventure continue…
+  </p>
 
-    <!-- Mascottes -->
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/alia.png" class="mascotte mascotte1" alt="Alia" />
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/cjajlk.png" class="mascotte mascotte2" alt="CJ" />
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/lyra.png" class="mascotte mascotte3" alt="Lyra" />
-    <img src="/attrape-les-tous-beta/assets/images/mascotte/girl9.png" class="mascotte mascotte4" alt="Lyra" />
+  <!-- 🎬 Vidéo de fin -->
+  <video class="endgame-video" controls playsinline>
+    <source src="/attrape-les-tous-beta/assets/video/fin.mp4" type="video/mp4">
+    Votre navigateur ne prend pas en charge la vidéo.
+  </video>
 
-    
+  <!-- 🧍 Mascotte principale -->
+  <div class="endgame-mascotte-main">
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/alia.png"
+      alt="Alia"
+    />
+  </div>
 
+  <!-- 👥 Groupe de mascottes -->
+  <div class="endgame-mascotte-group">
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/cjajlk.png"
+      alt="CJ"
+    />
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/lyra.png"
+      alt="Lyra"
+    />
+    <img
+      src="/attrape-les-tous-beta/assets/images/mascotte/girl9.png"
+      alt="Compagne nocturne"
+    />
+  </div>
 
- 
-    <button onclick="window.location.href='/attrape-les-tous-beta/index.html'">
+</div>
+
+<!-- 🎮 ACTIONS (FIXES EN BAS) -->
+<div class="endgame-actions">
+  <button
+    class="btn-primary"
+    onclick="window.location.href='/attrape-les-tous-beta/index.html'"
+  >
     Retour au menu principal
-</button>
+  </button>
 
-    <button id="quitBtn" onclick="quitGame()">Quitter</button>
+  <button
+    class="btn-secondary"
+    onclick="quitGame()"
+  >
+    Quitter
+  </button>
+</div>
 
-<div id="quitModal" style="display:none;">
-    <div style="background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; text-align: center;">
-        <h2>Merci d'avoir joué à *Attrape-les-tous* !</h2>
-        <p>Vous serez bientôt redirigé vers la page du créateur pour en savoir plus et soutenir le projet.</p>
-        <p>Un grand merci pour votre soutien !</p>
-        <button onclick="redirectToKoFi()">Continuer</button>
-    </div>
+<!-- 🎵 Musique de fond -->
+<audio id="endGameMusic" loop autoplay>
+  <source src="/attrape-les-tous-beta/assets/audio/intro_theme.mp3" type="audio/mp3">
+</audio>
+
+<!-- 🧾 MODAL DE SORTIE -->
+<div id="quitModal" class="quit-modal hidden">
+  <div class="quit-modal-content">
+    <h2>Merci d’avoir joué à Attrape-les-tous</h2>
+    <p>
+      Vous serez bientôt redirigé vers la page du créateur pour en savoir plus
+      et soutenir le projet.
+    </p>
+    <p>Un grand merci pour votre soutien 💜</p>
+     <button class="btn-tertiary" onclick="redirectToKoFi()">Continuer</button>
+
+  </div>
 </div>
 
 
-
-<!-- Musique de fond en boucle -->
-<audio id="endGameMusic" loop>
-    <source src="/attrape-les-tous-beta/assets/audio/intro_theme.mp3" type="audio/mp3">
-    Votre navigateur ne supporte pas l'élément audio.
-</audio>
-
-
-
-    
-
-
 <script>
-    function quitGame() {
-        // Afficher la modale
-        document.getElementById("quitModal").style.display = "block";
-    }
+  function quitGame() {
+  const modal = document.getElementById("quitModal");
+  modal.classList.remove("hidden");
+  modal.style.display = "flex";
+}
 
-    function redirectToKoFi() {
-        // Rediriger vers ta page Ko-fi
-        window.location.href = "https://ko-fi.com/cjajlk"; // Remplace par ton propre lien Ko-fi
-    }
+function redirectToKoFi() {
+  window.location.href = "https://ko-fi.com/cjajlk";
+}
 
-    const endGameMusic = document.getElementById("endGameMusic");
+  const endGameMusic = document.getElementById("endGameMusic");
 
-    // Écouteur d'événement pour démarrer la musique après un clic
-    document.addEventListener("click", function() {
-        endGameMusic.play().catch(err => {
-            console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
-        });
+  document.addEventListener("click", function () {
+    endGameMusic.play().catch(err => {
+      console.warn("🎵 Audio bloqué (comportement normal navigateur)", err);
     });
-
-
+  });
 </script>
+
+ 
+
+
+
 
     
 </body>
