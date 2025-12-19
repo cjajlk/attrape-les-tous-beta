@@ -744,12 +744,7 @@ let timerSpeed = 0.09;
 let timerBackgroundElapsed = 0;
 const TIMER_BG_INTERVAL = 180; // 3 minutes = 180 secondes
 
-let warningText = null;
-let snowflakes = [];
-const MAX_SNOW = 40;
 
-const snowImage = new Image();
-snowImage.src = "assets/images/neige.png";
 
 let currentMode = "normal";
 
@@ -2239,10 +2234,7 @@ for (let i = targets.length - 1; i >= 0; i--) {
         render(); // ou updateGame(), selon ton code
     }
 
-    if (snowEnabled) {
-    spawnSnowflake();
-    updateSnowflakes(ctx);
-}
+   
 
 
     loop();
@@ -3507,36 +3499,8 @@ document.addEventListener("touchmove", function (e) {
 
 
 
-function spawnSnowflake() {
-    snowflakes.push({
-        x: Math.random() * Game.canvas.width,
-        y: -20,
-        size: 12 + Math.random() * 18,
-        speed: 0.4 + Math.random() * 0.8,
-        drift: (Math.random() - 0.5) * 0.3,
-        alpha: 0.3 + Math.random() * 0.4,
-        rotation: Math.random() * Math.PI,
-        rotationSpeed: (Math.random() - 0.5) * 0.01
-    });
-}
 
-function updateSnowflakes(ctx) {
-    for (let i = snowflakes.length - 1; i >= 0; i--) {
-        const s = snowflakes[i];
 
-        s.y += s.speed;
-        s.x += s.drift;
-
-        ctx.save();
-        ctx.globalAlpha = s.alpha;
-        ctx.drawImage(snowImage, s.x, s.y, s.size, s.size);
-        ctx.restore();
-
-        if (s.y > Game.canvas.height + 40) {
-            snowflakes.splice(i, 1);
-        }
-    }
-}
 
 
 
