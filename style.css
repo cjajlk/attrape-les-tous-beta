@@ -65,7 +65,7 @@ html, body {
 
 /* CONTENU scrollable */
 .shop-content {
-  max-height: 80vh;                 /* CRUCIAL */
+ 
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;              /* AUTORISE le scroll vertical */
