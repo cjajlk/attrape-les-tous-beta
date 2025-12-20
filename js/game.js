@@ -5,7 +5,7 @@
    document.addEventListener("DOMContentLoaded", () => {
     loadPlayerProfile(); // Charge les données du profil sauvegardé
     updateHUD();         // Mets à jour l'affichage de l'interface utilisateur (ex : Coins, XP)
-    startMascotteLoop();
+    
      const dialogMascotteImg = document.getElementById("dialogMascotteImg");
 
     // Vérifie si l'élément existe
