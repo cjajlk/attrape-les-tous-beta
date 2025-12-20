@@ -717,7 +717,7 @@ let targets = [];
 let particles = [];
 let floatTexts = [];
 let mascotteLoopStarted = false;
-let showGameplayMascotte = false;
+
 
 let shockwaves = [];
 let gameState = {};
