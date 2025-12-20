@@ -972,26 +972,7 @@ function applyLoadedProfile(p = {}) {
 }
 
 // 🎭 Gestion de la mascotte (Menu + Fin de partie)
-function showMascotte(state, imagePath) {
-    const mascotteContainer = document.getElementById("dialogMascotte");
-    const mascotteImg = document.getElementById("dialogMascotteImg");
 
-    if (!mascotteContainer || !mascotteImg) return;
-
-    // Afficher la mascotte
-    mascotteContainer.classList.remove("hidden");
-
-    // Changer l'image de la mascotte selon l'état (fin de partie ou autre)
-    mascotteImg.src = imagePath || "assets/images/mascotte/menu/lyra_idle.png"; // Par défaut, une image d'Idle
-
-    // Appliquer une animation ou changer l'état en fonction de l'action
-    if (state === "endGame") {
-        // Si c'est la fin de partie, on montre l'image de fin
-        mascotteImg.src = "assets/images/mascotte/lyra_endgame.png"; // Exemple pour fin de partie
-    }
-
-    // Autres états peuvent être ajoutés ici si nécessaire (idle, blink, etc.)
-}
 
 // Masquer la mascotte de fin de partie
 function hideMascotte() {
