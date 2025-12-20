@@ -2438,11 +2438,11 @@ function showGameUI() {
 }
 
 function showMainMenu() {
-   window.IS_IN_GAME = false;
+    window.IS_IN_GAME = false; // On est dans le menu principal, le jeu est arrêté
 
-     playerName = localStorage.getItem("playerName") || "Invité";
     console.log("🏠 Retour propre au menu principal");
 
+    // 🧹 Nettoyage du jeu
     hideGameUI();
     clearOrbs();
     Game.running = false;
@@ -2450,9 +2450,8 @@ function showMainMenu() {
     timerRunning = false;
     showGameplayMascotte = false;
 
-
     const canvas = document.getElementById("gameCanvas");
-    if (canvas) canvas.style.display = "none";   // <-- RÈGLE LE PROBLÈME DU FOND
+    if (canvas) canvas.style.display = "none"; // Cache le canvas du jeu
 
     const menu = document.getElementById("mainMenu");
     if (menu) {
@@ -2460,34 +2459,36 @@ function showMainMenu() {
         menu.classList.remove("hidden");
     }
 
-    showMenuMascotte();
+    // N'afficher la mascotte du menu QUE si on n'est pas dans le jeu
+    if (!window.IS_IN_GAME) {
+        showMenuMascotte(); // Affiche la mascotte du menu
+    }
+
+    // Autres animations et initialisations
     showMenuAnimations();
     startMascotteLoop();
     showMascotteDialog();
     initMenuCharacters();
     showEventBanner();
     updateHUD();
-      loadPlayerProfile();   // si elle existe
-   
-    
+    loadPlayerProfile(); // Si elle existe
 
     // 🟣 Animation idle/blink de la mascotte dans le menu
-     setMascotteState("idle");
+    setMascotteState("idle");
 
-if (!mascotteLoopStarted) {
-    startMascotteLoop();
-    mascotteLoopStarted = true;
+    // Démarre la boucle de la mascotte si elle ne l'est pas encore
+    if (!mascotteLoopStarted) {
+        startMascotteLoop();
+        mascotteLoopStarted = true;
+    }
+
+    // 🗨️ Phrase d’accueil de la mascotte
+    showMascotteDialog(
+        mascotMenuLines[Math.floor(Math.random() * mascotMenuLines.length)],
+        "happy"
+    );
 }
 
-
-// 🗨️ Phrase d’accueil
-showMascotteDialog(
-    mascotMenuLines[Math.floor(Math.random() * mascotMenuLines.length)],
-    "happy"
-);
-
-    
-}
 
 
 function hideMainMenu() {
