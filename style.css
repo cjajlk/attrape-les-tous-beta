@@ -1978,3 +1978,29 @@ canvas {
 .selector-overlay.visible {
   pointer-events: auto;
 }
+
+.menu-mascotte {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    opacity: 1;
+    pointer-events: none;
+
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.menu-mascotte.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(40px);
+}
+
+@media (max-width: 768px) {
+    .menu-mascotte {
+        bottom: -60px;
+        transform: translateX(-50%) scale(0.85);
+    }
+}
+
