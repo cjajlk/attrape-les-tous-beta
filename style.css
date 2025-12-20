@@ -2,7 +2,6 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    touch-action: none; 
     height: 100%;
     width: 100%;
      
@@ -21,62 +20,7 @@ html, body {
     display: block;
 }
 
-/* ========== Boutique (ancienne version, z-index nettoyé) ========== */
 
-.shop-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    /* z-index unifié plus bas via #shopOverlay */
-}
-
-.shop-overlay.show {
-    display: flex;
-}
-
-.shop-panel {
-    background: #140020;
-    padding: 20px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 700px;
-    color: white;
-    position: relative;
-
-    /* 👇 AJOUTS OBLIGATOIRES */
-    display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-    overflow: hidden;
-}
-
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.shop-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.tab-btn.active {
-    background: #4b0082;
-}
-
-/* CONTENU scrollable */
-.shop-content {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-}
 
 
 .skin-item {
@@ -101,99 +45,16 @@ html, body {
 
 
 
-/* ============================
-   🌙 Boutique Nocturne
-   ============================ */
-
-.shop-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(12px);
-    background: rgba(10, 8, 20, 0.55);
-}
-
-.shop-overlay.visible {
-    display: flex;
-}
-
-
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* === BOUTON FERMER FLOTTANT (BAS DROITE) === */
-.close-btn {
-    position: fixed;
-    bottom: 22px;                   /* distance du bas */
-    right: 22px;                    /* distance de la droite */
-    z-index: 6000 !important;
-
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;             /* rond */
-    background: linear-gradient(135deg, #6a4bff, #9d6dff);
-    border: 2px solid rgba(255, 255, 255, 0.25);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 26px;
-    color: white;
-    cursor: pointer;
-
-    box-shadow: 0 0 18px rgba(140, 100, 255, 0.45);
-    backdrop-filter: blur(6px);
-    transition: 0.25s ease;
-}
-
-.close-btn:hover {
-    transform: scale(1.12);
-    box-shadow: 0 0 26px rgba(170, 120, 255, 0.65);
-}
-
-
-
-.shop-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.tab-btn {
-    flex: 1;
-    padding: 10px;
-    font-size: 18px;
-    background: rgba(120, 90, 255, 0.35);
-    border: none;
-    border-radius: 12px;
-    color: #eee;
-    cursor: pointer;
-}
-
-.tab-btn.active {
-    background: linear-gradient(135deg, #7b5cff, #5c4df0);
-}
 
 
 
 .shop-item {
-    background: rgba(25, 18, 45, 0.55);
-    border: 1px solid rgba(150, 120, 255, 0.25);
-    border-radius: 18px;
-    padding: 15px;
-    text-align: center;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 10px;
+  text-align: center;
 }
+
 .shop-item img {
     width: 100%;
     height: 180px;
@@ -319,7 +180,7 @@ html, body {
     align-items: center;
 
     opacity: 0;
-    pointer-events: none;
+   
     transition: opacity 0.3s ease;
 }
 
@@ -383,7 +244,7 @@ html, body {
     opacity: 0;
 
     animation: sweep 1.8s ease-out forwards;
-    pointer-events: none;
+   
 }
 
 .pause-overlay.visible .pause-panel::before {
@@ -460,7 +321,7 @@ html, body {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    pointer-events: none;
+  
     transition: opacity .35s ease;
 }
 
@@ -535,9 +396,7 @@ html, body {
     opacity: 1;
 }
 
-.level-toast.hidden {
-    pointer-events: none;
-}
+
 
 /* Transition douce sur le canvas */
 #gameCanvas {
@@ -582,7 +441,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     opacity: 0;
-    pointer-events: none;
+    
     transition: opacity 0.35s ease;
 }
 
@@ -696,7 +555,7 @@ html, body {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    pointer-events: none;
+    
     transition: opacity 0.4s ease;
 }
 
@@ -823,7 +682,7 @@ html, body {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    pointer-events: none;
+  
     transition: opacity 0.35s ease;
 }
 
@@ -913,9 +772,7 @@ html, body {
         inset 0 0 12px rgba(255, 255, 255, 0.25);
 }
 
-.profile-title.hidden-text {
-    opacity: 0;
-}
+
 
 /* =============================
    🌙 PERSONNAGES DU MENU
@@ -926,7 +783,7 @@ html, body {
     height: 100%;
     top: 0;
     left: 0;
-    pointer-events: none;
+   
 }
 
 
@@ -985,12 +842,7 @@ html, body {
     z-index: 45 !important;
 }
 
-/* Overlay boutique */
-#shopOverlay {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-}
+
 
 /* Profil */
 #profileOverlay {
@@ -1017,18 +869,7 @@ html, body {
 
 
 
-#mainMenu.hidden {
-    opacity: 0 !important;
-    pointer-events: none !important;
-    display: none !important;
-}
 
-/* Suppression totale du voile dans le jeu */
-#mainMenu.hidden,
-#mainMenu.hidden * {
-    background: transparent !important;
-    backdrop-filter: none !important;
-}
 
 /* Empêche le menu de laisser un fond fantôme */
 #mainMenu {
@@ -1165,7 +1006,7 @@ canvas {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    pointer-events: none;
+   
     transition: opacity .25s ease;
 }
 
@@ -1174,10 +1015,7 @@ canvas {
     pointer-events: auto;
 }
 
-.pause-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+
 
 .pause-box {
     background: rgba(25, 10, 40, 0.95);
@@ -1237,10 +1075,7 @@ canvas {
 
 
 
-/* Masquer le popup initialement */
-.hidden {
-    display: none !important;  /* Utiliser !important pour être sûr que ce style est appliqué */
-}
+
 /* Le fond du popup */
 .gem-popup {
     position: fixed;
@@ -1345,10 +1180,7 @@ canvas {
 
 
 
-#mainMenu.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+
 
 
 
@@ -1495,10 +1327,7 @@ canvas {
     }
 }
 
-#mainMenu:not(.hidden) ~ #hudContainer {
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
+
 
 #mainMenu {
     display: flex;
@@ -1585,11 +1414,6 @@ canvas {
 
 
 
-/* Cache totalement le HUD lorsque le menu principal est visible */
-#mainMenu:not(.hidden) ~ #hudContainer {
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
 
 /* 🖥️ Version PC : mascotte plus grande */
 @media (min-width: 601px) {
@@ -1653,19 +1477,8 @@ canvas {
     pointer-events: auto !important;
 }
 
-/* Empêche le menu de masquer le HUD en jeu */
-#mainMenu.hidden ~ #hudContainer,
-#mainMenu.hidden ~ #quickButtons,
-#mainMenu.hidden ~ #timerBarContainer {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
 
-/* Désactive la règle qui masquait le HUD */
-#mainMenu:not(.hidden) ~ #hudContainer {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
+
 
 /* S'assure que le canvas reste derrière */
 #gameCanvas {
@@ -1689,25 +1502,6 @@ canvas {
     z-index: 5000 !important;
 }
 
-/* Le HUD ne doit pas être visible quand le menu principal est visible */
-#mainMenu:not(.hidden) ~ #hudContainer,
-#mainMenu:not(.hidden) ~ #quickButtons,
-#mainMenu:not(.hidden) ~ #timerBarContainer,
-#mainMenu:not(.hidden) ~ #currencyContainer,
-#mainMenu:not(.hidden) ~ #progressBarContainer {
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
-/* Assurez-vous que le HUD est visible uniquement pendant le gameplay */
-#mainMenu.hidden ~ #hudContainer,
-#mainMenu.hidden ~ #quickButtons,
-#mainMenu.hidden ~ #timerBarContainer,
-#mainMenu.hidden ~ #currencyContainer,
-#mainMenu.hidden ~ #progressBarContainer {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
 
 /* Bannière événement */
 #eventBanner {
@@ -1813,7 +1607,7 @@ canvas {
     font-weight: 700;
     text-shadow: 0 0 12px #a066ff, 0 0 25px #7a3ef0;
     opacity: 0;
-    pointer-events: none;
+   
     transition: opacity 0.25s ease-out, transform 0.25s ease-out;
 }
 
@@ -2057,3 +1851,130 @@ canvas {
     }
 }
 
+/* =========================
+   🌙 BOUTIQUE — VERSION STABLE
+========================= */
+
+/* 🔒 Overlay : JAMAIS scrollable */
+#shopOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 20, 0.6);
+  backdrop-filter: blur(10px);
+  z-index: 5000;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+#shopOverlay.visible {
+  display: flex;
+}
+
+/* 🪟 Panel : structure uniquement */
+.shop-panel {
+  background: #140020;
+  color: white;
+
+  width: 92%;
+  max-width: 720px;
+  max-height: 90vh;
+
+  border-radius: 22px;
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  overflow: hidden; /* ❗ CRITIQUE */
+}
+
+/* ❌ Bouton fermer */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 6000;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a4bff, #9d6dff);
+  border: none;
+  color: white;
+  font-size: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* 📂 Onglets */
+.shop-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.shop-tab {
+  flex: 1;
+  padding: 10px;
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(255,255,255,0.08);
+}
+
+.shop-tab.active {
+  background: linear-gradient(135deg, #7c5cff, #9b7bff);
+}
+
+/* ✅ SEUL ÉLÉMENT SCROLLABLE */
+.shop-content {
+  flex: 1;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+
+  padding-right: 6px;
+}
+
+/* 📦 Grille */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .shop-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* 🔒 Overlays inactifs = ne bloquent JAMAIS les clics */
+.pause-overlay,
+.level-overlay,
+.shop-overlay,
+.profile-overlay,
+.selector-overlay {
+  pointer-events: none;
+}
+
+/* ✅ Overlays visibles = interactifs */
+.pause-overlay.visible,
+.level-overlay.visible,
+.shop-overlay.visible,
+.profile-overlay.visible,
+.selector-overlay.visible {
+  pointer-events: auto;
+}

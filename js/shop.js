@@ -117,12 +117,8 @@ function openShop() {
     const ov = document.getElementById("shopOverlay");
     if (!ov) return;
 
-    ov.classList.remove("hidden");
+   
     ov.classList.add("visible");
-
-    // ✅ Autorise le scroll mobile quand la boutique est ouverte
-    document.body.style.touchAction = "auto";
-
     updateShop();
     updateShopCoins();
 }
@@ -133,10 +129,9 @@ function closeShop() {
     if (!ov) return;
 
     ov.classList.remove("visible");
-    ov.classList.add("hidden");
+    
 
-    // ✅ Reblique le scroll (mode jeu) quand on ferme la boutique
-    document.body.style.touchAction = "none";
+    
 }
 window.closeShop = closeShop;   // ← IMPORTANT !!
 
