@@ -450,10 +450,7 @@ html, body {
     display: flex;
 }
 
-#dialogMascotteImg {
-    width: 220px;
-    filter: drop-shadow(0 0 14px rgba(150,110,255,0.8));
-}
+
 
 #dialogBubble {
     margin-top: 10px;
@@ -1707,7 +1704,9 @@ canvas {
 #dialogMascotteImg {
     width: 150px; /* Ajuste la taille */
     height: auto;
+     filter: drop-shadow(0 0 14px rgba(150,110,255,0.8));
 }
+
 
 /* 🧡 Mascotte responsive */
 #menuMascotteContainer {

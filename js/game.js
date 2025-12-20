@@ -2499,11 +2499,6 @@ showMascotteDialog(
 }
 
 
-
-
-
-
-
 function hideMainMenu() {
     const menu = document.getElementById("mainMenu");
     if (!menu) return;
