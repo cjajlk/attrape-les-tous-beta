@@ -9,16 +9,7 @@
     loadPlayerProfile(); // Charge les données du profil sauvegardé
     updateHUD();         // Mets à jour l'affichage de l'interface utilisateur (ex : Coins, XP)
     
-     const dialogMascotteImg = document.getElementById("dialogMascotteImg");
-
-    // Vérifie si l'élément existe
-    if (!dialogMascotteImg) {
-        console.error("L'élément 'dialogMascotteImg' n'a pas été trouvé !");
-        return; // Si l'élément n'est pas trouvé, on arrête l'exécution ici
-    }
-
-    // Maintenant on peut manipuler l'image de la mascotte
-    dialogMascotteImg.src = "assets/images/mascotte/girl1_idle.png"; // Exemple de mise à jour de l'image
+     
 
 });
 
@@ -39,12 +30,6 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 
-window.mascotteLoseLines = window.mascotteLoseLines ?? [
-    "Aie… C’était chaud ! 😖",
-    "Encore un effort ! 💪",
-    "Pas mal, mais tu peux mieux faire ! ⭐",
-    "On réessaie ? 😊"
-];
 
 
 let gameLoopId = null;      // ID du requestAnimationFrame
@@ -784,68 +769,6 @@ let equippedOrb = null;
 window.updateMenuMascotteId = updateMenuMascotteId;
 
 
-/* =========================================================
-   🌙 MOTEUR D'ANIMATION MASCOTTE
-   ========================================================= */
-
-function getMascotteSprites() {
-    let id = localStorage.getItem("equippedMascotte");
-
-    
-    // Vérifie si l'id est défini, sinon on utilise "girl1"
-    if (!id) {
-        console.warn("Aucune mascotte équipée, utilisation de la valeur par défaut : girl1");
-        id = "girl1";  // valeur par défaut
-    }
-
-    // Retourne les sprites avec les bons chemins d'images
-  return {
-    idle: "/attrape-les-tous-beta/assets/images/mascotte/girl1_idle.png",
-    blink: "/attrape-les-tous-beta/assets/images/mascotte/girl1_blink.png",
-    happy: "/attrape-les-tous-beta/assets/images/mascotte/girl1_happy.png",
-    sad: "/attrape-les-tous-beta/assets/images/mascotte/girl1_sad.png"
-};
-
-}
-
-// Change l’image affichée
-function setMascotteState(state) {
-    // Vérifie que l'élément dialogMascotteImg existe avant de l'utiliser
-    const dialogMascotteImg = document.getElementById("dialogMascotteImg");
-    
-    if (!dialogMascotteImg) {
-        console.error("L'élément 'dialogMascotteImg' n'a pas été trouvé !");
-        return; // Si l'élément n'est pas trouvé, on arrête l'exécution de la fonction
-    }
-
-    // Récupère les sprites de la mascotte
-    const sprites = getMascotteSprites();
-    
-    // Vérifie si les sprites sont bien récupérés avant de les utiliser
-    if (!sprites) {
-        console.error("Les sprites de la mascotte sont introuvables !");
-        return; // Si sprites n'existe pas, on arrête l'exécution
-    }
-
-    // Change l'image de la mascotte selon l'état
-    switch (state) {
-        case "idle":
-            dialogMascotteImg.src = sprites.idle; // Assurez-vous que l'ID 'idle' existe dans sprites
-            break;
-        case "blink":
-            dialogMascotteImg.src = sprites.blink; // Assurez-vous que l'ID 'blink' existe dans sprites
-            break;
-        case "happy":
-            dialogMascotteImg.src = sprites.happy; // Assurez-vous que l'ID 'happy' existe dans sprites
-            break;
-        case "sad":
-            dialogMascotteImg.src = sprites.sad; // Assurez-vous que l'ID 'sad' existe dans sprites
-            break;
-        default:
-            console.error("État de la mascotte inconnu :", state);
-            break;
-    }
-}
 
 
 
@@ -859,25 +782,8 @@ function setMascotteState(state) {
 
 
 
-function startMascotteLoop() {
-    clearTimeout(mascotteTimer);  // On réinitialise le timer à chaque appel
 
-    // Choix de l'animation idle ou blink de manière aléatoire
-    const randomDelay = 3000 + Math.random() * 2500;  // Intervalle aléatoire
-    mascotteTimer = setTimeout(() => {
-        if (mascotteState === "idle") {
-            setMascotteState("blink");
-        } else {
-            setMascotteState("idle");
-        }
 
-        // Prochaine animation après un délai
-        setTimeout(() => {
-            startMascotteLoop();  // Relance la boucle avec un délai
-        }, 180);  // Délai entre blink et idle
-
-    }, randomDelay);
-}
 
 
 
@@ -1428,27 +1334,14 @@ function showMainMenu() {
 
     // Autres animations et initialisations
     showMenuAnimations();
-    startMascotteLoop();
-    showMascotteDialog();
+  
+    
     initMenuCharacters();
     showEventBanner();
     updateHUD();
     loadPlayerProfile(); // Si elle existe
 
-    // 🟣 Animation idle/blink de la mascotte dans le menu
-    setMascotteState("idle");
-
-    // Démarre la boucle de la mascotte si elle ne l'est pas encore
-    if (!mascotteLoopStarted) {
-        startMascotteLoop();
-        mascotteLoopStarted = true;
-    }
-
-    // 🗨️ Phrase d’accueil de la mascotte
-    showMascotteDialog(
-        mascotMenuLines[Math.floor(Math.random() * mascotMenuLines.length)],
-        "happy"
-    );
+    
 }
 
 /* --- ALLER AU MENU PRINCIPAL --- */
