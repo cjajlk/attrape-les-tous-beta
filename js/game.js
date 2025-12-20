@@ -713,6 +713,7 @@ function resizeGame() {
 let targets = []; 
 let particles = [];
 let floatTexts = [];
+let mascotteLoopStarted = false;
 
 let shockwaves = [];
 let gameState = {};
@@ -2460,11 +2461,16 @@ function showMainMenu() {
     updateHUD();
       loadPlayerProfile();   // si elle existe
    
-    mainMenu.style.display = "block";
+    
 
     // 🟣 Animation idle/blink de la mascotte dans le menu
-setMascotteState("idle");
-startMascotteLoop();
+     setMascotteState("idle");
+
+if (!mascotteLoopStarted) {
+    startMascotteLoop();
+    mascotteLoopStarted = true;
+}
+
 
 // 🗨️ Phrase d’accueil
 showMascotteDialog(
