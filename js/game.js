@@ -1,6 +1,7 @@
 /* =========================================================
    🎮 NOCTURNE ENGINE — V4
    ========================================================= */
+    window.BETA_MODE = true;
 
    document.addEventListener("DOMContentLoaded", () => {
     loadPlayerProfile(); // Charge les données du profil sauvegardé
@@ -1015,6 +1016,8 @@ const mascotNextLevelLines = [
 ];
 
 function showMascotteDialog(text, emotion = "idle") {
+    if (window.BETA_MODE) return;
+
 
     if (!dialogMascotte || !dialogMascotteImg || !dialogBubble) {
         console.warn("⚠️ Mascotte manquante dans le DOM.");
