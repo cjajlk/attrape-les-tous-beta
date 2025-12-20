@@ -701,7 +701,7 @@ function resizeGame() {
 let targets = []; 
 let particles = [];
 let floatTexts = [];
-let mascotteLoopStarted = false;
+
 
 
 let shockwaves = [];
@@ -753,16 +753,6 @@ let totalComboSuccess = 0;   // total de combos validés (pour gemmes)
 let comboGemBonus = false; // indique si on doit afficher “+1 💎”
 let menuBlinkTimer = null;
 
-
-
-
-
-let updateMenuMascotteId = null;
-let stopMenuMascotteAnimation = false;
-
-
-let mascotteState = "idle";  // État initial
-let mascotteTimer = null;
 let equippedMascotte = null;
 let equippedOrb = null;
 
@@ -880,80 +870,12 @@ function applyLoadedProfile(p = {}) {
     console.log("✔ Profil chargé :", p);
 }
 
-// 🎭 Gestion de la mascotte (Menu + Fin de partie)
 
 
-// Masquer la mascotte de fin de partie
-function hideMascotte() {
-    const mascotteContainer = document.getElementById("dialogMascotte");
-    if (mascotteContainer) mascotteContainer.classList.add("hidden");
-}
 
 
-/* =========================================================
-   🌙 MASCOTTE DIALOGUE (menu + fin de partie)
-   ========================================================= */
-
-const dialogMascotte = document.getElementById("dialogMascotte");
-const dialogMascotteImg = document.getElementById("dialogMascotteImg");
-const dialogBubble = document.getElementById("dialogBubble");
-
-// Phrases du menu
-const mascotMenuLines = [
-    "Prêt pour une nouvelle aventure ? ✨",
-    "Quelle énergie aujourd’hui !",
-    "Choisis ton mode, je suis avec toi 💜",
-    "On attrape des orbes ensemble ?",
-    "Le monde nocturne t’attend…"
-];
-
-// Phrases de défaite
-const mascotLoseLines = [
-    "Ne t’en fais pas… tu vas y arriver 💜",
-    "On recommence ? Je crois en toi !",
-    "C’était une belle tentative !",
-    "Tu feras mieux la prochaine fois ✨"
-];
-
-// Phrases de progression
-const mascotNextLevelLines = [
-    "Bravo ! On passe au niveau suivant !",
-    "Tu t’améliores vraiment !",
-    "Continue comme ça ✨",
-    "Tu deviens trop fort !"
-];
-
-function showMascotteDialog(text, emotion = "idle") {
-    if (window.BETA_MODE) return;
 
 
-    if (!dialogMascotte || !dialogMascotteImg || !dialogBubble) {
-        console.warn("⚠️ Mascotte manquante dans le DOM.");
-        return;
-    }
-
-    // Emotion choisie
-    setMascotteState(emotion);
-
-    dialogBubble.textContent = text;
-
-    dialogMascotte.classList.remove("hidden");
-    setTimeout(() => dialogMascotte.classList.add("visible"), 10);
-
-    // disparition + retour à idle
-    setTimeout(() => {
-        dialogMascotte.classList.remove("visible");
-
-        setTimeout(() => {
-            dialogMascotte.classList.add("hidden");
-            setMascotteState("idle");
-        }, 400);
-
-    }, 2200);
-}
-
-
-window.showMascotteDialog = showMascotteDialog;
 
 
 // Récompenses quand on monte de niveau
@@ -973,12 +895,7 @@ function handleLevelUp(level) {
     addGems(rewardGems);
   }
 
-  if (typeof showMascotteDialog === "function") {
-    const msg = rewardGems > 0
-      ? `Bravo ! Niveau ${level} atteint 🎉 (+${rewardGems} 💎)`
-      : `Niveau ${level} atteint 🎉`;
-    showMascotteDialog(msg);
-  }
+  
 
   console.log("⬆️ Niveau up", { level, rewardGems });
 }
@@ -1076,9 +993,7 @@ function checkTitlesUnlock() {
         const last = newlyUnlocked[newlyUnlocked.length - 1];
         const msg = "Nouveau titre débloqué : " + last.name + " !";
 
-        if (typeof showMascotteDialog === "function") {
-            showMascotteDialog(msg);
-        }
+       
 
         console.log("🎖 Titres débloqués :", newlyUnlocked.map(t => t.name).join(", "));
 
@@ -1211,21 +1126,7 @@ function addGems(amount) {
 
 
 
-function hideMenuMascotteAndDialog() {
-    const menuMascotte = document.getElementById("menuMascotteContainer");
-    const dialogMascotte = document.getElementById("dialogMascotte");
-    const menuBubble = document.getElementById("menuBubble");
 
-    if (menuMascotte) menuMascotte.style.display = "none";
-    if (menuBubble) menuBubble.classList.add("hidden");
-
-    if (dialogMascotte) {
-        dialogMascotte.classList.remove("visible");
-        dialogMascotte.classList.add("hidden");
-    }
-
-    stopMenuMascotte(); // 🔴 TRÈS IMPORTANT
-}
 
 
 
@@ -1316,7 +1217,7 @@ function showMainMenu() {
     Game.running = false;
     gameStarted = false;
     timerRunning = false;
-    showGameplayMascotte = false;
+    s
 
     const canvas = document.getElementById("gameCanvas");
     if (canvas) canvas.style.display = "none"; // Cache le canvas du jeu
@@ -1327,10 +1228,7 @@ function showMainMenu() {
         menu.classList.remove("hidden");
     }
 
-    // **N'afficher la mascotte du menu que si on est vraiment au menu**
-    if (window.IS_IN_GAME === false) {
-       
-    }
+    
 
     // Autres animations et initialisations
     showMenuAnimations();
@@ -1419,64 +1317,6 @@ function showLoadingScreen() {
 
 
 
-
-
-/* =========================================================
-   🌙 ANIMATION MASCOTTE (Idle + Blink dans le menu)
-   ========================================================= */
-
-// Lance les animations de la mascotte du menu
-function showMenuAnimations() {
-    const mascotte = document.getElementById("menuMascotteImg");
-    if (!mascotte) return;
-
-    const idleMasc = GameAssets.images["menu_mascotte_idle"];
-
-    stopMenuMascotteAnimation = false;
-
-    mascotte.style.display = "block";
-    mascotte.src = idleMasc ? idleMasc.src : "assets/images/menu/lyra_idle.png";
-
-    updateMenuMascotteId = requestAnimationFrame(updateMenuMascotte);
-}
-
-// Animation idle → blink
-function updateMenuMascotte() {
-    if (stopMenuMascotteAnimation) return;
-
-    const mascotte = document.getElementById("menuMascotteImg");
-    if (!mascotte) return;
-
-    const idleMasc  = GameAssets.images["menu_mascotte_idle"];
-    const blinkMasc = GameAssets.images["menu_mascotte_blink"];
-
-    menuBlinkTimer++;
-
-    if (menuBlinkTimer > 250 + Math.random() * 150) {
-
-        if (blinkMasc) mascotte.src = blinkMasc.src;
-
-        setTimeout(() => {
-            if (!stopMenuMascotteAnimation) {
-                mascotte.src = idleMasc ? idleMasc.src : "assets/images/menu/lyra_idle.png";
-            }
-        }, 120);
-
-        menuBlinkTimer = 0;
-    }
-
-    updateMenuMascotteId = requestAnimationFrame(updateMenuMascotte);
-}
-
-// Stop net de l’animation
-function stopMenuMascotte() {
-    stopMenuMascotteAnimation = true;
-
-    if (updateMenuMascotteId) {
-        cancelAnimationFrame(updateMenuMascotteId);
-        updateMenuMascotteId = null;
-    }
-}
 
 
 
@@ -1631,52 +1471,7 @@ function clearOrbs() {
 
 
 
-/* =========================================================
-   🧍 MASCOTTE VIVANTE
-   ========================================================= */
 
-function drawMascotte(ctx) {
-    if (!showGameplayMascotte) return;   // ⛔ CLÉ
-    if (!Game.assets.mascotte) return;
-
-    const baseSize = Math.min(Game.canvas.width, Game.canvas.height);
-    const h = baseSize * 0.30;
-    const w = h * 0.70;
-
-    const x = Game.canvas.width * 0.12;
-    const y = Game.canvas.height - h - 60;
-
-    const t = Date.now() * 0.002;
-    const bob = Math.sin(t) * 2;
-    const sway = Math.sin(t * 0.6) * 1.5;
-
-    ctx.save();
-    ctx.globalAlpha = 0.25;
-    ctx.beginPath();
-    ctx.ellipse(
-        x + w * 0.5,
-        Game.canvas.height - 40,
-        w * 0.45,
-        18,
-        0, 0, Math.PI * 2
-    );
-    ctx.fillStyle = "rgba(0,0,0,0.75)";
-    ctx.fill();
-    ctx.restore();
-
-    ctx.save();
-    ctx.shadowColor = "rgba(150,120,255,0.35)";
-    ctx.shadowBlur = 35 + Math.sin(t * 1.5) * 8;
-
-    ctx.drawImage(
-        Game.assets.mascotte,
-        x + sway,
-        y + bob,
-        w,
-        h
-    );
-    ctx.restore();
-}
 
 
 function addCoins(amount) {
@@ -1910,10 +1705,7 @@ touched = true;
         comboCount = 0;              // reset combo en cours
         totalComboSuccess++;         // 1 vrai combo validé
 
-        // Mascotte joyeuse aux gros combos
-if (totalComboSuccess === 5 || totalComboSuccess === 10 || totalComboSuccess % 25 === 0) {
-    showMascotteDialog("Incroyable !", "happy");
-}
+        
 
 
         // BONUS temps (20% de la barre)
@@ -2162,14 +1954,7 @@ for (let i = targets.length - 1; i >= 0; i--) {
     updateShockwaves(ctx);
     updateFloatTexts(ctx);
 
-    // Mascotte
-    drawMascotte(ctx);
-
-    if (Game.running) {
-        requestAnimationFrame(render);
-    } else {
-        requestAnimationFrame(render);
-    }
+    
 
     function startGameLoop() {
     gameRunning = true;
@@ -2353,8 +2138,7 @@ function showLevelToast(level) {
 
         updateHUD();
         showLevelToast(level);
-        showMascotteDialog(`Niveau ${level} terminé !`, "happy");
-
+        
     }
 }
 
@@ -2392,41 +2176,16 @@ function hideMainMenu() {
     menu.classList.add("hidden");
     menu.style.display = "none"; // 🔥 force disparition totale
 
-    // 🔥 Stoppe l’animation du menu quand on quitte le menu
-    stopMenuMascotteAnimation = true;
-    cancelAnimationFrame(updateMenuMascotteId);
+    
 
 }
 
 
-function hideMenuMascotte() {
-    if (window.IS_IN_GAME) return;  // Verrou BÊTA, ne pas afficher pendant le jeu
-    const menuMascotte = document.getElementById("menuMascotteContainer");
-    if (menuMascotte) menuMascotte.style.display = "none";
-}
 
 
 
 
-function hideMascotteDialog() {
-  const d = document.getElementById("mascotteDialog");
-  if (d) d.style.display = "none";
-}
 
-/* =========================================================
-   🛑 STOP ANIMATIONS MASCOTTE DU MENU QUAND ON JOUE
-   ========================================================= */
-function stopMenuMascotte() {
-    stopMenuMascotteAnimation = true;
-
-    if (updateMenuMascotteId) {
-        cancelAnimationFrame(updateMenuMascotteId);
-        updateMenuMascotteId = null;
-    }
-
-    const m = document.getElementById("menuMascotteContainer");
-    if (m) m.style.display = "none";
-}
 
 
 
@@ -2462,14 +2221,14 @@ function startNormalMode() {
 
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
-    hideMenuMascotte();
+    
 
-    hideMenuMascotteAndDialog();
-    stopMenuMascotte();
+    
+    
     stopMenuBubble();
-    hideMascotte();
+    
 
-    showGameplayMascotte = false; // ⛔ PAS de mascotte pendant le jeu
+   
 
 
     // 🎮 Préparation du gameplay
@@ -2515,15 +2274,11 @@ function startTimerMode() {
 
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
-    hideMenuMascotte();
-
-    showGameplayMascotte = false; // ⛔ PAS de mascotte pendant le jeu
-    hideMenuMascotteAndDialog();
-    stopMenuMascotte();
+  
     stopMenuBubble();
     hideEventBanner();
     hideMainMenu();
-    hideMascotte();
+   
 
 
     // 🎮 Canvas visible
@@ -2657,7 +2412,7 @@ function hideEventBanner() {
    🔄 RESET DES VALEURS DU JEU
    ========================================================= */
 function resetGameValues() {
-    hideMenuMascotteAndDialog();
+   
     console.log("🧹 RESET COMPLET DES VALEURS DU JEU");
 
     // Réinitialisation du score et des autres valeurs
@@ -2788,9 +2543,7 @@ function returnToMainMenu() {
     const canvas = document.getElementById("gameCanvas");
     if (canvas) canvas.classList.add("hidden");
 
-    // 5️⃣ Masquer la mascotte du jeu si elle était affichée
-    const masc = document.getElementById("dialogMascotte");
-    if (masc) masc.classList.add("hidden");
+    
 
     // 6️⃣ Masquer les orbes encore visibles
     clearOrbs();
@@ -2922,8 +2675,7 @@ function resetToMenu() {
     hideGameUI();
     hideTimerBar();
 
-    // 🧹 Cache mascotte fin de partie
-    hideDialogMascotte();
+    
 
     // 🧹 Reset valeurs gameplay
     resetGameValues();
@@ -2931,10 +2683,7 @@ function resetToMenu() {
     // 🧹 Remet le menu propre
     document.getElementById("mainMenu").style.display = "block";
 
-    // **Réaffiche la mascotte menu UNIQUEMENT si on est vraiment au menu**
-    if (window.IS_IN_GAME === false) {
-       
-    }
+    
 
     showEventBanner();
 }
@@ -2947,14 +2696,7 @@ function resetToMenu() {
    🔥 PATCH GLOBAL — CORRECTION MENU / FIN DE PARTIE / ORBES
    ========================================================= */
 
-/* ---------------------------------------------------------
-   1) Empêche Lyra du menu de tourner en arrière-plan
---------------------------------------------------------- */
 
-window.stopMenuMascotteAnimation = true;
-if (window.updateMenuMascotteId) {
-    cancelAnimationFrame(updateMenuMascotteId);
-}
 
 
 
@@ -3000,12 +2742,7 @@ function fullSoftReset() {
     hideGameUI();
     hideTimerBar();
 
-    // mascottes
-    hideDialogMascotte();
-    hideMenuMascotte();
-    stopMenuBubble();
-    stopMenuMascotteAnimation = true;
-
+   
     // valeurs gameplay
     resetGameValues();
 }
@@ -3018,12 +2755,7 @@ function fullSoftReset() {
 
 // Retour au menu + réinitialisation sans toucher aux données du joueur
 function endgame() {
-    showMascotte("endGame", "assets/images/mascotte/lyra_endgame.png");
-
-    showMascotteDialog(
-        mascotLoseLines[Math.floor(Math.random() * mascotLoseLines.length)],
-        "sad"
-    );
+   
 
     // Sauvegarde de l'état du jeu
     localStorage.setItem('gameState', JSON.stringify(gameState));
@@ -3037,9 +2769,7 @@ function endgame() {
     if (gameLoopId) cancelAnimationFrame(gameLoopId);
     gameLoopId = null;
 
-    // Message mascotte
-    const randomLine = mascotteLoseLines[Math.floor(Math.random() * mascotteLoseLines.length)];
-    showMascotteDialog(randomLine);
+   
 
     // ➕ Score / XP / Points cumulés
     if (score > 0) {
@@ -3116,17 +2846,14 @@ function showLoadingScreen() {
    ========================================================= */
   function endTimerMode() {
 
-    showMascotteDialog(
-        mascotLoseLines[Math.floor(Math.random() * mascotLoseLines.length)],
-        "sad"
-    );
+   
 
     timerRunning = false;
     gameStarted = false;
     Game.running = false;
 
     const message = `⏳ Temps écoulé ! Score : ${score}`;
-    showMascotteDialog(message);
+    
 
 
 
