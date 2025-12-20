@@ -2626,26 +2626,26 @@ function startNormalMode() {
 
 function startTimerMode() {
 
-    timerBackgroundElapsed = 0;
-
+    // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
     hideMenuMascotteAndDialog();
-    hideMenuMascotte();
-    hideMascotteDialog();
-    setMascotteState("idle");
+    stopMenuMascotte();
+    stopMenuBubble();
+    hideEventBanner();
+    hideMainMenu();
 
+    // 🎮 Canvas visible
+    const canvas = document.getElementById("gameCanvas");
+    if (canvas) canvas.style.display = "block";
 
-    // 🔄 RESET COMPLET
+    // 🔄 Reset gameplay
     resetGameValues();
-    document.getElementById("gameCanvas").style.display = "block";
 
     isGameRunning = true;
+    currentMode = "timer";
+    gameStarted = true;
 
+    // ⏱️ Session
     sessionStartTime = Date.now();
-    hideEventBanner();
-    hideMenuMascotte();
-    stopMenuBubble();
-    hideMainMenu();
-    stopMenuMascotte();
 
     // 🎵 Musique
     if (!musicInitialized) {
@@ -2654,27 +2654,22 @@ function startTimerMode() {
         playCurrentTrack();
     }
 
-   
-
-    currentMode = "timer";
-
-    // 🌙 Valeurs Timer
+    // 🌙 Paramètres Timer
     timerValue = 100;
     spawnRate = 55;
     comboCount = 0;
     totalComboSuccess = 0;
 
     timerRunning = true;
-    gameStarted = false;
 
     refreshComboHUDVisibility();
-
     showTimerBar();
     updateHUD();
 
-    // ⭐⭐⭐ IMPORTANT : LANCER LE JEU
+    // 🚀 Lancer le moteur
     startGame(GameData);
 }
+
 
 
 
