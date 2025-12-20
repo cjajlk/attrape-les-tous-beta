@@ -3044,7 +3044,12 @@ function resetToMenu() {
 
     // 🧹 Remet le menu propre
     document.getElementById("mainMenu").style.display = "block";
-    showMenuMascotte();
+
+    // **NE PAS réafficher la mascotte si on est en jeu**
+    if (!window.IS_IN_GAME) {
+        showMenuMascotte();  // Elle est seulement visible si on est au menu
+    }
+
     showEventBanner();
 }
 
