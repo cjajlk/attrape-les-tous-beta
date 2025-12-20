@@ -2460,6 +2460,8 @@ function showMainMenu() {
     Game.running = false;
     gameStarted = false;
     timerRunning = false;
+    showGameplayMascotte = false;
+
 
     const canvas = document.getElementById("gameCanvas");
     if (canvas) canvas.style.display = "none";   // <-- RÈGLE LE PROBLÈME DU FOND
