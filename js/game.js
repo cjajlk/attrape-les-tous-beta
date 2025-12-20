@@ -1,6 +1,8 @@
 /* =========================================================
    🎮 NOCTURNE ENGINE — V4
    ========================================================= */
+   window.IS_IN_GAME = false;
+
     window.BETA_MODE = true;
 
    document.addEventListener("DOMContentLoaded", () => {
@@ -2436,6 +2438,8 @@ function showGameUI() {
 }
 
 function showMainMenu() {
+   window.IS_IN_GAME = false;
+
      playerName = localStorage.getItem("playerName") || "Invité";
     console.log("🏠 Retour propre au menu principal");
 
@@ -2530,6 +2534,8 @@ function stopMenuMascotte() {
 }
 
 function showMenuMascotte() {
+    if (window.IS_IN_GAME) return; // 🔒 BÊTA LOCK
+
     const m = document.getElementById("menuMascotteContainer");
     if (m) {
         m.style.display = "block";
@@ -2537,6 +2543,7 @@ function showMenuMascotte() {
         showMenuAnimations();
     }
 }
+
 
 function refreshComboHUDVisibility() {
     const hudCombo = document.getElementById("hudCombo");
@@ -2565,6 +2572,8 @@ function refreshComboHUDVisibility() {
    ========================================================= */
 
 function startNormalMode() {
+    window.IS_IN_GAME = true;
+
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
     hideMenuMascotte();
@@ -2616,6 +2625,8 @@ function startNormalMode() {
 
 
 function startTimerMode() {
+    window.IS_IN_GAME = true;
+
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
     hideMenuMascotte();
@@ -3002,6 +3013,8 @@ function updatePlayerBadge() {
 let gameRunning = false;    // Sécurité
 
 function resetToMenu() {
+    window.IS_IN_GAME = false;
+
     console.log("↩ Retour au menu");
 
     // 🛑 Stop boucle jeu
@@ -3108,18 +3121,7 @@ function fullSoftReset() {
 /* ---------------------------------------------------------
    5) Retour propre au menu principal
 --------------------------------------------------------- */
-function resetToMenu() {
-     playerName = localStorage.getItem("playerName") || "Invité";
 
-    console.log("↩ Retour au menu (patch)");
-
-    fullSoftReset();
-
-    // réactive uniquement après que tout est stoppé
-    setTimeout(() => {
-        showMainMenu();
-    }, 150);
-}
 
 // Retour au menu + réinitialisation sans toucher aux données du joueur
 function endgame() {
