@@ -2583,6 +2583,8 @@ function startNormalMode() {
     hideMenuMascotteAndDialog();
     stopMenuMascotte();
     stopMenuBubble();
+    hideMascotte();
+
     showGameplayMascotte = false; // ⛔ PAS de mascotte pendant le jeu
 
 
@@ -2633,6 +2635,8 @@ function startTimerMode() {
     stopMenuBubble();
     hideEventBanner();
     hideMainMenu();
+    hideMascotte();
+
 
     // 🎮 Canvas visible
     const canvas = document.getElementById("gameCanvas");

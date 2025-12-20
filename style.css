@@ -21,59 +21,6 @@ html, body {
 }
 
 
-<<<<<<< Updated upstream
-=======
-.shop-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    /* z-index unifié plus bas via #shopOverlay */
-}
-
-.shop-overlay.show {
-    display: flex;
-}
-
-.shop-panel {
-  background: #140020;
-  padding: 20px;
-  border-radius: 20px;
-
-  width: 90%;
-  max-width: 700px;
-  max-height: 90vh;
-
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden; /* PAS DE SCROLL ICI */
-  position: relative;
-}
-
-
-
-
-.shop-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.tab-btn.active {
-    background: #4b0082;
-}
-
-/* CONTENU scrollable */
-.shop-content {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-}
->>>>>>> Stashed changes
 
 
 .skin-item {
@@ -892,23 +839,6 @@ html, body {
     z-index: 45 !important;
 }
 
-<<<<<<< Updated upstream
-
-=======
-/* Overlay boutique */
-#shopOverlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    pointer-events: auto;
-}
->>>>>>> Stashed changes
 
 
 /* Profil */
@@ -2077,3 +2007,6 @@ canvas {
     pointer-events: none;
 }
 
+#dialogMascotte {
+    pointer-events: none;
+}
