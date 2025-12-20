@@ -2505,11 +2505,11 @@ function hideMainMenu() {
 
 
 function hideMenuMascotte() {
+    if (window.IS_IN_GAME) return;  // Verrou BÊTA, ne pas afficher pendant le jeu
     const menuMascotte = document.getElementById("menuMascotteContainer");
-    if (menuMascotte) {
-        menuMascotte.style.display = "none";
-    }
+    if (menuMascotte) menuMascotte.style.display = "none";
 }
+
 
 
 
@@ -2771,6 +2771,7 @@ function hideEventBanner() {
    🔄 RESET DES VALEURS DU JEU
    ========================================================= */
 function resetGameValues() {
+    hideMenuMascotteAndDialog();
     console.log("🧹 RESET COMPLET DES VALEURS DU JEU");
 
     // Réinitialisation du score et des autres valeurs
