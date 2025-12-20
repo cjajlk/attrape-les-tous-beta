@@ -2580,33 +2580,28 @@ function refreshComboHUDVisibility() {
    ========================================================= */
 
 function startNormalMode() {
+
+    // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
     hideMenuMascotteAndDialog();
-    hideMenuMascotte();
-    hideMascotteDialog();
-    setMascotteState("idle");
+    stopMenuMascotte();
+    stopMenuBubble();
 
+    // 🎮 Préparation du gameplay
+    hideMainMenu();
+    hideEventBanner();
 
-    // 🧹 RESET TOTAL DU GAMEPLAY
+    const canvas = document.getElementById("gameCanvas");
+    if (canvas) canvas.style.display = "block";
+
+    // 🔄 Reset gameplay
     resetGameValues();
-  const canvas = document.getElementById("gameCanvas");
-    if (canvas) canvas.style.display = "block";   // <-- on réaffiche le jeu proprement
 
     isGameRunning = true;
-  
-
     currentMode = "normal";
     gameStarted = true;
     timerRunning = false;
-    sessionStartTime = Date.now();
+
     refreshComboHUDVisibility();
-    hideMainMenu();
-    hideMenuMascotte();
-    hideEventBanner();
-    stopMenuBubble();
-    stopMenuMascotte();
-
-    
-
 
     // 🎵 Musique
     if (!musicInitialized) {
@@ -2615,11 +2610,7 @@ function startNormalMode() {
         playCurrentTrack();
     }
 
-    
-
-    
-
-    // Paramètres spécifiques au mode normal
+    // ⚙️ Paramètres mode normal
     missesMax = 15;
     level = 1;
     levelRewardGiven = false;
@@ -2628,11 +2619,10 @@ function startNormalMode() {
     hideTimerBar();
     updateHUD();
 
-    // 🚀 Lancer le moteur + canvas
+    // 🚀 Lancement du moteur
     startGame(GameData);
-    
-
 }
+
 
 function startTimerMode() {
 
