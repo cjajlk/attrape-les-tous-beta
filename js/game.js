@@ -2501,9 +2501,12 @@ function hideMainMenu() {
 
 
 function hideMenuMascotte() {
-    const m = document.getElementById("menuMascotteContainer");
-    if (m) m.style.display = "none";
+    const menuMascotte = document.getElementById("menuMascotteContainer");
+    if (menuMascotte) {
+        menuMascotte.style.display = "none";
+    }
 }
+
 
 
 function hideMascotteDialog() {
@@ -2564,6 +2567,8 @@ function refreshComboHUDVisibility() {
 function startNormalMode() {
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
+    hideMenuMascotte();
+
     hideMenuMascotteAndDialog();
     stopMenuMascotte();
     stopMenuBubble();
@@ -2613,6 +2618,8 @@ function startNormalMode() {
 function startTimerMode() {
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
+    hideMenuMascotte();
+
     showGameplayMascotte = false; // ⛔ PAS de mascotte pendant le jeu
     hideMenuMascotteAndDialog();
     stopMenuMascotte();
