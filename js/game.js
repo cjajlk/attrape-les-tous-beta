@@ -2500,30 +2500,16 @@ function hideMainMenu() {
 
 }
 
-function stopMenuMascotte() {
-    stopMenuMascotteAnimation = true;
-
-    // Stoppe le requestAnimationFrame
-    if (updateMenuMascotteId) {
-        cancelAnimationFrame(updateMenuMascotteId);
-        updateMenuMascotteId = null;
-    }
-
-    // Cache l’image
-    const mascotte = document.getElementById("menuMascotteImg");
-    if (mascotte) mascotte.style.display = "none";
-}
-
-
 
 function hideMenuMascotte() {
     const m = document.getElementById("menuMascotteContainer");
     if (m) m.style.display = "none";
 }
 
-function showMenuMascotte() {
-    const m = document.getElementById("menuMascotteContainer");
-    if (m) m.style.display = "block";
+
+function hideMascotteDialog() {
+  const d = document.getElementById("mascotteDialog");
+  if (d) d.style.display = "none";
 }
 
 /* =========================================================
@@ -2577,6 +2563,8 @@ function refreshComboHUDVisibility() {
    ========================================================= */
 
 function startNormalMode() {
+    hideMenuMascotte();
+    hideMascotteDialog();
     setMascotteState("idle");
 
 
@@ -2632,7 +2620,8 @@ function startTimerMode() {
 
     timerBackgroundElapsed = 0;
 
-
+    hideMenuMascotte();
+    hideMascotteDialog();
     setMascotteState("idle");
 
 
