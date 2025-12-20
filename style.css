@@ -1710,6 +1710,7 @@ canvas {
 
 /* 🧡 Mascotte responsive */
 #menuMascotteContainer {
+    display: none; 
     position: absolute;
     bottom: 5vh; /* Positionne la mascotte un peu au-dessus du bas de l'écran */
     right: 5vw; /* Positionne la mascotte un peu à droite */
@@ -1719,7 +1720,9 @@ canvas {
 
 /* Empêche que la mascotte sorte de l'écran */
 @media (max-width: 600px) {
+
     #menuMascotteContainer {
+        display: none; 
         bottom: 10vh; /* Un peu plus haut sur les petits écrans */
         right: 5vw; /* Garde un peu d'espace à droite */
     }
@@ -1733,6 +1736,7 @@ canvas {
 /* Limite la mascotte sur les écrans larges */
 @media (min-width: 1024px) {
     #menuMascotteContainer {
+        display: none; 
         right: 10vw; /* Ajuste la position sur les grands écrans */
     }
 
@@ -2004,6 +2008,7 @@ canvas {
 }
 
 #menuMascotteContainer {
+    display: none; 
     pointer-events: none;
 }
 
