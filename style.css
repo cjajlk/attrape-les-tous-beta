@@ -2004,3 +2004,7 @@ canvas {
     }
 }
 
+#menuMascotteContainer {
+    pointer-events: none;
+}
+

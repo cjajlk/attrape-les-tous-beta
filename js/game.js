@@ -1318,6 +1318,21 @@ function addGems(amount) {
 
 
 
+function hideMenuMascotteAndDialog() {
+    const menuMascotte = document.getElementById("menuMascotteContainer");
+    const dialogMascotte = document.getElementById("dialogMascotte");
+    const menuBubble = document.getElementById("menuBubble");
+
+    if (menuMascotte) menuMascotte.style.display = "none";
+    if (menuBubble) menuBubble.classList.add("hidden");
+
+    if (dialogMascotte) {
+        dialogMascotte.classList.remove("visible");
+        dialogMascotte.classList.add("hidden");
+    }
+
+    stopMenuMascotte(); // 🔴 TRÈS IMPORTANT
+}
 
 
 
@@ -2456,6 +2471,8 @@ function showMainMenu() {
 
     showMenuMascotte();
     showMenuAnimations();
+    startMascotteLoop();
+    showMascotteDialog();
     initMenuCharacters();
     showEventBanner();
     updateHUD();
@@ -2563,6 +2580,7 @@ function refreshComboHUDVisibility() {
    ========================================================= */
 
 function startNormalMode() {
+    hideMenuMascotteAndDialog();
     hideMenuMascotte();
     hideMascotteDialog();
     setMascotteState("idle");
@@ -2620,6 +2638,7 @@ function startTimerMode() {
 
     timerBackgroundElapsed = 0;
 
+    hideMenuMascotteAndDialog();
     hideMenuMascotte();
     hideMascotteDialog();
     setMascotteState("idle");
