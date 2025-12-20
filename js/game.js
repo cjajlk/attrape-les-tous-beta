@@ -1423,7 +1423,7 @@ function showMainMenu() {
 
     // **N'afficher la mascotte du menu que si on est vraiment au menu**
     if (window.IS_IN_GAME === false) {
-        showMenuMascotte(); // Affiche la mascotte du menu uniquement quand on est au menu
+       
     }
 
     // Autres animations et initialisations
@@ -2535,16 +2535,7 @@ function stopMenuMascotte() {
     if (m) m.style.display = "none";
 }
 
-function showMenuMascotte() {
-    if (window.IS_IN_GAME) return; // 🔒 BÊTA LOCK
 
-    const m = document.getElementById("menuMascotteContainer");
-    if (m) {
-        m.style.display = "block";
-        stopMenuMascotteAnimation = false;
-        showMenuAnimations();
-    }
-}
 
 
 function refreshComboHUDVisibility() {
@@ -3049,7 +3040,7 @@ function resetToMenu() {
 
     // **Réaffiche la mascotte menu UNIQUEMENT si on est vraiment au menu**
     if (window.IS_IN_GAME === false) {
-        showMenuMascotte();  // Affiche la mascotte uniquement au menu
+       
     }
 
     showEventBanner();
