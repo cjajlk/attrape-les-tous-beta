@@ -1399,6 +1399,57 @@ console.log('Jeu en pause, sauvegarde de l\'état');
     
 }
 
+function showMainMenu() {
+    window.IS_IN_GAME = false; // On est dans le menu principal, le jeu est arrêté
+
+    console.log("🏠 Retour propre au menu principal");
+
+    // 🧹 Nettoyage du jeu
+    hideGameUI();
+    clearOrbs();
+    Game.running = false;
+    gameStarted = false;
+    timerRunning = false;
+    showGameplayMascotte = false;
+
+    const canvas = document.getElementById("gameCanvas");
+    if (canvas) canvas.style.display = "none"; // Cache le canvas du jeu
+
+    const menu = document.getElementById("mainMenu");
+    if (menu) {
+        menu.style.display = "block";
+        menu.classList.remove("hidden");
+    }
+
+    // **N'afficher la mascotte du menu que si on est vraiment au menu**
+    if (window.IS_IN_GAME === false) {
+        showMenuMascotte(); // Affiche la mascotte du menu uniquement quand on est au menu
+    }
+
+    // Autres animations et initialisations
+    showMenuAnimations();
+    startMascotteLoop();
+    showMascotteDialog();
+    initMenuCharacters();
+    showEventBanner();
+    updateHUD();
+    loadPlayerProfile(); // Si elle existe
+
+    // 🟣 Animation idle/blink de la mascotte dans le menu
+    setMascotteState("idle");
+
+    // Démarre la boucle de la mascotte si elle ne l'est pas encore
+    if (!mascotteLoopStarted) {
+        startMascotteLoop();
+        mascotteLoopStarted = true;
+    }
+
+    // 🗨️ Phrase d’accueil de la mascotte
+    showMascotteDialog(
+        mascotMenuLines[Math.floor(Math.random() * mascotMenuLines.length)],
+        "happy"
+    );
+}
 
 /* --- ALLER AU MENU PRINCIPAL --- */
 function pauseToMenu() {
@@ -2437,57 +2488,7 @@ function showGameUI() {
     if (hud) hud.style.display = "block";
 }
 
-function showMainMenu() {
-    window.IS_IN_GAME = false; // On est dans le menu principal, le jeu est arrêté
 
-    console.log("🏠 Retour propre au menu principal");
-
-    // 🧹 Nettoyage du jeu
-    hideGameUI();
-    clearOrbs();
-    Game.running = false;
-    gameStarted = false;
-    timerRunning = false;
-    showGameplayMascotte = false;
-
-    const canvas = document.getElementById("gameCanvas");
-    if (canvas) canvas.style.display = "none"; // Cache le canvas du jeu
-
-    const menu = document.getElementById("mainMenu");
-    if (menu) {
-        menu.style.display = "block";
-        menu.classList.remove("hidden");
-    }
-
-    // N'afficher la mascotte du menu QUE si on n'est pas dans le jeu
-    if (!window.IS_IN_GAME) {
-        showMenuMascotte(); // Affiche la mascotte du menu
-    }
-
-    // Autres animations et initialisations
-    showMenuAnimations();
-    startMascotteLoop();
-    showMascotteDialog();
-    initMenuCharacters();
-    showEventBanner();
-    updateHUD();
-    loadPlayerProfile(); // Si elle existe
-
-    // 🟣 Animation idle/blink de la mascotte dans le menu
-    setMascotteState("idle");
-
-    // Démarre la boucle de la mascotte si elle ne l'est pas encore
-    if (!mascotteLoopStarted) {
-        startMascotteLoop();
-        mascotteLoopStarted = true;
-    }
-
-    // 🗨️ Phrase d’accueil de la mascotte
-    showMascotteDialog(
-        mascotMenuLines[Math.floor(Math.random() * mascotMenuLines.length)],
-        "happy"
-    );
-}
 
 
 
@@ -3015,7 +3016,7 @@ function updatePlayerBadge() {
 let gameRunning = false;    // Sécurité
 
 function resetToMenu() {
-    window.IS_IN_GAME = false;
+    window.IS_IN_GAME = false;  // Le jeu est stoppé
 
     console.log("↩ Retour au menu");
 
@@ -3046,13 +3047,14 @@ function resetToMenu() {
     // 🧹 Remet le menu propre
     document.getElementById("mainMenu").style.display = "block";
 
-    // **NE PAS réafficher la mascotte si on est en jeu**
-    if (!window.IS_IN_GAME) {
-        showMenuMascotte();  // Elle est seulement visible si on est au menu
+    // **Réaffiche la mascotte menu UNIQUEMENT si on est vraiment au menu**
+    if (window.IS_IN_GAME === false) {
+        showMenuMascotte();  // Affiche la mascotte uniquement au menu
     }
 
     showEventBanner();
 }
+
 
 
   
