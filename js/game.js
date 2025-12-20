@@ -714,6 +714,7 @@ let targets = [];
 let particles = [];
 let floatTexts = [];
 let mascotteLoopStarted = false;
+let showGameplayMascotte = false;
 
 let shockwaves = [];
 let gameState = {};
@@ -1705,6 +1706,7 @@ function clearOrbs() {
    ========================================================= */
 
 function drawMascotte(ctx) {
+    if (!showGameplayMascotte) return;   // ⛔ CLÉ
     if (!Game.assets.mascotte) return;
 
     const baseSize = Math.min(Game.canvas.width, Game.canvas.height);
@@ -1718,7 +1720,6 @@ function drawMascotte(ctx) {
     const bob = Math.sin(t) * 2;
     const sway = Math.sin(t * 0.6) * 1.5;
 
-    // Ombre sol
     ctx.save();
     ctx.globalAlpha = 0.25;
     ctx.beginPath();
@@ -1733,7 +1734,6 @@ function drawMascotte(ctx) {
     ctx.fill();
     ctx.restore();
 
-    // Glow dynamique
     ctx.save();
     ctx.shadowColor = "rgba(150,120,255,0.35)";
     ctx.shadowBlur = 35 + Math.sin(t * 1.5) * 8;
@@ -1747,6 +1747,7 @@ function drawMascotte(ctx) {
     );
     ctx.restore();
 }
+
 
 function addCoins(amount) {
     if (!amount || amount <= 0) return;
@@ -2580,6 +2581,8 @@ function startNormalMode() {
     hideMenuMascotteAndDialog();
     stopMenuMascotte();
     stopMenuBubble();
+    showGameplayMascotte = false; // ⛔ PAS de mascotte pendant le jeu
+
 
     // 🎮 Préparation du gameplay
     hideMainMenu();
@@ -2622,6 +2625,7 @@ function startNormalMode() {
 function startTimerMode() {
 
     // 🧹 Nettoyage TOTAL du menu (UNE SEULE FOIS)
+    showGameplayMascotte = false; // ⛔ PAS de mascotte pendant le jeu
     hideMenuMascotteAndDialog();
     stopMenuMascotte();
     stopMenuBubble();
